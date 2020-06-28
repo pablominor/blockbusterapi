@@ -1,4 +1,4 @@
-﻿using BlockbusterApp.src.Shared.Domain.Exceptions;
+﻿using BlockbusterApp.src.Shared.Domain.Exception;
 using System;
 using System.Collections.Generic;
 using System.Linq;
