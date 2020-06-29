@@ -16,3 +16,11 @@ C:\Codigo\Craft-Code\backend\Blockbuster\BlockbusterApp\BlockbusterApp\obj\Debug
 C:\Codigo\Craft-Code\backend\Blockbuster\BlockbusterApp\BlockbusterApp\obj\Debug\netcoreapp2.1\BlockbusterApp.pdb
 C:\Codigo\Craft-Code\backend\Blockbuster\BlockbusterApp\BlockbusterApp\obj\Debug\netcoreapp2.1\BlockbusterApp.genruntimeconfig.cache
 C:\Codigo\Craft-Code\backend\Blockbuster\BlockbusterApp\BlockbusterApp\obj\Debug\netcoreapp2.1\BlockbusterApp.csproj.CoreCompileInputs.cache
+C:\Codigo\Craft-Code\blockbuster\BlockbusterApp\obj\Debug\netcoreapp2.1\BlockbusterApp.csprojAssemblyReference.cache
+C:\Codigo\Craft-Code\blockbuster\BlockbusterApp\obj\Debug\netcoreapp2.1\BlockbusterApp.AssemblyInfoInputs.cache
+C:\Codigo\Craft-Code\blockbuster\BlockbusterApp\obj\Debug\netcoreapp2.1\BlockbusterApp.AssemblyInfo.cs
+C:\Codigo\Craft-Code\blockbuster\BlockbusterApp\obj\Debug\netcoreapp2.1\BlockbusterApp.csproj.CoreCompileInputs.cache
+C:\Codigo\Craft-Code\blockbuster\BlockbusterApp\obj\Debug\netcoreapp2.1\BlockbusterApp.RazorAssemblyInfo.cache
+C:\Codigo\Craft-Code\blockbuster\BlockbusterApp\obj\Debug\netcoreapp2.1\BlockbusterApp.RazorAssemblyInfo.cs
+C:\Codigo\Craft-Code\blockbuster\BlockbusterApp\obj\Debug\netcoreapp2.1\BlockbusterApp.dll
+C:\Codigo\Craft-Code\blockbuster\BlockbusterApp\obj\Debug\netcoreapp2.1\BlockbusterApp.pdb
