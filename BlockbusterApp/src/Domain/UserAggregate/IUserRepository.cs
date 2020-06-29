@@ -7,7 +7,7 @@ namespace BlockbusterApp.src.Domain.UserAggregate
 {
     public interface IUserRepository
     {
-        void Save(User user);
-        User FindOneByEmail(UserEmail userEmail);
+        void Add(User user);
+        User FindUserByEmail(UserEmail userEmail);
     }
 }

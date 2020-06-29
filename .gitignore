@@ -53,3 +53,4 @@ Thumbs.db
 
 #Proyecto
 *.csproj
+*.cache
