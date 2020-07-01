@@ -14,7 +14,8 @@ namespace BlockbusterApp.src.Infraestructure.Persistance.Mapping
         {
             builder
                 .Property(c => c.userId)
-                .HasColumnType("nvarchar(50")
+                .HasColumnName("id")
+                .HasColumnType("nvarchar(30)")
                 .HasConversion(
                     v => v.GetValue(),
                     v => new UserId(v)
@@ -22,7 +23,8 @@ namespace BlockbusterApp.src.Infraestructure.Persistance.Mapping
                 .IsRequired();
             builder
                 .Property(c => c.userEmail)
-                .HasColumnType("nvarchar(50")
+                .HasColumnName("email")
+                .HasColumnType("nvarchar(60")
                 .HasConversion(
                     v => v.GetValue(),
                     v => new UserEmail(v)
@@ -30,7 +32,8 @@ namespace BlockbusterApp.src.Infraestructure.Persistance.Mapping
                 .IsRequired();
             builder
                 .Property(c => c.userHashedPassword)
-                .HasColumnType("nvarchar(50")
+                .HasColumnName("password")
+                .HasColumnType("nvarchar(100")
                 .HasConversion(
                     v => v.GetValue(),
                     v => new UserHashedPassword(v)
@@ -38,7 +41,8 @@ namespace BlockbusterApp.src.Infraestructure.Persistance.Mapping
                 .IsRequired();
             builder
                 .Property(c => c.userFirstName)
-                .HasColumnType("nvarchar(50")
+                .HasColumnName("first_name")
+                .HasColumnType("nvarchar(15")
                 .HasConversion(
                     v => v.GetValue(),
                     v => new UserFirstName(v)
@@ -46,7 +50,8 @@ namespace BlockbusterApp.src.Infraestructure.Persistance.Mapping
                 .IsRequired();
             builder
                 .Property(c => c.userLastName)
-                .HasColumnType("nvarchar(50")
+                .HasColumnName("last_name")
+                .HasColumnType("nvarchar(30")
                 .HasConversion(
                     v => v.GetValue(),
                     v => new UserLastName(v)
@@ -54,7 +59,8 @@ namespace BlockbusterApp.src.Infraestructure.Persistance.Mapping
                 .IsRequired();
             builder
                 .Property(c => c.userRole)
-                .HasColumnType("nvarchar(50")
+                .HasColumnName("role")
+                .HasColumnType("nvarchar(20")
                 .HasConversion(
                     v => v.GetValue(),
                     v => new UserRole(v)
@@ -62,6 +68,7 @@ namespace BlockbusterApp.src.Infraestructure.Persistance.Mapping
                 .IsRequired();
             builder
                 .Property(c => c.userCreatedAt)
+                .HasColumnName("created_at")
                 .HasColumnType("datetime2")
                 .HasConversion(
                     v => v.GetValue(),
@@ -70,6 +77,7 @@ namespace BlockbusterApp.src.Infraestructure.Persistance.Mapping
                 .IsRequired();
             builder
                 .Property(c => c.userUpdatedAt)
+                .HasColumnName("updated_at")
                 .HasColumnType("datetime2")
                 .HasConversion(
                     v => v.GetValue(),

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "HiR8SuYstV4AlDgYlazr1nMTPlZN79vSmlSz7/nwyF0v+G5t3WUB13Q6u2Ma7Uhv1KauHiD/6WlhjixhlGGY8g==",
+  "dgSpecHash": "5pQTLUnhfybHSzBJJazQlzHFxAOozLNwqKtMWYhm8BTgEP1ZUdXJY85ayVZR0B08bWgM9L7v8GZDYumr1uFY6g==",
   "success": true,
   "projectFilePath": "C:\\Codigo\\Craft-Code\\blockbuster\\BlockbusterApp\\BlockbusterApp.csproj",
   "expectedPackageFiles": [
@@ -171,9 +171,12 @@
     "C:\\Users\\pablo\\.nuget\\packages\\microsoft.netcore.platforms\\2.1.0\\microsoft.netcore.platforms.2.1.0.nupkg.sha512",
     "C:\\Users\\pablo\\.nuget\\packages\\microsoft.netcore.targets\\2.1.0\\microsoft.netcore.targets.2.1.0.nupkg.sha512",
     "C:\\Users\\pablo\\.nuget\\packages\\microsoft.win32.registry\\4.5.0\\microsoft.win32.registry.4.5.0.nupkg.sha512",
+    "C:\\Users\\pablo\\.nuget\\packages\\mysqlconnector\\0.42.1\\mysqlconnector.0.42.1.nupkg.sha512",
     "C:\\Users\\pablo\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
     "C:\\Users\\pablo\\.nuget\\packages\\newtonsoft.json\\11.0.2\\newtonsoft.json.11.0.2.nupkg.sha512",
     "C:\\Users\\pablo\\.nuget\\packages\\newtonsoft.json.bson\\1.0.1\\newtonsoft.json.bson.1.0.1.nupkg.sha512",
+    "C:\\Users\\pablo\\.nuget\\packages\\pomelo.entityframeworkcore.mysql\\2.1.0\\pomelo.entityframeworkcore.mysql.2.1.0.nupkg.sha512",
+    "C:\\Users\\pablo\\.nuget\\packages\\pomelo.jsonobject\\1.1.1\\pomelo.jsonobject.1.1.1.nupkg.sha512",
     "C:\\Users\\pablo\\.nuget\\packages\\remotion.linq\\2.2.0\\remotion.linq.2.2.0.nupkg.sha512",
     "C:\\Users\\pablo\\.nuget\\packages\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\pablo\\.nuget\\packages\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",

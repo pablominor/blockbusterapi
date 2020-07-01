@@ -1,5 +1,4 @@
-﻿using BlockbusterApp.src.Domain;
-using BlockbusterApp.src.Domain.UserAggregate;
+﻿using BlockbusterApp.src.Domain.UserAggregate;
 using BlockbusterApp.src.Infraestructure.Service.Hashing;
 using System;
 using System.Collections;

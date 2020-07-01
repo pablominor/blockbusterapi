@@ -17,7 +17,7 @@ namespace BlockbusterApp.src.Domain.UserAggregate.Service
 
         public void Validate(UserEmail userEmail)
         {
-            var user = _userRepository.FindOneByEmail(userEmail);
+            var user = _userRepository.FindUserByEmail(userEmail);
             if (user != null)
             {
                 throw UserFoundException.FromEmail(userEmail);

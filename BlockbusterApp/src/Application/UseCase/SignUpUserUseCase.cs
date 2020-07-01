@@ -1,5 +1,4 @@
-﻿using BlockbusterApp.src.Domain;
-using BlockbusterApp.src.Domain.UserAggregate;
+﻿using BlockbusterApp.src.Domain.UserAggregate;
 using BlockbusterApp.src.Domain.UserAggregate.Service;
 using BlockbusterApp.src.Shared.Application.Bus.UseCase;
 using System;
@@ -9,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BlockbusterApp.src.Application.UseCase
 {
-    public class SignUpUserUseCase
+    public class SignUpUserUseCase : IUseCase
     {
         private IUserFactory _userFactory;
         private SignUpUserValidator _userValidator;

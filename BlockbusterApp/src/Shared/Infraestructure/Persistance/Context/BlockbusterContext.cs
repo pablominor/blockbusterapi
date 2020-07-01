@@ -12,11 +12,7 @@ namespace BlockbusterApp.src.Shared.Infraestructure.Persistance.Context
 {
     public class BlockbusterContext : DbContext
     {
-        private readonly IHostingEnvironment _env;
-        public BlockbusterContext(IHostingEnvironment env)
-        {
-            _env = env;
-        }
+        public BlockbusterContext(DbContextOptions opt) : base(opt) { }       
 
         public DbSet<User> Users { get; set; }
 
@@ -25,17 +21,6 @@ namespace BlockbusterApp.src.Shared.Infraestructure.Persistance.Context
             modelBuilder.ApplyConfiguration(new UserMap());
             base.OnModelCreating(modelBuilder);
         }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            //get the configuration from de app settings
-            var config = new ConfigurationBuilder()
-                .SetBasePath(_env.ContentRootPath)
-                .AddJsonFile("appsettings.json")
-                .Build();
-
-            //define the database to use
-            optionsBuilder.UseSqlServer(config.GetConnectionString("DefaultConnection"));
-        }
+       
     }
 }
