@@ -1,4 +1,5 @@
-﻿using BlockbusterApp.src.Shared.Domain;
+﻿using BlockbusterApp.src.Domain.UserAggregate.Event;
+using BlockbusterApp.src.Shared.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,6 +51,17 @@ namespace BlockbusterApp.src.Domain.UserAggregate
             UserUpdatedAt userUpdatedAt = new UserUpdatedAt(DateTime.Now);
             User user = new User(userId, userEmail, userHashedPassword, 
                 userFirstName, userLastName, userRole, userCreatedAt, userUpdatedAt);
+
+            user.Record(new UserSignedUpEvent(user.userId.GetValue(),
+                new Dictionary<string, string>()
+                {
+                    ["email"] = user.userEmail.GetValue(),
+                    ["firstname"] = user.userFirstName.GetValue(),
+                    ["lastname"] = user.userLastName.GetValue(),
+                    ["role"] = user.userRole.GetValue()
+                }
+            ));
+
             return user;
         }
     }

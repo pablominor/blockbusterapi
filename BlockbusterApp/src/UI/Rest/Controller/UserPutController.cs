@@ -1,4 +1,4 @@
-﻿using BlockbusterApp.src.Application.UseCase;
+﻿using BlockbusterApp.src.Application.UseCase.User;
 using BlockbusterApp.src.Shared.Application.Bus.UseCase;
 using BlockbusterApp.src.Shared.Infraestructure.Bus.UseCase;
 using Microsoft.AspNetCore.Authorization;

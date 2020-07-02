@@ -1,22 +1,30 @@
-﻿using System;
+﻿using BlockbusterApp.src.Shared.Domain.Event;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BlockbusterApp.src.Shared.Domain.Event;
 
-namespace BlockbusterApp.src.Shared.Domain
+namespace BlockbusterApp.src.Shared.Infraestructure.Bus.Event
 {
-    public abstract class AggregateRoot
-    {
 
+    public class EventProvider : IEventProvider
+    {
         private List<DomainEvent> events;
 
-        public AggregateRoot()
+        public EventProvider()
         {
             this.events = new List<DomainEvent>();
         }
 
-        protected void Record(DomainEvent domainEvent)
+        public void RecordEvents(List<DomainEvent> domainEvents)
+        {
+            foreach (DomainEvent domainEvent in domainEvents)
+            {
+                this.Record(domainEvent);
+            }
+        }
+
+        private void Record(DomainEvent domainEvent)
         {
             this.events.Add(domainEvent);
         }
@@ -33,7 +41,6 @@ namespace BlockbusterApp.src.Shared.Domain
         {
             this.events = new List<DomainEvent>();
         }
-
-
     }
+
 }

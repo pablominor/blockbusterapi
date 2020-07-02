@@ -2,14 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BlockbusterApp.src.Application.UseCase;
+using BlockbusterApp.src.Application.Event.User;
+using BlockbusterApp.src.Application.UseCase.Email;
+using BlockbusterApp.src.Application.UseCase.User;
 using BlockbusterApp.src.Domain;
 using BlockbusterApp.src.Domain.UserAggregate;
 using BlockbusterApp.src.Domain.UserAggregate.Service;
 using BlockbusterApp.src.Infraestructure.Persistance.Repository;
 using BlockbusterApp.src.Infraestructure.Service.Hashing;
+using BlockbusterApp.src.Infraestructure.Service.Mailer;
 using BlockbusterApp.src.Infraestructure.Service.User;
 using BlockbusterApp.src.Shared.Application.Bus.UseCase;
+using BlockbusterApp.src.Shared.Application.Event;
+using BlockbusterApp.src.Shared.Domain.Event;
+using BlockbusterApp.src.Shared.Infraestructure.Bus.Event;
 using BlockbusterApp.src.Shared.Infraestructure.Bus.Middleware;
 using BlockbusterApp.src.Shared.Infraestructure.Bus.UseCase;
 using BlockbusterApp.src.Shared.Infraestructure.Persistance.Context;
@@ -46,7 +52,11 @@ namespace BlockbusterApp
 
             //Application
             services.AddScoped<UserConverter>();
-            services.AddScoped<IUseCase, SignUpUserUseCase>();
+            services.AddScoped<SignUpUserUseCase>();
+            services.AddScoped<SendUserWelcomeEmailUseCase>();
+            services.AddScoped<SendWelcomeEmailWhenUserSignedUpEventHandler>();
+            services.AddScoped<WelcomeEmailConverter>();
+
 
             //Domain
             services.AddScoped<IUserFactory,UserFactory>();
@@ -56,7 +66,11 @@ namespace BlockbusterApp
             services.AddScoped<IHashing,DefaultHashing>();
             services.AddScoped<IUserRepository,UserRepository>();
             services.AddSingleton<BlockbusterContext>();
-            
+            services.AddScoped<IEventProvider, EventProvider>();
+            services.AddScoped<IDomainEventPublisher, DomainEventPublisherSync>();
+            services.AddScoped<IEventBus, EventBus>();
+            services.AddScoped<IMailer, SendgridMailer>();
+
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
             services.AddSingleton<IUseCaseBus,UseCaseBus>();
@@ -65,6 +79,7 @@ namespace BlockbusterApp
 
             services.AddScoped<UseCaseMiddleware>();
             services.AddSingleton<TransactionMiddleware>();
+            services.AddScoped<EventDispatcherSyncMiddleware>();
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
@@ -102,15 +117,21 @@ namespace BlockbusterApp
         {
 
             IUseCaseBus useCaseBus = serviceProvider.GetService<IUseCaseBus>();
-            IUseCase signUpUserUseCase = serviceProvider.GetService<IUseCase>();
+            SignUpUserUseCase signUpUserUseCase = serviceProvider.GetService<SignUpUserUseCase>();
+            SendUserWelcomeEmailUseCase sendUserWelcomeEmailUseCase = serviceProvider.GetService<SendUserWelcomeEmailUseCase>();
             useCaseBus.Subscribe(signUpUserUseCase);
+            useCaseBus.Subscribe(sendUserWelcomeEmailUseCase);
 
             List<IMiddlewareHandler> middlewareHandlers = new List<IMiddlewareHandler>
             {
-                serviceProvider.GetService<TransactionMiddleware>()
+                serviceProvider.GetService<TransactionMiddleware>(),
+                serviceProvider.GetService<EventDispatcherSyncMiddleware>()
             };
 
             useCaseBus.SetMiddlewares(middlewareHandlers);
+
+            IEventBus eventBus = serviceProvider.GetService<IEventBus>();
+            eventBus.Subscribe(serviceProvider.GetService<SendWelcomeEmailWhenUserSignedUpEventHandler>(), "user_signed_up");
 
             if (env.IsDevelopment())
             {
