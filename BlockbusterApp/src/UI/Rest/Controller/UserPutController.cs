@@ -1,5 +1,6 @@
 ﻿using BlockbusterApp.src.Application.UseCase.User;
 using BlockbusterApp.src.Shared.Application.Bus.UseCase;
+using BlockbusterApp.src.Shared.Infraestructure.Bus.Middleware.Exception;
 using BlockbusterApp.src.Shared.Infraestructure.Bus.UseCase;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -11,22 +12,20 @@ using System.Threading.Tasks;
 namespace BlockbusterApp.src.UI.Rest.Controller
 {
     [ApiVersion("1.0")]
-    [Route("api/v{version:apiVersion}/{controller}")]
+    [Route("api/v{version:apiVersion}/users")]
     [ApiController]
-    public class UserPutController : ControllerBase
+    public class UserPutController : Shared.UI.Rest.Controller.Controller
     {
-        private IUseCaseBus useCaseBus;
-        public UserPutController(IUseCaseBus useCaseBus)
+        public UserPutController(IUseCaseBus useCaseBus) :base(useCaseBus)
         {
-            this.useCaseBus = useCaseBus;
+
         }
 
         [AllowAnonymous]
         [HttpPut(Name = nameof(SignUp))]
         public IActionResult SignUp(SignUpUserRequest request)
         {
-            IResponse response = this.useCaseBus.Dispatch(request);
-            return Ok(response);
+            return Dispatch(request);
         }
     }
 }

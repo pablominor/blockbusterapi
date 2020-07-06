@@ -33,8 +33,6 @@ namespace BlockbusterApp.src.Shared.Infraestructure.Bus.Middleware
                 transaction.Rollback();
                 throw e;
             }
-
-
         }
     }
 }

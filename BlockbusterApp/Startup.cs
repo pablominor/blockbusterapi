@@ -17,6 +17,7 @@ using BlockbusterApp.src.Shared.Application.Event;
 using BlockbusterApp.src.Shared.Domain.Event;
 using BlockbusterApp.src.Shared.Infraestructure.Bus.Event;
 using BlockbusterApp.src.Shared.Infraestructure.Bus.Middleware;
+using BlockbusterApp.src.Shared.Infraestructure.Bus.Middleware.Exception;
 using BlockbusterApp.src.Shared.Infraestructure.Bus.UseCase;
 using BlockbusterApp.src.Shared.Infraestructure.Persistance.Context;
 using BlockbusterApp.src.Shared.Infraestructure.Persistance.Repository;
@@ -56,7 +57,7 @@ namespace BlockbusterApp
             services.AddScoped<SendUserWelcomeEmailUseCase>();
             services.AddScoped<SendWelcomeEmailWhenUserSignedUpEventHandler>();
             services.AddScoped<WelcomeEmailConverter>();
-
+            services.AddScoped<ExceptionConverter>();
 
             //Domain
             services.AddScoped<IUserFactory,UserFactory>();
@@ -80,7 +81,7 @@ namespace BlockbusterApp
             services.AddScoped<UseCaseMiddleware>();
             services.AddSingleton<TransactionMiddleware>();
             services.AddScoped<EventDispatcherSyncMiddleware>();
-
+            services.AddScoped<ExceptionMiddleware>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
@@ -125,7 +126,8 @@ namespace BlockbusterApp
             List<IMiddlewareHandler> middlewareHandlers = new List<IMiddlewareHandler>
             {
                 serviceProvider.GetService<TransactionMiddleware>(),
-                serviceProvider.GetService<EventDispatcherSyncMiddleware>()
+                serviceProvider.GetService<EventDispatcherSyncMiddleware>(),
+                serviceProvider.GetService<ExceptionMiddleware>()
             };
 
             useCaseBus.SetMiddlewares(middlewareHandlers);
