@@ -4,6 +4,7 @@ using System.Text;
 using BlockbusterApp.src.Application.Event.User;
 using BlockbusterApp.src.Application.UseCase.Email;
 using BlockbusterApp.src.Application.UseCase.Token;
+using BlockbusterApp.src.Application.UseCase.User.GetAll;
 using BlockbusterApp.src.Application.UseCase.User.SignUP;
 using BlockbusterApp.src.Domain.TokenAggregate;
 using BlockbusterApp.src.Domain.UserAggregate;
@@ -114,9 +115,11 @@ namespace BlockbusterApp
 
             services.AddScoped<IRequest,SignUpUserRequest>();
             services.AddScoped<IRequest, CreateTokenRequest>();
+            services.AddScoped<IRequest, GetUsersRequest>();
 
             services.AddScoped<IResponse,SignUpUserResponse>();            
             services.AddScoped<IResponse, CreateTokenResponse>();
+            services.AddScoped<IResponse, GetUsersResponse>();
 
             services.AddScoped<UseCaseMiddleware>();
             services.AddSingleton<TransactionMiddleware>();

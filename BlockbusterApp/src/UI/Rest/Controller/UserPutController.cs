@@ -1,13 +1,7 @@
-﻿using BlockbusterApp.src.Application.UseCase.User;
-using BlockbusterApp.src.Shared.Application.Bus.UseCase;
-using BlockbusterApp.src.Shared.Infraestructure.Bus.Middleware.Exception;
+﻿using BlockbusterApp.src.Application.UseCase.User.SignUP;
 using BlockbusterApp.src.Shared.Infraestructure.Bus.UseCase;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BlockbusterApp.src.UI.Rest.Controller
 {
