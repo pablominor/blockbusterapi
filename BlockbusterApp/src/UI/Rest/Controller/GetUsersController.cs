@@ -1,4 +1,5 @@
 ﻿using BlockbusterApp.src.Application.UseCase.User.GetAll;
+using BlockbusterApp.src.Domain.UserAggregate;
 using BlockbusterApp.src.Shared.Infraestructure.Bus.UseCase;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace BlockbusterApp.src.UI.Rest.Controller
 {
+    [Authorize]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/users")]
     [ApiController]
@@ -18,8 +20,8 @@ namespace BlockbusterApp.src.UI.Rest.Controller
         {
 
         }
-
-        [AllowAnonymous]
+        
+        [Authorize(Roles = UserRole.ROLE_ADMIN)]
         [HttpGet]
         public IActionResult GetUsers()
         {
