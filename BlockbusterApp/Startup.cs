@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 using BlockbusterApp.src.Application.Event.User;
 using BlockbusterApp.src.Application.UseCase.Email;
+using BlockbusterApp.src.Application.UseCase.Token;
 using BlockbusterApp.src.Application.UseCase.User;
-using BlockbusterApp.src.Domain;
+using BlockbusterApp.src.Domain.TokenAggregate;
 using BlockbusterApp.src.Domain.UserAggregate;
 using BlockbusterApp.src.Domain.UserAggregate.Service;
 using BlockbusterApp.src.Infraestructure.Persistance.Repository;
 using BlockbusterApp.src.Infraestructure.Service.Hashing;
 using BlockbusterApp.src.Infraestructure.Service.Mailer;
+using BlockbusterApp.src.Infraestructure.Service.Token;
 using BlockbusterApp.src.Infraestructure.Service.User;
 using BlockbusterApp.src.Shared.Application.Bus.UseCase;
-using BlockbusterApp.src.Shared.Application.Event;
 using BlockbusterApp.src.Shared.Domain.Event;
 using BlockbusterApp.src.Shared.Infraestructure.Bus.Event;
 using BlockbusterApp.src.Shared.Infraestructure.Bus.Middleware;
@@ -21,17 +21,18 @@ using BlockbusterApp.src.Shared.Infraestructure.Bus.Middleware.Exception;
 using BlockbusterApp.src.Shared.Infraestructure.Bus.UseCase;
 using BlockbusterApp.src.Shared.Infraestructure.Persistance.Context;
 using BlockbusterApp.src.Shared.Infraestructure.Persistance.Repository;
+using BlockbusterApp.src.Shared.Infraestructure.Security.Authentication.JWT;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using Swashbuckle.AspNetCore.Filters;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace BlockbusterApp
@@ -48,6 +49,31 @@ namespace BlockbusterApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            var appSettingsSection = Configuration.GetSection("AppSettings");
+            var secret = Configuration.GetValue<string>("AppSettings:Secret");
+            var key = Encoding.ASCII.GetBytes(secret);
+
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+                .AddJwtBearer(x =>
+                {
+                    x.RequireHttpsMetadata = false;
+                    x.SaveToken = true;
+                    x.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(key),
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    };
+                });
+
+            services.AddOptions();
+
             services.AddDbContextPool<BlockbusterContext>(options => options
                 .UseMySql(Configuration.GetConnectionString("DefaultConnection")));
 
@@ -59,9 +85,14 @@ namespace BlockbusterApp
             services.AddScoped<WelcomeEmailConverter>();
             services.AddScoped<ExceptionConverter>();
 
+            services.AddScoped<TokenConverter>();
+            services.AddScoped<CreateTokenUseCase>();
+
             //Domain
             services.AddScoped<IUserFactory,UserFactory>();
             services.AddScoped<SignUpUserValidator>();
+
+            services.AddScoped<ITokenFactory,TokenFactory>();
 
             //Infra
             services.AddScoped<IHashing,DefaultHashing>();
@@ -72,11 +103,20 @@ namespace BlockbusterApp
             services.AddScoped<IEventBus, EventBus>();
             services.AddScoped<IMailer, SendgridMailer>();
 
+            services.AddScoped<ITokenRepository, TokenRepository>();
+            services.AddScoped<ITokenFactory,TokenFactory>();
+            services.AddScoped<IJWTEncoder,JWTEncoder>();
+            services.AddScoped<TokenAdapter>();
+
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
             services.AddSingleton<IUseCaseBus,UseCaseBus>();
+
             services.AddScoped<IRequest,SignUpUserRequest>();
-            services.AddScoped<IResponse,SignUpUserResponse>();
+            services.AddScoped<IRequest, CreateTokenRequest>();
+
+            services.AddScoped<IResponse,SignUpUserResponse>();            
+            services.AddScoped<IResponse, CreateTokenResponse>();
 
             services.AddScoped<UseCaseMiddleware>();
             services.AddSingleton<TransactionMiddleware>();
@@ -97,6 +137,16 @@ namespace BlockbusterApp
             services.AddSwaggerGen(
                 options =>
                 {
+                    options.AddSecurityDefinition("oauth2", new ApiKeyScheme
+                    {
+                        Description = "Standard Authorization header using the Bearer scheme. Example: \"bearer {token}\"",
+                        In = "header",
+                        Name = "Authorization",
+                        Type = "apiKey"
+                    });
+
+                    options.OperationFilter<SecurityRequirementsOperationFilter>();
+
                     var provider = services.BuildServiceProvider()
                                         .GetRequiredService<IApiVersionDescriptionProvider>();
                     foreach (var description in provider.ApiVersionDescriptions)
@@ -145,6 +195,7 @@ namespace BlockbusterApp
             }
 
             app.UseHttpsRedirection();
+            app.UseAuthentication();
            
             app.UseSwagger();
             app.UseSwaggerUI(

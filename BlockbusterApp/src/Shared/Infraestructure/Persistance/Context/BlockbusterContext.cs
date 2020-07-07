@@ -1,4 +1,5 @@
-﻿using BlockbusterApp.src.Domain.UserAggregate;
+﻿using BlockbusterApp.src.Domain.TokenAggregate;
+using BlockbusterApp.src.Domain.UserAggregate;
 using BlockbusterApp.src.Infraestructure.Persistance.Mapping;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -15,10 +16,12 @@ namespace BlockbusterApp.src.Shared.Infraestructure.Persistance.Context
         public BlockbusterContext(DbContextOptions opt) : base(opt) { }       
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Token> Tokens { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new UserMap());
+            modelBuilder.ApplyConfiguration(new TokenMap());
             base.OnModelCreating(modelBuilder);
         }
        
