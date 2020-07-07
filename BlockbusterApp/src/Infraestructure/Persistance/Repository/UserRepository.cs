@@ -37,5 +37,14 @@ namespace BlockbusterApp.src.Infraestructure.Persistance.Repository
                 dbContext.Users.Add(user);
             }
         }
+
+        public List<User> GetUsers(Dictionary<string, int> page)
+        {
+            using(var scope = _scopeFactory.CreateScope())
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<BlockbusterContext>();
+                return dbContext.Users.Skip((page["number"] - 1) * page["size"]).Take(page["size"]).ToList();
+            }
+        }
     }
 }

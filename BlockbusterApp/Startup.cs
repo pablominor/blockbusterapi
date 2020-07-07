@@ -4,7 +4,7 @@ using System.Text;
 using BlockbusterApp.src.Application.Event.User;
 using BlockbusterApp.src.Application.UseCase.Email;
 using BlockbusterApp.src.Application.UseCase.Token;
-using BlockbusterApp.src.Application.UseCase.User;
+using BlockbusterApp.src.Application.UseCase.User.SignUP;
 using BlockbusterApp.src.Domain.TokenAggregate;
 using BlockbusterApp.src.Domain.UserAggregate;
 using BlockbusterApp.src.Domain.UserAggregate.Service;
