@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlockbusterApp", "BlockbusterApp\BlockbusterApp.csproj", "{B9593297-5E42-41EB-8E17-98EC7ED2603B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlockbusterApp", "BlockbusterApp\BlockbusterApp.csproj", "{B9593297-5E42-41EB-8E17-98EC7ED2603B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "UnitTest\UnitTest.csproj", "{57B30597-9DE0-47EA-A6C8-AB5A1A6516F1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{B9593297-5E42-41EB-8E17-98EC7ED2603B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B9593297-5E42-41EB-8E17-98EC7ED2603B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B9593297-5E42-41EB-8E17-98EC7ED2603B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57B30597-9DE0-47EA-A6C8-AB5A1A6516F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57B30597-9DE0-47EA-A6C8-AB5A1A6516F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57B30597-9DE0-47EA-A6C8-AB5A1A6516F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57B30597-9DE0-47EA-A6C8-AB5A1A6516F1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
