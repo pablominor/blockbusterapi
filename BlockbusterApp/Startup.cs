@@ -79,12 +79,14 @@ namespace BlockbusterApp
                 .UseMySql(Configuration.GetConnectionString("DefaultConnection")));
 
             //Application
+            services.AddScoped<ExceptionConverter>();
+
             services.AddScoped<UserConverter>();
             services.AddScoped<SignUpUserUseCase>();
             services.AddScoped<SendUserWelcomeEmailUseCase>();
             services.AddScoped<SendWelcomeEmailWhenUserSignedUpEventHandler>();
-            services.AddScoped<WelcomeEmailConverter>();
-            services.AddScoped<ExceptionConverter>();
+            services.AddScoped<WelcomeEmailConverter>();            
+            services.AddScoped<WelcomeEmailModelFactory>();
 
             services.AddScoped<TokenConverter>();
             services.AddScoped<CreateTokenUseCase>();
@@ -93,7 +95,7 @@ namespace BlockbusterApp
             services.AddScoped<IUserFactory,UserFactory>();
             services.AddScoped<SignUpUserValidator>();
 
-            services.AddScoped<ITokenFactory,TokenFactory>();
+            services.AddScoped<ITokenFactory,TokenFactory>();            
 
             //Infra
             services.AddScoped<IHashing,DefaultHashing>();
@@ -102,14 +104,15 @@ namespace BlockbusterApp
             services.AddScoped<IEventProvider, EventProvider>();
             services.AddScoped<IDomainEventPublisher, DomainEventPublisherSync>();
             services.AddScoped<IEventBus, EventBus>();
-            services.AddScoped<IMailer, SendgridMailer>();
+            services.AddScoped<IMailer, SMTPMailer>();
 
             services.AddScoped<ITokenRepository, TokenRepository>();
-            services.AddScoped<ITokenFactory,TokenFactory>();
-            services.AddScoped<IJWTEncoder,JWTEncoder>();
-            services.AddScoped<TokenAdapter>();
-
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+
+            services.AddScoped<ITokenFactory,TokenFactory>();            
+
+            services.AddScoped<IJWTEncoder,JWTEncoder>();
+            services.AddScoped<TokenAdapter>();            
 
             services.AddSingleton<IUseCaseBus,UseCaseBus>();
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace BlockbusterApp.src.Infraestructure.Service.Mailer
 {
     public interface IMailer
-    {
-        void Send(string from, string to, string subject, string body);
+    {        
+        void Send(EmailModel emailModel);
     }
 }

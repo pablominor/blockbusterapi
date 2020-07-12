@@ -25,7 +25,7 @@ namespace BlockbusterApp.src.Infraestructure.Persistance.Repository
             using(var scope = _scopeFactory.CreateScope())
             {
                 var dbContext = scope.ServiceProvider.GetRequiredService<BlockbusterContext>();
-                return dbContext.Users.FirstOrDefault(c => c.userEmail.GetValue() == userEmail.GetValue());
+                return dbContext.User.FirstOrDefault(c => c.userEmail.GetValue() == userEmail.GetValue());
             }
         }
 
@@ -34,7 +34,7 @@ namespace BlockbusterApp.src.Infraestructure.Persistance.Repository
             using(var scope = _scopeFactory.CreateScope())
             {
                 var dbContext = scope.ServiceProvider.GetRequiredService<BlockbusterContext>();
-                dbContext.Users.Add(user);
+                dbContext.User.Add(user);
             }
         }
 
@@ -43,7 +43,7 @@ namespace BlockbusterApp.src.Infraestructure.Persistance.Repository
             using(var scope = _scopeFactory.CreateScope())
             {
                 var dbContext = scope.ServiceProvider.GetRequiredService<BlockbusterContext>();
-                return dbContext.Users.Skip((page["number"] - 1) * page["size"]).Take(page["size"]).ToList();
+                return dbContext.User.Skip((page["number"] - 1) * page["size"]).Take(page["size"]).ToList();
             }
         }
     }

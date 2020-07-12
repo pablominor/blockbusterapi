@@ -10,7 +10,7 @@ namespace BlockbusterApp.src.Domain.UserAggregate
 {
     public class UserPassword : StringValueObject
     {
-        private const string PATTERN = "/^([a-zA-Z0-9]{8,15})$/";
+        private const string PATTERN = "([a-zA-Z0-9]{8,15})";
         public UserPassword(string value) : base(value)
         {
             if (!this.Is(value))

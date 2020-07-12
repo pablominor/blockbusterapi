@@ -9,28 +9,26 @@ namespace BlockbusterApp.src.Application.UseCase.Email
 {
     public class SendUserWelcomeEmailUseCase : IUseCase
     {
+        private WelcomeEmailModelFactory welcomeEmailModelFactory;
+        private IMailer mailer;
+        private WelcomeEmailConverter welcomeEmailConverter;
 
-        private IMailer _mailer;
-        private WelcomeEmailConverter _welcomeEmailConverter;
-
-        public SendUserWelcomeEmailUseCase(IMailer mailer, WelcomeEmailConverter welcomeEmailConverter) 
+        public SendUserWelcomeEmailUseCase(WelcomeEmailModelFactory welcomeEmailModelFactory, IMailer mailer, WelcomeEmailConverter welcomeEmailConverter) 
         {
-            _mailer = mailer;
-            _welcomeEmailConverter = welcomeEmailConverter;
+            this.welcomeEmailModelFactory = welcomeEmailModelFactory;
+            this.mailer = mailer;
+            this.welcomeEmailConverter = welcomeEmailConverter;
         }
 
         public IResponse Execute(IRequest req)
         {
             SendUserWelcomeEmailRequest request = req as SendUserWelcomeEmailRequest;
+            EmailModel emailModel = this.welcomeEmailModelFactory.Create(request);
 
-            string email = request.Email;
-            string firstName = request.FirstName;
-            string lastName = request.LastName;
-            string fullName = firstName + " " + lastName;
+            this.mailer.Send(emailModel);
 
-            _mailer.Send("pablo3vias@gmail.com",email,"Welcome Email",String.Format("Gracias por registrarte {0}. Recuerda que para iniciar sesión en nuestra aplicación debe usar su email.",fullName));
+            return this.welcomeEmailConverter.Convert();
 
-            return _welcomeEmailConverter.Convert();
         }
     }
 }

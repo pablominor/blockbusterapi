@@ -15,7 +15,7 @@ namespace BlockbusterApp.src.Infraestructure.Persistance.Mapping
             builder
                 .Property(c => c.userId)
                 .HasColumnName("id")
-                .HasColumnType("nvarchar(30)")
+                .HasColumnType("nvarchar(40)")
                 .HasConversion(
                     v => v.GetValue(),
                     v => new UserId(v)

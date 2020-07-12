@@ -50,8 +50,8 @@ namespace BlockbusterApp.src.Shared.Infraestructure.Persistance.Repository
 
         public void Dispose()
         {
-            Db.Dispose();
-            GC.SuppressFinalize(this);
+            //Db.Dispose();
+            //GC.SuppressFinalize(this);
         }
     }
 }

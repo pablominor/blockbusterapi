@@ -15,7 +15,7 @@ namespace BlockbusterApp.src.Shared.Infraestructure.Persistance.Context
     {
         public BlockbusterContext(DbContextOptions opt) : base(opt) { }       
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<User> User { get; set; }
         //public DbSet<Token> Tokens { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
