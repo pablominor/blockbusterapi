@@ -31,6 +31,7 @@ namespace BlockbusterApp.src.Shared.Infraestructure.Bus.Middleware
             catch (System.Exception e)
             {
                 transaction.Rollback();
+                _blockbusterContext.ChangeTracker.Entries().ToList().ForEach(x => x.State = EntityState.Detached);
                 throw e;
             }
         }
