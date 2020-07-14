@@ -10,7 +10,7 @@ namespace BlockbusterApp.src.Application.UseCase.User.SignUP
     {
         public UserConverter(){}
 
-        public IResponse Convert()
+        public virtual IResponse Convert()
         {
             return new SignUpUserResponse();
         }

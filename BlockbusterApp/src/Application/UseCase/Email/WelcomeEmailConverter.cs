@@ -10,7 +10,7 @@ namespace BlockbusterApp.src.Application.UseCase.Email
     {
         public WelcomeEmailConverter() { }
 
-        public IResponse Convert()
+        public virtual IResponse Convert()
         {
             return new SendUserWelcomeEmailResponse();
         }

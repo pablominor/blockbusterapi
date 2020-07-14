@@ -8,9 +8,9 @@ namespace BlockbusterApp.src.Application.UseCase.Email
 {
     public class WelcomeEmailModelFactory
     {
-        private const string WELCOME_SUBJECT = "Welcome email";
+        public const string WELCOME_SUBJECT = "Welcome email";
 
-        public EmailModel Create(SendUserWelcomeEmailRequest request)
+        public virtual EmailModel Create(SendUserWelcomeEmailRequest request)
         {            
             string to = request.Email;
             string fullName = request.FirstName + " " + request.LastName;

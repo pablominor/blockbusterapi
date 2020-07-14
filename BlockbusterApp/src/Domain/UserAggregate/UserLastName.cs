@@ -9,8 +9,8 @@ namespace BlockbusterApp.src.Domain.UserAggregate
 {
     public class UserLastName : StringValueObject
     {
-        private const int MIN_LENGTH = 3;
-        private const int MAX_LENGTH = 30;
+        public const int MIN_LENGTH = 3;
+        public const int MAX_LENGTH = 30;
 
         public UserLastName(string value) : base(value)
         {
