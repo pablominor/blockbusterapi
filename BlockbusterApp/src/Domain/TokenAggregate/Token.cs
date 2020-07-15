@@ -2,6 +2,7 @@
 using BlockbusterApp.src.Shared.Domain;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,39 +10,39 @@ namespace BlockbusterApp.src.Domain.TokenAggregate
 {
     public class Token : AggregateRoot
     {
-
-        public TokenHash tokenHash { get; }
-        public TokenUserId tokenUserId { get; }
-        public TokenCreatedAt tokenCreatedAt { get; }
-        public TokenUpdatedAt tokenUpdatedAt { get; }
+        [Key]
+        public TokenHash hash { get; }
+        public TokenUserId userId { get; }
+        public TokenCreatedAt createdAt { get; }
+        public TokenUpdatedAt updatedAt { get; }
 
         private Token(
-            TokenHash tokenHash, 
-            TokenUserId tokenUserId,
-            TokenCreatedAt tokenCreatedAt,
-            TokenUpdatedAt tokenUpdatedAt)
+            TokenHash hash, 
+            TokenUserId userId,
+            TokenCreatedAt createdAt,
+            TokenUpdatedAt updatedAt)
         {
-            this.tokenHash = tokenHash;
-            this.tokenUserId = tokenUserId;
-            this.tokenCreatedAt = tokenCreatedAt;
-            this.tokenUpdatedAt = tokenUpdatedAt;
+            this.hash = hash;
+            this.userId = userId;
+            this.createdAt = createdAt;
+            this.updatedAt = updatedAt;
         }
 
-        public static Token Create(TokenHash tokenHash, TokenUserId tokenUserId)
+        public static Token Create(TokenHash hash, TokenUserId userId)
         {
-            TokenCreatedAt tokenCreatedAt = new TokenCreatedAt(DateTime.Now);
-            TokenUpdatedAt tokenUpdatedAt = new TokenUpdatedAt(DateTime.Now);
+            TokenCreatedAt createdAt = new TokenCreatedAt(DateTime.Now);
+            TokenUpdatedAt updatedAt = new TokenUpdatedAt(DateTime.Now);
 
-            Token token = new Token(tokenHash, tokenUserId, tokenCreatedAt, tokenUpdatedAt);
+            Token token = new Token(hash, userId, createdAt, updatedAt);
 
             token.Record(new TokenCreatedEvent(
-                token.tokenUserId.GetValue(),
+                token.userId.GetValue(),
                 new Dictionary<string, string>()
                 {
-                    ["hash"] = token.tokenHash.GetValue(),
-                    ["user_id"] = token.tokenUserId.GetValue(),
-                    ["created_at"] = token.tokenCreatedAt.GetValue().ToString(),
-                    ["updated_at"] = token.tokenUpdatedAt.GetValue().ToString()
+                    ["hash"] = token.hash.GetValue(),
+                    ["user_id"] = token.userId.GetValue(),
+                    ["created_at"] = token.createdAt.GetValue().ToString(),
+                    ["updated_at"] = token.updatedAt.GetValue().ToString()
                 }
             ));
 

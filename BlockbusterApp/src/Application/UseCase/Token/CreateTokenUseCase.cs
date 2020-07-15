@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BlockbusterApp.src.Application.UseCase.Token
 {
-    public class CreateTokenUseCase
+    public class CreateTokenUseCase : IUseCase
     {
 
         private TokenAdapter tokenAdapter;

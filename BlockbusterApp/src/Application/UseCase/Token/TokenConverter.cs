@@ -13,7 +13,7 @@ namespace BlockbusterApp.src.Application.UseCase.Token
         public IResponse Convert(Domain.TokenAggregate.Token token)
         {
             CreateTokenResponse response = new CreateTokenResponse();
-            response.Hash = token.tokenHash.GetValue();
+            response.Hash = token.hash.GetValue();
             return response;
         }
     }

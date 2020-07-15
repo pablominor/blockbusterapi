@@ -24,7 +24,7 @@ namespace BlockbusterApp.src.Infraestructure.Persistance.Repository
             using (var scope = _scopeFactory.CreateScope())
             {
                 var dbContext = scope.ServiceProvider.GetRequiredService<BlockbusterContext>();
-                //dbContext.Tokens.Add(token);
+                dbContext.Tokens.Add(token);
             }
         }
     }

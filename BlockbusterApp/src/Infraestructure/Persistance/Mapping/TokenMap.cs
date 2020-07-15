@@ -13,7 +13,7 @@ namespace BlockbusterApp.src.Infraestructure.Persistance.Mapping
         public void Configure(EntityTypeBuilder<Token> builder)
         {
             builder
-                .Property(c => c.tokenHash)
+                .Property(c => c.hash)
                 .HasColumnName("hash")
                 .HasColumnType("nvarchar(30)")
                 .HasConversion(
@@ -22,7 +22,7 @@ namespace BlockbusterApp.src.Infraestructure.Persistance.Mapping
                 )
                 .IsRequired();
             builder
-                .Property(c => c.tokenUserId)
+                .Property(c => c.userId)
                 .HasColumnName("id_user")
                 .HasColumnType("nvarchar(60")
                 .HasConversion(
@@ -31,7 +31,7 @@ namespace BlockbusterApp.src.Infraestructure.Persistance.Mapping
                 )
                 .IsRequired();
             builder
-                .Property(c => c.tokenCreatedAt)
+                .Property(c => c.createdAt)
                 .HasColumnName("created_at")
                 .HasColumnType("datetime2")
                 .HasConversion(
@@ -40,7 +40,7 @@ namespace BlockbusterApp.src.Infraestructure.Persistance.Mapping
                 )
                 .IsRequired();
             builder
-                .Property(c => c.tokenUpdatedAt)
+                .Property(c => c.updatedAt)
                 .HasColumnName("updated_at")
                 .HasColumnType("datetime2")
                 .HasConversion(

@@ -16,12 +16,12 @@ namespace BlockbusterApp.src.Shared.Infraestructure.Persistance.Context
         public BlockbusterContext(DbContextOptions opt) : base(opt) { }       
 
         public DbSet<User> User { get; set; }
-        //public DbSet<Token> Tokens { get; set; }
+        public DbSet<Token> Tokens { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new UserMap());
-            //modelBuilder.ApplyConfiguration(new TokenMap());
+            modelBuilder.ApplyConfiguration(new TokenMap());
             base.OnModelCreating(modelBuilder);
         }
        

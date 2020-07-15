@@ -116,10 +116,13 @@ namespace BlockbusterApp
             services.AddScoped<ITokenRepository, TokenRepository>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
-            services.AddScoped<ITokenFactory,TokenFactory>();            
+            services.AddScoped<ITokenFactory,TokenFactory>();
+            
 
             services.AddScoped<IJWTEncoder,JWTEncoder>();
-            services.AddScoped<TokenAdapter>();            
+            services.AddScoped<TokenAdapter>();
+            services.AddScoped<TokenFacade>();
+            services.AddScoped<TokenTranslator>();
 
             services.AddSingleton<IUseCaseBus,UseCaseBus>();
 
@@ -187,10 +190,12 @@ namespace BlockbusterApp
             SendUserWelcomeEmailUseCase sendUserWelcomeEmailUseCase = serviceProvider.GetService<SendUserWelcomeEmailUseCase>();
             GetUsersUseCase getUsersUseCase = serviceProvider.GetService<GetUsersUseCase>();
             GetUserPersonalDataUseCase getUserPersonalDataUseCase = serviceProvider.GetService<GetUserPersonalDataUseCase>();
+            CreateTokenUseCase createTokenUseCase = serviceProvider.GetService<CreateTokenUseCase>();
             useCaseBus.Subscribe(signUpUserUseCase);
             useCaseBus.Subscribe(sendUserWelcomeEmailUseCase);
             useCaseBus.Subscribe(getUsersUseCase);
             useCaseBus.Subscribe(getUserPersonalDataUseCase);
+            useCaseBus.Subscribe(createTokenUseCase);
 
             List<IMiddlewareHandler> middlewareHandlers = new List<IMiddlewareHandler>
             {
