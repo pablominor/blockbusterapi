@@ -91,6 +91,9 @@ namespace BlockbusterApp
             services.AddScoped<TokenConverter>();
             services.AddScoped<CreateTokenUseCase>();
 
+            services.AddScoped<GetUsersUseCase>();
+            services.AddScoped<GetUsersConverter>();
+
             //Domain
             services.AddScoped<IUserFactory,UserFactory>();
             services.AddScoped<SignUpUserValidator>();
@@ -176,8 +179,10 @@ namespace BlockbusterApp
             IUseCaseBus useCaseBus = serviceProvider.GetService<IUseCaseBus>();
             SignUpUserUseCase signUpUserUseCase = serviceProvider.GetService<SignUpUserUseCase>();
             SendUserWelcomeEmailUseCase sendUserWelcomeEmailUseCase = serviceProvider.GetService<SendUserWelcomeEmailUseCase>();
+            GetUsersUseCase getUsersUseCase = serviceProvider.GetService<GetUsersUseCase>();
             useCaseBus.Subscribe(signUpUserUseCase);
             useCaseBus.Subscribe(sendUserWelcomeEmailUseCase);
+            useCaseBus.Subscribe(getUsersUseCase);
 
             List<IMiddlewareHandler> middlewareHandlers = new List<IMiddlewareHandler>
             {
