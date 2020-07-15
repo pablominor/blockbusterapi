@@ -2,10 +2,8 @@
 using BlockbusterApp.src.Shared.Infraestructure.Persistance.Context;
 using BlockbusterApp.src.Shared.Infraestructure.Persistance.Repository;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace BlockbusterApp.src.Infraestructure.Persistance.Repository
 {
@@ -44,6 +42,15 @@ namespace BlockbusterApp.src.Infraestructure.Persistance.Repository
             {
                 var dbContext = scope.ServiceProvider.GetRequiredService<BlockbusterContext>();
                 return dbContext.User.Skip((page["number"] - 1) * page["size"]).Take(page["size"]).ToList();
+            }
+        }
+
+        public User FindUserById(UserId userId)
+        {
+            using (var scope = _scopeFactory.CreateScope())
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<BlockbusterContext>();                
+                return dbContext.User.FirstOrDefault(c => c.userId.GetValue() == userId.GetValue());
             }
         }
     }

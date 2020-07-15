@@ -8,7 +8,7 @@ namespace BlockbusterApp.src.Domain.UserAggregate
 {
     public class UserId : UUID
     {
-        public UserId(string message) : base(message)
+        public UserId(string value) : base(value)
         {
 
         }

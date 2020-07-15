@@ -5,6 +5,7 @@ using BlockbusterApp.src.Application.Event.User;
 using BlockbusterApp.src.Application.UseCase.Email;
 using BlockbusterApp.src.Application.UseCase.Token;
 using BlockbusterApp.src.Application.UseCase.User.GetAll;
+using BlockbusterApp.src.Application.UseCase.User.GetUserPersonalData;
 using BlockbusterApp.src.Application.UseCase.User.SignUP;
 using BlockbusterApp.src.Domain.TokenAggregate;
 using BlockbusterApp.src.Domain.UserAggregate;
@@ -94,6 +95,9 @@ namespace BlockbusterApp
             services.AddScoped<GetUsersUseCase>();
             services.AddScoped<GetUsersConverter>();
 
+            services.AddScoped<GetUserPersonalDataUseCase>();
+            services.AddScoped<GetUserPersonalDataConverter>();
+
             //Domain
             services.AddScoped<IUserFactory,UserFactory>();
             services.AddScoped<SignUpUserValidator>();
@@ -122,10 +126,12 @@ namespace BlockbusterApp
             services.AddScoped<IRequest,SignUpUserRequest>();
             services.AddScoped<IRequest, CreateTokenRequest>();
             services.AddScoped<IRequest, GetUsersRequest>();
+            services.AddScoped<IRequest, GetUserPersonalDataRequest>();
 
             services.AddScoped<IResponse,SignUpUserResponse>();            
             services.AddScoped<IResponse, CreateTokenResponse>();
             services.AddScoped<IResponse, GetUsersResponse>();
+            services.AddScoped<IResponse, GetUserPersonalDataResponse>();
 
             services.AddScoped<UseCaseMiddleware>();
             services.AddSingleton<TransactionMiddleware>();
@@ -180,9 +186,11 @@ namespace BlockbusterApp
             SignUpUserUseCase signUpUserUseCase = serviceProvider.GetService<SignUpUserUseCase>();
             SendUserWelcomeEmailUseCase sendUserWelcomeEmailUseCase = serviceProvider.GetService<SendUserWelcomeEmailUseCase>();
             GetUsersUseCase getUsersUseCase = serviceProvider.GetService<GetUsersUseCase>();
+            GetUserPersonalDataUseCase getUserPersonalDataUseCase = serviceProvider.GetService<GetUserPersonalDataUseCase>();
             useCaseBus.Subscribe(signUpUserUseCase);
             useCaseBus.Subscribe(sendUserWelcomeEmailUseCase);
             useCaseBus.Subscribe(getUsersUseCase);
+            useCaseBus.Subscribe(getUserPersonalDataUseCase);
 
             List<IMiddlewareHandler> middlewareHandlers = new List<IMiddlewareHandler>
             {
