@@ -1,10 +1,6 @@
 ﻿using BlockbusterApp.src.Domain.UserAggregate;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BlockbusterApp.src.Infraestructure.Persistance.Mapping
 {

@@ -1,4 +1,4 @@
-﻿using BlockbusterApp.src.Application.UseCase.User.GetAll;
+﻿using BlockbusterApp.src.Application.UseCase.User.FindByFilter;
 using BlockbusterApp.src.Domain.UserAggregate;
 using BlockbusterApp.src.Shared.Infraestructure.Bus.UseCase;
 using Microsoft.AspNetCore.Authorization;

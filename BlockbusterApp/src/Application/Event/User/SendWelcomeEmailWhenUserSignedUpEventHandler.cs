@@ -1,11 +1,8 @@
-﻿using BlockbusterApp.src.Application.UseCase.Email;
+﻿using BlockbusterApp.src.Application.UseCase.Email.SendUserWelcome;
 using BlockbusterApp.src.Shared.Application.Event;
 using BlockbusterApp.src.Shared.Domain.Event;
 using BlockbusterApp.src.Shared.Infraestructure.Bus.UseCase;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BlockbusterApp.src.Application.Event.User
 {

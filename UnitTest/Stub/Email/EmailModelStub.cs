@@ -1,26 +1,22 @@
-﻿using BlockbusterApp.src.Application.UseCase.Email;
-using BlockbusterApp.src.Infraestructure.Service.Mailer;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using BlockbusterApp.src.Shared.Domain;
 
 namespace UnitTest.Stub.Email
 {
     public class EmailModelStub
     {
-
+        public const string FROM = "blockbusterApp@mail.com";
         public const string TO = "blockbuster@mail.com";
         public const string SUBJECT = "Welcome";
         public const string BODY = "Welcome to blockbusterapp";
 
         public static EmailModel ByDefault()
         {
-            return Create(TO, SUBJECT, BODY);            
+            return Create(FROM,TO, SUBJECT, BODY);            
         }
 
-        private static EmailModel Create(string To, string Subject, string Body)
+        private static EmailModel Create(string From,string To, string Subject, string Body)
         {
-            return new EmailModel(To, Subject, Body);
+            return new EmailModel(From,To, Subject, Body);
         }
     }
 }

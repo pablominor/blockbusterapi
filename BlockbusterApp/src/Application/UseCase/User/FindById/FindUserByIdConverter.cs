@@ -1,11 +1,11 @@
-﻿using BlockbusterApp.src.Application.UseCase.User.GetAll;
+﻿using BlockbusterApp.src.Application.UseCase.User.FindByFilter;
 using BlockbusterApp.src.Shared.Application.Bus.UseCase;
 
-namespace BlockbusterApp.src.Application.UseCase.User.GetUserPersonalData
+namespace BlockbusterApp.src.Application.UseCase.User.FindById
 {
-    public class GetUserPersonalDataConverter
+    public class FindUserByIdConverter
     {
-        public GetUserPersonalDataConverter() { }
+        public FindUserByIdConverter() { }
 
         public IResponse Convert(Domain.UserAggregate.User user)
         {                        
@@ -16,7 +16,7 @@ namespace BlockbusterApp.src.Application.UseCase.User.GetUserPersonalData
             string role = user.userRole.GetValue();
             UserDTO userDTO = new UserDTO(id, email, firstName, lastName, role);
 
-            GetUserPersonalDataResponse response = new GetUserPersonalDataResponse
+            FindUserByIdResponse response = new FindUserByIdResponse
             {
                 User = userDTO
             };

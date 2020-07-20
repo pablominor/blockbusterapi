@@ -1,11 +1,9 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using BlockbusterApp.src.Shared.Domain;
+using Microsoft.Extensions.Configuration;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace BlockbusterApp.src.Infraestructure.Service.Mailer
 {
@@ -36,9 +34,9 @@ namespace BlockbusterApp.src.Infraestructure.Service.Mailer
             MailMessage mailMessage = new MailMessage();
             mailMessage.From = new MailAddress(_from, _alias);
             mailMessage.BodyEncoding = Encoding.UTF8;
-            mailMessage.To.Add(emailModel.To);
-            mailMessage.Body = emailModel.Body;
-            mailMessage.Subject = emailModel.Subject;
+            mailMessage.To.Add(emailModel.GetTo());            
+            mailMessage.Body = emailModel.GetBody();
+            mailMessage.Subject = emailModel.GetSubject();
             smtpClient.Send(mailMessage);            
         }
 

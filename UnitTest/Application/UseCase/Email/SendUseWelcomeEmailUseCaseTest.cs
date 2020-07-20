@@ -1,10 +1,9 @@
-﻿using BlockbusterApp.src.Application.UseCase.Email;
+﻿using BlockbusterApp.src.Application.UseCase.Email.SendUserWelcome;
 using BlockbusterApp.src.Infraestructure.Service.Mailer;
+using BlockbusterApp.src.Shared.Domain;
+using Microsoft.Extensions.Configuration;
 using Moq;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using UnitTest.Stub.Email;
 using UnitTest.Stub.Request;
 
@@ -18,7 +17,8 @@ namespace UnitTest.Application.UseCase.Email
         {
             SendUserWelcomeEmailRequest request = SendUserWelcomeEmailRequestStub.ByDefault();
             EmailModel emailModel = EmailModelStub.ByDefault();
-            Mock<WelcomeEmailModelFactory> welcomeEmailModelFactory = new Mock<WelcomeEmailModelFactory>();
+            Mock<IConfiguration> configuration = new Mock<IConfiguration>();
+            Mock<WelcomeEmailModelFactory> welcomeEmailModelFactory = new Mock<WelcomeEmailModelFactory>(configuration.Object);
             welcomeEmailModelFactory.Setup(o => o.Create(request)).Returns(emailModel);
             Mock<IMailer> mailer = new Mock<IMailer>();
             mailer.Setup(o => o.Send(It.IsAny<EmailModel>()));

@@ -1,4 +1,4 @@
-﻿using BlockbusterApp.src.Application.UseCase.Email;
+﻿using BlockbusterApp.src.Application.UseCase.Email.SendUserWelcome;
 using NUnit.Framework;
 
 namespace UnitTest.Application.UseCase.Email

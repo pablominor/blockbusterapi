@@ -1,7 +1,7 @@
 ﻿using BlockbusterApp.src.Shared.Application.Bus.UseCase;
 using System.Collections.Generic;
 
-namespace BlockbusterApp.src.Application.UseCase.User.GetAll
+namespace BlockbusterApp.src.Application.UseCase.User.FindByFilter
 {
     public class GetUsersResponse : IResponse
     {

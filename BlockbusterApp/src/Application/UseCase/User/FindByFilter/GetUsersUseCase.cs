@@ -1,11 +1,7 @@
 ﻿using BlockbusterApp.src.Domain.UserAggregate;
 using BlockbusterApp.src.Shared.Application.Bus.UseCase;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace BlockbusterApp.src.Application.UseCase.User.GetAll
+namespace BlockbusterApp.src.Application.UseCase.User.FindByFilter
 {
     public class GetUsersUseCase : IUseCase
     {

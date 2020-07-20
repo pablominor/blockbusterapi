@@ -15,7 +15,7 @@ namespace BlockbusterApp.src.Infraestructure.Persistance.Mapping
             builder
                 .Property(c => c.hash)
                 .HasColumnName("hash")
-                .HasColumnType("nvarchar(30)")
+                .HasColumnType("text")
                 .HasConversion(
                     v => v.GetValue(),
                     v => new TokenHash(v)
@@ -24,7 +24,7 @@ namespace BlockbusterApp.src.Infraestructure.Persistance.Mapping
             builder
                 .Property(c => c.userId)
                 .HasColumnName("id_user")
-                .HasColumnType("nvarchar(60")
+                .HasColumnType("nvarchar(40)")
                 .HasConversion(
                     v => v.GetValue(),
                     v => new TokenUserId(v)

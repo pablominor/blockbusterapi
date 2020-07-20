@@ -1,11 +1,10 @@
-﻿using BlockbusterApp.src.Domain.UserAggregate;
-using BlockbusterApp.src.Shared.Domain.Exception;
+﻿using BlockbusterApp.src.Shared.Domain.Exception;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BlockbusterApp.src.Application.UseCase.Exception.User
+namespace BlockbusterApp.src.Domain.UserAggregate.Service.Exception
 {
     public class UserNotFoundException : ValidationException
     {

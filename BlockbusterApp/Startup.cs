@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 using BlockbusterApp.src.Application.Event.User;
-using BlockbusterApp.src.Application.UseCase.Email;
+using BlockbusterApp.src.Application.UseCase.Email.SendUserWelcome;
 using BlockbusterApp.src.Application.UseCase.Token;
-using BlockbusterApp.src.Application.UseCase.User.GetAll;
-using BlockbusterApp.src.Application.UseCase.User.GetUserPersonalData;
+using BlockbusterApp.src.Application.UseCase.User.FindByFilter;
+using BlockbusterApp.src.Application.UseCase.User.FindById;
 using BlockbusterApp.src.Application.UseCase.User.SignUP;
 using BlockbusterApp.src.Domain.TokenAggregate;
 using BlockbusterApp.src.Domain.UserAggregate;
@@ -79,68 +79,10 @@ namespace BlockbusterApp
             services.AddDbContextPool<BlockbusterContext>(options => options
                 .UseMySql(Configuration.GetConnectionString("DefaultConnection")));
 
-            //Application
-            services.AddScoped<ExceptionConverter>();
-
-            services.AddScoped<UserConverter>();
-            services.AddScoped<SignUpUserUseCase>();
-            services.AddScoped<SendUserWelcomeEmailUseCase>();
-            services.AddScoped<SendWelcomeEmailWhenUserSignedUpEventHandler>();
-            services.AddScoped<WelcomeEmailConverter>();            
-            services.AddScoped<WelcomeEmailModelFactory>();
-
-            services.AddScoped<TokenConverter>();
-            services.AddScoped<CreateTokenUseCase>();
-
-            services.AddScoped<GetUsersUseCase>();
-            services.AddScoped<GetUsersConverter>();
-
-            services.AddScoped<GetUserPersonalDataUseCase>();
-            services.AddScoped<GetUserPersonalDataConverter>();
-
-            //Domain
-            services.AddScoped<IUserFactory,UserFactory>();
-            services.AddScoped<SignUpUserValidator>();
-
-            services.AddScoped<ITokenFactory,TokenFactory>();            
-
-            //Infra
-            services.AddScoped<IHashing,DefaultHashing>();
-            services.AddScoped<IUserRepository,UserRepository>();
-            services.AddSingleton<BlockbusterContext>();
-            services.AddScoped<IEventProvider, EventProvider>();
-            services.AddScoped<IDomainEventPublisher, DomainEventPublisherSync>();
-            services.AddScoped<IEventBus, EventBus>();
-            services.AddScoped<IMailer, SMTPMailer>();
-
-            services.AddScoped<ITokenRepository, TokenRepository>();
-            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-
-            services.AddScoped<ITokenFactory,TokenFactory>();
-            
-
-            services.AddScoped<IJWTEncoder,JWTEncoder>();
-            services.AddScoped<TokenAdapter>();
-            services.AddScoped<TokenFacade>();
-            services.AddScoped<TokenTranslator>();
-
-            services.AddSingleton<IUseCaseBus,UseCaseBus>();
-
-            services.AddScoped<IRequest,SignUpUserRequest>();
-            services.AddScoped<IRequest, CreateTokenRequest>();
-            services.AddScoped<IRequest, GetUsersRequest>();
-            services.AddScoped<IRequest, GetUserPersonalDataRequest>();
-
-            services.AddScoped<IResponse,SignUpUserResponse>();            
-            services.AddScoped<IResponse, CreateTokenResponse>();
-            services.AddScoped<IResponse, GetUsersResponse>();
-            services.AddScoped<IResponse, GetUserPersonalDataResponse>();
-
-            services.AddScoped<UseCaseMiddleware>();
-            services.AddSingleton<TransactionMiddleware>();
-            services.AddScoped<EventDispatcherSyncMiddleware>();
-            services.AddScoped<ExceptionMiddleware>();
-
+            LoadApplicacionDependencies(services);
+            LoadDomainDependencies(services);
+            LoadInfraestructureDependencies(services);
+                        
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddMvcCore().AddVersionedApiExplorer(o => o.GroupNameFormat = "'v'VVV");
@@ -189,7 +131,7 @@ namespace BlockbusterApp
             SignUpUserUseCase signUpUserUseCase = serviceProvider.GetService<SignUpUserUseCase>();
             SendUserWelcomeEmailUseCase sendUserWelcomeEmailUseCase = serviceProvider.GetService<SendUserWelcomeEmailUseCase>();
             GetUsersUseCase getUsersUseCase = serviceProvider.GetService<GetUsersUseCase>();
-            GetUserPersonalDataUseCase getUserPersonalDataUseCase = serviceProvider.GetService<GetUserPersonalDataUseCase>();
+            FindUserByIdUseCase getUserPersonalDataUseCase = serviceProvider.GetService<FindUserByIdUseCase>();
             CreateTokenUseCase createTokenUseCase = serviceProvider.GetService<CreateTokenUseCase>();
             useCaseBus.Subscribe(signUpUserUseCase);
             useCaseBus.Subscribe(sendUserWelcomeEmailUseCase);
@@ -235,6 +177,88 @@ namespace BlockbusterApp
             app.UseCors("AllowAllOrigins");
 
             app.UseMvc();
+        }
+
+        private void LoadApplicacionDependencies(IServiceCollection services)
+        {
+            services.AddScoped<ExceptionConverter>();
+
+            services.AddScoped<UserConverter>();
+            services.AddScoped<SignUpUserUseCase>();
+            services.AddScoped<SendUserWelcomeEmailUseCase>();
+            services.AddScoped<SendWelcomeEmailWhenUserSignedUpEventHandler>();
+            services.AddScoped<WelcomeEmailConverter>();
+            services.AddScoped<WelcomeEmailModelFactory>();
+
+            services.AddScoped<TokenConverter>();
+            services.AddScoped<CreateTokenUseCase>();
+
+            services.AddScoped<GetUsersUseCase>();
+            services.AddScoped<GetUsersConverter>();
+
+            services.AddScoped<FindUserByIdUseCase>();
+            services.AddScoped<FindUserByIdConverter>();
+        }
+
+        private void LoadDomainDependencies(IServiceCollection services)
+        {
+            services.AddScoped<IUserFactory, UserFactory>();
+            services.AddScoped<SignUpUserValidator>();
+            services.AddScoped<UserFinder>();
+
+            services.AddScoped<ITokenFactory, TokenFactory>();
+        }
+
+        private void LoadInfraestructureDependencies(IServiceCollection services)
+        {
+            services.AddScoped<IHashing, DefaultHashing>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddSingleton<BlockbusterContext>();
+            services.AddScoped<IEventProvider, EventProvider>();
+            services.AddScoped<IDomainEventPublisher, DomainEventPublisherSync>();
+            services.AddScoped<IEventBus, EventBus>();
+            services.AddScoped<IMailer, SMTPMailer>();
+
+            services.AddScoped<ITokenRepository, TokenRepository>();
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+
+            services.AddScoped<ITokenFactory, TokenFactory>();
+
+
+            services.AddScoped<IJWTEncoder, JWTEncoder>();
+            services.AddScoped<TokenAdapter>();
+            services.AddScoped<TokenFacade>();
+            services.AddScoped<TokenTranslator>();
+
+            services.AddSingleton<IUseCaseBus, UseCaseBus>();
+
+            LoadInfraRequestsDependencies(services);
+            LoadInfraResponsesDependencies(services);
+            LoadInfraMiddlewareDependencies(services);
+        }
+
+        private void LoadInfraRequestsDependencies(IServiceCollection services)
+        {
+            services.AddScoped<IRequest, SignUpUserRequest>();
+            services.AddScoped<IRequest, CreateTokenRequest>();
+            services.AddScoped<IRequest, GetUsersRequest>();
+            services.AddScoped<IRequest, FindUserByIdRequest>();
+        }
+
+        private void LoadInfraResponsesDependencies(IServiceCollection services)
+        {
+            services.AddScoped<IResponse, SignUpUserResponse>();
+            services.AddScoped<IResponse, CreateTokenResponse>();
+            services.AddScoped<IResponse, GetUsersResponse>();
+            services.AddScoped<IResponse, FindUserByIdResponse>();
+        }
+
+        private void LoadInfraMiddlewareDependencies(IServiceCollection services)
+        {
+            services.AddScoped<UseCaseMiddleware>();
+            services.AddSingleton<TransactionMiddleware>();
+            services.AddScoped<EventDispatcherSyncMiddleware>();
+            services.AddScoped<ExceptionMiddleware>();
         }
     }
 }
