@@ -194,7 +194,7 @@ namespace BlockbusterApp
             services.AddScoped<CreateTokenUseCase>();
 
             services.AddScoped<GetUsersUseCase>();
-            services.AddScoped<GetUsersConverter>();
+            services.AddScoped<IFindUserConverter,GetUsersConverter>();
 
             services.AddScoped<FindUserByIdUseCase>();
             services.AddScoped<FindUserByIdConverter>();

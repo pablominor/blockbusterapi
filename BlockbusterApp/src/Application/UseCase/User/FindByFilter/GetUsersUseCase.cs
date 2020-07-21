@@ -1,4 +1,5 @@
-﻿using BlockbusterApp.src.Domain.UserAggregate;
+﻿using BlockbusterApp.src.Application.UseCase.User.FindById;
+using BlockbusterApp.src.Domain.UserAggregate;
 using BlockbusterApp.src.Shared.Application.Bus.UseCase;
 
 namespace BlockbusterApp.src.Application.UseCase.User.FindByFilter
@@ -6,9 +7,9 @@ namespace BlockbusterApp.src.Application.UseCase.User.FindByFilter
     public class GetUsersUseCase : IUseCase
     {
         private IUserRepository userRepository;
-        private GetUsersConverter converter;
+        private IFindUserConverter converter;
 
-        public GetUsersUseCase(IUserRepository userRepository, GetUsersConverter converter)
+        public GetUsersUseCase(IUserRepository userRepository, IFindUserConverter converter)
         {
             this.userRepository = userRepository;
             this.converter = converter;

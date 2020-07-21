@@ -1,12 +1,16 @@
-﻿using BlockbusterApp.src.Shared.Application.Bus.UseCase;
+﻿using BlockbusterApp.src.Application.UseCase.User.FindById;
+using BlockbusterApp.src.Shared.Application.Bus.UseCase;
 using System.Collections.Generic;
 
 namespace BlockbusterApp.src.Application.UseCase.User.FindByFilter
 {
-    public class GetUsersConverter
+    public class GetUsersConverter : IFindUserConverter
     {
+        private FindUserByIdConverter findUserConverter;
 
-        public GetUsersConverter() { }
+        public GetUsersConverter(FindUserByIdConverter findUserConverter) {
+            this.findUserConverter = findUserConverter;
+        }
 
         public IResponse Convert(IEnumerable<Domain.UserAggregate.User> users) 
         {
@@ -14,13 +18,9 @@ namespace BlockbusterApp.src.Application.UseCase.User.FindByFilter
 
             foreach(var user in users)
             {
-                string id = user.userId.GetValue();
-                string email = user.userEmail.GetValue();
-                string firstName = user.userFirstName.GetValue();
-                string lastName = user.userLastName.GetValue();
-                string role = user.userRole.GetValue();
-                UserDTO userDTO = new UserDTO(id, email, firstName, lastName, role);
-                usersConverted.Add(userDTO);
+                IResponse responseUser = this.findUserConverter.Convert(user);
+                FindUserByIdResponse res = responseUser as FindUserByIdResponse;
+                usersConverted.Add(res.User);
             }
 
             GetUsersResponse response = new GetUsersResponse
