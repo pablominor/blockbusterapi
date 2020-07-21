@@ -42,7 +42,8 @@ namespace BlockbusterApp.src.Application.UseCase.User.SignUP
                 request.RepeatPassword, 
                 request.FirstName, 
                 request.LastName, 
-                request.Role);
+                request.Role,
+                request.CountryCode);
 
             _eventProvider.RecordEvents(user.ReleaseEvents());
 

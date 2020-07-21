@@ -15,6 +15,7 @@ namespace BlockbusterApp.src.Domain.UserAggregate
         public UserFirstName userFirstName{ get; }
         public UserLastName userLastName{ get; }
         public UserRole userRole{ get; }
+        public UserCountryCode userCountryCode { get; }
         public UserCreatedAt userCreatedAt{ get; }
         public UserUpdatedAt userUpdatedAt{ get; }
 
@@ -25,6 +26,7 @@ namespace BlockbusterApp.src.Domain.UserAggregate
             UserFirstName userFirstName,
             UserLastName userLastName,
             UserRole userRole,
+            UserCountryCode userCountryCode,
             UserCreatedAt userCreatedAt,
             UserUpdatedAt userUpdatedAt)
         {
@@ -34,6 +36,7 @@ namespace BlockbusterApp.src.Domain.UserAggregate
             this.userFirstName = userFirstName;
             this.userLastName = userLastName;
             this.userRole = userRole;
+            this.userCountryCode = userCountryCode;
             this.userCreatedAt = userCreatedAt;
             this.userUpdatedAt = userUpdatedAt;
         }
@@ -44,13 +47,14 @@ namespace BlockbusterApp.src.Domain.UserAggregate
             UserHashedPassword userHashedPassword,
             UserFirstName userFirstName,
             UserLastName userLastName,
-            UserRole userRole
+            UserRole userRole,
+            UserCountryCode userCountryCode
             )          
         {
             UserCreatedAt userCreatedAt = new UserCreatedAt(DateTime.Now);
             UserUpdatedAt userUpdatedAt = new UserUpdatedAt(DateTime.Now);
             User user = new User(userId, userEmail, userHashedPassword, 
-                userFirstName, userLastName, userRole, userCreatedAt, userUpdatedAt);
+                userFirstName, userLastName, userRole, userCountryCode, userCreatedAt, userUpdatedAt);
 
             user.Record(new UserSignedUpEvent(user.userId.GetValue(),
                 new Dictionary<string, string>()
@@ -58,7 +62,8 @@ namespace BlockbusterApp.src.Domain.UserAggregate
                     ["email"] = user.userEmail.GetValue(),
                     ["firstname"] = user.userFirstName.GetValue(),
                     ["lastname"] = user.userLastName.GetValue(),
-                    ["role"] = user.userRole.GetValue()
+                    ["role"] = user.userRole.GetValue(),
+                    ["country_code"] = user.userCountryCode.GetValue()
                 }
             ));
 

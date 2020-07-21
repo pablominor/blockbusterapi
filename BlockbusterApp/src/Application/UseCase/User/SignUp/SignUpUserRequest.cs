@@ -16,7 +16,8 @@ namespace BlockbusterApp.src.Application.UseCase.User.SignUP
             string RepeatPassword,
             string FirstName,
             string LastName,
-            string Role
+            string Role,
+            string CountryCode
             )
         {
             this.Id = Id;
@@ -26,6 +27,7 @@ namespace BlockbusterApp.src.Application.UseCase.User.SignUP
             this.FirstName = FirstName;
             this.LastName = LastName;
             this.Role = Role;
+            this.CountryCode = CountryCode;
         }
 
         public string Id { get; }
@@ -35,6 +37,7 @@ namespace BlockbusterApp.src.Application.UseCase.User.SignUP
         public string FirstName { get; }
         public string LastName { get; }
         public string Role { get; }
+        public string CountryCode { get; }
 
     }
 }

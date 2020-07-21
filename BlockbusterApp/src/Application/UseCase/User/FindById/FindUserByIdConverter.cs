@@ -14,7 +14,8 @@ namespace BlockbusterApp.src.Application.UseCase.User.FindById
             string firstName = user.userFirstName.GetValue();
             string lastName = user.userLastName.GetValue();
             string role = user.userRole.GetValue();
-            UserDTO userDTO = new UserDTO(id, email, firstName, lastName, role);
+            string countryCode = user.userCountryCode.GetValue();
+            UserDTO userDTO = new UserDTO(id, email, firstName, lastName, role, countryCode);
 
             FindUserByIdResponse response = new FindUserByIdResponse
             {

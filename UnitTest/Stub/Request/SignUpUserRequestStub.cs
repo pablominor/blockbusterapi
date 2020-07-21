@@ -16,9 +16,10 @@ namespace UnitTest.Stub.Request
             string RepeatPassword,
             string FirstName,
             string LastName,
-            string Role)
+            string Role,
+            string CountryCode)
         {
-            return new SignUpUserRequest(Id,Email,Password,RepeatPassword,FirstName,LastName,Role);
+            return new SignUpUserRequest(Id,Email,Password,RepeatPassword,FirstName,LastName,Role,CountryCode);
         }
 
         public static SignUpUserRequest ByDefault()
@@ -30,7 +31,8 @@ namespace UnitTest.Stub.Request
                 UserPasswordStub.ByDefault().GetValue(),
                 UserFirstNameStub.ByDefault().GetValue(),
                 UserLastNameStub.ByDefault().GetValue(),
-                UserRoleStub.CreateLikeUser().GetValue()
+                UserRoleStub.CreateLikeUser().GetValue(),
+                UserCountryCodeStub.ByDefault().GetValue()
             );
         }
 

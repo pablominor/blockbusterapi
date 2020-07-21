@@ -28,7 +28,8 @@ namespace UnitTest.Infraestructure.Service.User
                 UserPasswordStub.ByDefault().GetValue(),
                 UserFirstNameStub.ByDefault().GetValue(),
                 UserLastNameStub.ByDefault().GetValue(),
-                UserRoleStub.CreateLikeUser().GetValue());
+                UserRoleStub.CreateLikeUser().GetValue(),
+                UserCountryCodeStub.ByDefault().GetValue());
 
 
             Assert.IsTrue(user.userId.Equals(UserIdStub.ByDefault()));
@@ -37,6 +38,7 @@ namespace UnitTest.Infraestructure.Service.User
             Assert.IsTrue(user.userFirstName.Equals(UserFirstNameStub.ByDefault()));
             Assert.IsTrue(user.userLastName.Equals(UserLastNameStub.ByDefault()));
             Assert.IsTrue(user.userRole.Equals(UserRoleStub.CreateLikeUser()));
+            Assert.IsTrue(user.userCountryCode.Equals(UserCountryCodeStub.ByDefault()));
         }
     }
 }

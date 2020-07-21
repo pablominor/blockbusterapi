@@ -32,8 +32,8 @@ namespace UnitTest.Application.UseCase.User.SignUp
                 request.RepeatPassword,
                 request.FirstName,
                 request.LastName,
-                request.Role
-                ))
+                request.Role,
+                request.CountryCode))
                 .Returns(user);
             Mock<IEventProvider> eventProvider = new Mock<IEventProvider>();
             eventProvider.Setup(o => o.RecordEvents(It.IsAny<List<DomainEvent>>()));

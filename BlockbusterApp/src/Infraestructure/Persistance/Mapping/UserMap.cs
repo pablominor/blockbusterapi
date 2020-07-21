@@ -63,6 +63,15 @@ namespace BlockbusterApp.src.Infraestructure.Persistance.Mapping
                 )
                 .IsRequired();
             builder
+                .Property(c => c.userCountryCode)
+                .HasColumnName("country_code")
+                .HasColumnType("nvarchar(2)")
+                .HasConversion(
+                    v => v.GetValue(),
+                    v => new UserCountryCode(v)
+                )
+                .IsRequired();
+            builder
                 .Property(c => c.userCreatedAt)
                 .HasColumnName("created_at")
                 .HasColumnType("datetime2")

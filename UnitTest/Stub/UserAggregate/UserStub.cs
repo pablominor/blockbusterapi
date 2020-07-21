@@ -1,6 +1,7 @@
 ﻿using BlockbusterApp.src.Application.UseCase.User.SignUP;
 using BlockbusterApp.src.Domain.UserAggregate;
 using Microsoft.AspNetCore.Http;
+using NUnit.Framework.Constraints;
 using System;
 using System.Collections.Generic;
 using System.Net.Cache;
@@ -20,7 +21,8 @@ namespace UnitTest.Stub.UserAggregate
                 UserPasswordStub.Crate(request.Password),
                 UserFirstNameStub.Crate(request.FirstName),
                 UserLastNameStub.Crate(request.LastName),
-                UserRoleStub.Create(request.Role)
+                UserRoleStub.Create(request.Role),
+                UserCountryCodeStub.Create(request.CountryCode)
             );
         }
 
@@ -32,7 +34,8 @@ namespace UnitTest.Stub.UserAggregate
                 UserPasswordStub.ByDefault(),
                 UserFirstNameStub.ByDefault(),
                 UserLastNameStub.ByDefault(),
-                UserRoleStub.Create(role)
+                UserRoleStub.Create(role),
+                UserCountryCodeStub.ByDefault()
             );
         }
 
@@ -44,7 +47,8 @@ namespace UnitTest.Stub.UserAggregate
                 UserPasswordStub.ByDefault(),
                 UserFirstNameStub.ByDefault(),
                 UserLastNameStub.ByDefault(),
-                UserRoleStub.CreateLikeUser()
+                UserRoleStub.CreateLikeUser(),
+                UserCountryCodeStub.ByDefault()
             );
         }
        
@@ -55,7 +59,8 @@ namespace UnitTest.Stub.UserAggregate
             UserHashedPassword HashedPassword,
             UserFirstName FirstName,
             UserLastName LastName,
-            UserRole Role)
+            UserRole Role,
+            UserCountryCode CountryCode)
         {
             return User.SignUp(
                 Id, 
@@ -63,7 +68,8 @@ namespace UnitTest.Stub.UserAggregate
                 HashedPassword, 
                 FirstName, 
                 LastName, 
-                Role);
+                Role,
+                CountryCode);
         }
     }
 }

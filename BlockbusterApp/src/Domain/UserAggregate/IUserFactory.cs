@@ -14,7 +14,8 @@ namespace BlockbusterApp.src.Domain.UserAggregate
             string repeatPassword,
             string firstName,
             string lastName,
-            string role);
+            string role,
+            string countryCode);
 
     }
 }

@@ -24,7 +24,8 @@ namespace BlockbusterApp.src.Infraestructure.Service.User
             string repeatPassword, 
             string firstName, 
             string lastName, 
-            string role)
+            string role,
+            string countryCode)
         {
             UserId userId = new UserId(id);
             UserEmail userEmail = new UserEmail(email);
@@ -35,6 +36,7 @@ namespace BlockbusterApp.src.Infraestructure.Service.User
             UserFirstName userFirstName = new UserFirstName(firstName);
             UserLastName userLastName = new UserLastName(lastName);
             UserRole userRole = new UserRole(role);
+            UserCountryCode userCountryCode = new UserCountryCode(countryCode);
 
             UserHashedPassword userHashedPassword = _hashing.Hash(password);
 
@@ -44,7 +46,8 @@ namespace BlockbusterApp.src.Infraestructure.Service.User
                 userHashedPassword,
                 userFirstName,
                 userLastName,
-                userRole);
+                userRole,
+                userCountryCode);
         }
     }
 }

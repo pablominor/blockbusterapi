@@ -25,7 +25,8 @@ namespace BlockbusterApp.src.Domain.UserAggregate.Event
                 { "email","string"},
                 { "firstname","string"},
                 { "lastname","string"},
-                { "role","string"}
+                { "role","string"},
+                { "country_code","string"}
             };
 
             return rules;
