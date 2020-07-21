@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BlockbusterApp.src.UI.Rest.Controller
+namespace BlockbusterApp.src.UI.Rest.Controller.User
 {
     [Authorize]
     [ApiVersion("1.0")]

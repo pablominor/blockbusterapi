@@ -40,14 +40,14 @@ namespace UnitTest.Application.UseCase.User.SignUp
             Mock<IUserRepository> userRepository = new Mock<IUserRepository>();
             userRepository.Setup(o => o.Add(user));
             Mock<SignUpUserValidator> signUpUserValidator = new Mock<SignUpUserValidator>(userRepository.Object);
-            Mock<UserConverter> userConverter = new Mock<UserConverter>();
-            userConverter.Setup(o => o.Convert());
+            Mock<EmptyResponseConverter> emptyResponseConverter = new Mock<EmptyResponseConverter>();
+            emptyResponseConverter.Setup(o => o.Convert());
 
             SignUpUserUseCase useCase = new SignUpUserUseCase(
                 userFactory.Object,
                 signUpUserValidator.Object,
                 userRepository.Object,
-                userConverter.Object,
+                emptyResponseConverter.Object,
                 eventProvider.Object
                 );
 
@@ -56,7 +56,7 @@ namespace UnitTest.Application.UseCase.User.SignUp
             userFactory.VerifyAll();
             signUpUserValidator.VerifyAll();
             userRepository.VerifyAll();
-            userConverter.VerifyAll();
+            emptyResponseConverter.VerifyAll();
             eventProvider.VerifyAll();
         }
     }

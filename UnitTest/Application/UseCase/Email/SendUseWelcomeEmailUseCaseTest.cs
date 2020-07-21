@@ -1,5 +1,6 @@
 ﻿using BlockbusterApp.src.Application.UseCase.Email.SendUserWelcome;
 using BlockbusterApp.src.Infraestructure.Service.Mailer;
+using BlockbusterApp.src.Shared.Application.Bus.UseCase;
 using BlockbusterApp.src.Shared.Domain;
 using Microsoft.Extensions.Configuration;
 using Moq;
@@ -22,18 +23,18 @@ namespace UnitTest.Application.UseCase.Email
             welcomeEmailModelFactory.Setup(o => o.Create(request)).Returns(emailModel);
             Mock<IMailer> mailer = new Mock<IMailer>();
             mailer.Setup(o => o.Send(It.IsAny<EmailModel>()));
-            Mock<WelcomeEmailConverter> welcomeEmailConverter = new Mock<WelcomeEmailConverter>();
-            welcomeEmailConverter.Setup(o => o.Convert());
+            Mock<EmptyResponseConverter> emptyResponseConverter = new Mock<EmptyResponseConverter>();
+            emptyResponseConverter.Setup(o => o.Convert());
             SendUserWelcomeEmailUseCase useCase = new SendUserWelcomeEmailUseCase(
                 welcomeEmailModelFactory.Object,
                 mailer.Object,
-                welcomeEmailConverter.Object);
+                emptyResponseConverter.Object);
 
             useCase.Execute(request);
 
             welcomeEmailModelFactory.VerifyAll();
             mailer.VerifyAll();
-            welcomeEmailConverter.VerifyAll();
+            emptyResponseConverter.VerifyAll();
         }
     }
 }

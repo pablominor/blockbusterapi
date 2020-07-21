@@ -14,20 +14,20 @@ namespace BlockbusterApp.src.Application.UseCase.User.SignUP
         private IUserFactory _userFactory;
         private SignUpUserValidator _userValidator;
         private IUserRepository _userRepository;
-        private UserConverter _userConverter;
+        private EmptyResponseConverter emptyResponseConverter;
         private IEventProvider _eventProvider;
 
         public SignUpUserUseCase(
             IUserFactory userFactory, 
             SignUpUserValidator userValidator, 
-            IUserRepository userRepository, 
-            UserConverter userConverter,
+            IUserRepository userRepository,
+            EmptyResponseConverter emptyResponseConverter,
             IEventProvider eventProvider)
         {
             _userFactory = userFactory;
             _userValidator = userValidator;
             _userRepository = userRepository;
-            _userConverter = userConverter;
+            this.emptyResponseConverter = emptyResponseConverter;
             _eventProvider = eventProvider;
         }
 
@@ -50,7 +50,7 @@ namespace BlockbusterApp.src.Application.UseCase.User.SignUP
 
             _userRepository.Add(user);
 
-            return _userConverter.Convert();
+            return this.emptyResponseConverter.Convert();
 
         }
 

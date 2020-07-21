@@ -8,13 +8,13 @@ namespace BlockbusterApp.src.Application.UseCase.Email.SendUserWelcome
     {
         private WelcomeEmailModelFactory welcomeEmailModelFactory;
         private IMailer mailer;
-        private WelcomeEmailConverter welcomeEmailConverter;
+        private EmptyResponseConverter emptyResponseConverter;
 
-        public SendUserWelcomeEmailUseCase(WelcomeEmailModelFactory welcomeEmailModelFactory, IMailer mailer, WelcomeEmailConverter welcomeEmailConverter) 
+        public SendUserWelcomeEmailUseCase(WelcomeEmailModelFactory welcomeEmailModelFactory, IMailer mailer, EmptyResponseConverter emptyResponseConverter) 
         {
             this.welcomeEmailModelFactory = welcomeEmailModelFactory;
             this.mailer = mailer;
-            this.welcomeEmailConverter = welcomeEmailConverter;
+            this.emptyResponseConverter = emptyResponseConverter;
         }
 
         public IResponse Execute(IRequest req)
@@ -24,7 +24,7 @@ namespace BlockbusterApp.src.Application.UseCase.Email.SendUserWelcome
 
             this.mailer.Send(emailModel);
 
-            return this.welcomeEmailConverter.Convert();
+            return this.emptyResponseConverter.Convert();
 
         }
     }

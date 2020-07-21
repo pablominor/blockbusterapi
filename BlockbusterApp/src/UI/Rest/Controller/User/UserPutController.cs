@@ -3,7 +3,7 @@ using BlockbusterApp.src.Shared.Infraestructure.Bus.UseCase;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BlockbusterApp.src.UI.Rest.Controller
+namespace BlockbusterApp.src.UI.Rest.Controller.User
 {
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/users")]

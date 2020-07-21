@@ -181,23 +181,10 @@ namespace BlockbusterApp
 
         private void LoadApplicacionDependencies(IServiceCollection services)
         {
-            services.AddScoped<ExceptionConverter>();
-
-            services.AddScoped<UserConverter>();
-            services.AddScoped<SignUpUserUseCase>();
-            services.AddScoped<SendUserWelcomeEmailUseCase>();
+            LoadApplicationUseCases(services);
+            LoadApplicationConverters(services);          
             services.AddScoped<SendWelcomeEmailWhenUserSignedUpEventHandler>();
-            services.AddScoped<WelcomeEmailConverter>();
-            services.AddScoped<WelcomeEmailModelFactory>();
-
-            services.AddScoped<TokenConverter>();
-            services.AddScoped<CreateTokenUseCase>();
-
-            services.AddScoped<GetUsersUseCase>();
-            services.AddScoped<IFindUserConverter,GetUsersConverter>();
-
-            services.AddScoped<FindUserByIdUseCase>();
-            services.AddScoped<FindUserByIdConverter>();
+            services.AddScoped<WelcomeEmailModelFactory>();            
         }
 
         private void LoadDomainDependencies(IServiceCollection services)
@@ -247,10 +234,11 @@ namespace BlockbusterApp
 
         private void LoadInfraResponsesDependencies(IServiceCollection services)
         {
-            services.AddScoped<IResponse, SignUpUserResponse>();
+            //services.AddScoped<IResponse, SignUpUserResponse>();
             services.AddScoped<IResponse, CreateTokenResponse>();
             services.AddScoped<IResponse, GetUsersResponse>();
             services.AddScoped<IResponse, FindUserByIdResponse>();
+            services.AddScoped<IResponse, EmptyResponse>();
         }
 
         private void LoadInfraMiddlewareDependencies(IServiceCollection services)
@@ -259,6 +247,24 @@ namespace BlockbusterApp
             services.AddSingleton<TransactionMiddleware>();
             services.AddScoped<EventDispatcherSyncMiddleware>();
             services.AddScoped<ExceptionMiddleware>();
+        }
+
+        private void LoadApplicationUseCases(IServiceCollection services)
+        {
+            services.AddScoped<SignUpUserUseCase>();
+            services.AddScoped<SendUserWelcomeEmailUseCase>();
+            services.AddScoped<CreateTokenUseCase>();
+            services.AddScoped<GetUsersUseCase>();
+            services.AddScoped<FindUserByIdUseCase>();
+        }
+
+        private void LoadApplicationConverters(IServiceCollection services)
+        {
+            services.AddScoped<ExceptionConverter>();
+            services.AddScoped<EmptyResponseConverter>();
+            services.AddScoped<TokenConverter>();
+            services.AddScoped<IFindUserConverter, GetUsersConverter>();
+            services.AddScoped<FindUserByIdConverter>();
         }
     }
 }
