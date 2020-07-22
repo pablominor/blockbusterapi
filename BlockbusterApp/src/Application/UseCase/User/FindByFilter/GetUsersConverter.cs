@@ -6,9 +6,9 @@ namespace BlockbusterApp.src.Application.UseCase.User.FindByFilter
 {
     public class GetUsersConverter : IFindUserConverter
     {
-        private FindUserByIdConverter findUserConverter;
+        private FindUserConverter findUserConverter;
 
-        public GetUsersConverter(FindUserByIdConverter findUserConverter) {
+        public GetUsersConverter(FindUserConverter findUserConverter) {
             this.findUserConverter = findUserConverter;
         }
 
@@ -19,7 +19,7 @@ namespace BlockbusterApp.src.Application.UseCase.User.FindByFilter
             foreach(var user in users)
             {
                 IResponse responseUser = this.findUserConverter.Convert(user);
-                FindUserByIdResponse res = responseUser as FindUserByIdResponse;
+                FindUserResponse res = responseUser as FindUserResponse;
                 usersConverted.Add(res.User);
             }
 

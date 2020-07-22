@@ -3,9 +3,9 @@ using BlockbusterApp.src.Shared.Application.Bus.UseCase;
 
 namespace BlockbusterApp.src.Application.UseCase.User.FindById
 {
-    public class FindUserByIdConverter
+    public class FindUserConverter
     {
-        public FindUserByIdConverter() { }
+        public FindUserConverter() { }
 
         public IResponse Convert(Domain.UserAggregate.User user)
         {                        
@@ -17,7 +17,7 @@ namespace BlockbusterApp.src.Application.UseCase.User.FindById
             string countryCode = user.userCountryCode.GetValue();
             UserDTO userDTO = new UserDTO(id, email, firstName, lastName, role, countryCode);
 
-            FindUserByIdResponse response = new FindUserByIdResponse
+            FindUserResponse response = new FindUserResponse
             {
                 User = userDTO
             };

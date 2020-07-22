@@ -8,8 +8,9 @@ namespace BlockbusterApp.src.Domain.UserAggregate
     public interface IUserRepository
     {
         void Add(User user);
-        User FindUserByEmail(UserEmail userEmail);
+        User FindUserByEmail(UserEmail email);
         List<User> GetUsers(Dictionary<string, int> page);
-        User FindUserById(UserId userId);
+        User FindUserById(UserId id);
+        User FindUserByEmailAndPassword(UserEmail email,UserHashedPassword hashedPassword);
     }
 }

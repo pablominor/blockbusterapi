@@ -28,5 +28,17 @@ namespace BlockbusterApp.src.Domain.UserAggregate.Service
             return user;
         }
 
+        public User ByEmailAndPassword(UserEmail email,UserHashedPassword hashedPassword)
+        {
+            var user = this.userRepository.FindUserByEmailAndPassword(email,hashedPassword);
+
+            if (user is null)
+            {
+                throw UserNotFoundException.FromEmailAndPassword();
+            }
+
+            return user;
+        }
+
     }
 }

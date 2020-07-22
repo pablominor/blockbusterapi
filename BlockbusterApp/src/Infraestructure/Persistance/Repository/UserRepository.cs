@@ -32,7 +32,7 @@ namespace BlockbusterApp.src.Infraestructure.Persistance.Repository
             using(var scope = this.scopeFactory.CreateScope())
             {
                 var dbContext = scope.ServiceProvider.GetRequiredService<BlockbusterContext>();
-                dbContext.User.Add(user);
+                dbContext.User.Add(user);                
             }
         }
 
@@ -51,6 +51,15 @@ namespace BlockbusterApp.src.Infraestructure.Persistance.Repository
             {
                 var dbContext = scope.ServiceProvider.GetRequiredService<BlockbusterContext>();                
                 return dbContext.User.FirstOrDefault(c => c.userId.GetValue() == userId.GetValue());
+            }
+        }
+
+        public User FindUserByEmailAndPassword(UserEmail email, UserHashedPassword hashedPassword)
+        {
+            using (var scope = this.scopeFactory.CreateScope())
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<BlockbusterContext>();
+                return dbContext.User.FirstOrDefault(c => c.userEmail.GetValue() == email.GetValue() && c.userHashedPassword.GetValue() == hashedPassword.GetValue());
             }
         }
     }

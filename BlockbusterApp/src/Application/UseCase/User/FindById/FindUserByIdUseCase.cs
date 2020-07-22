@@ -6,10 +6,10 @@ namespace BlockbusterApp.src.Application.UseCase.User.FindById
 {
     public class FindUserByIdUseCase : IUseCase
     {
-        private FindUserByIdConverter converter;
+        private FindUserConverter converter;
         private UserFinder userFinder;
 
-        public FindUserByIdUseCase(FindUserByIdConverter converter, UserFinder userFinder)
+        public FindUserByIdUseCase(FindUserConverter converter, UserFinder userFinder)
         {
             this.converter = converter;
             this.userFinder = userFinder;

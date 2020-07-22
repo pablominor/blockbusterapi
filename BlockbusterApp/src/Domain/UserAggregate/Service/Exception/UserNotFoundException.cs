@@ -14,5 +14,10 @@ namespace BlockbusterApp.src.Domain.UserAggregate.Service.Exception
         {
             return new UserNotFoundException(String.Format("User not found with the id {0}.", userId.GetValue()));
         }
+
+        public static UserNotFoundException FromEmailAndPassword()
+        {
+            return new UserNotFoundException("User email or password is invalid");
+        }
     }
 }

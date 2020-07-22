@@ -133,11 +133,14 @@ namespace BlockbusterApp
             GetUsersUseCase getUsersUseCase = serviceProvider.GetService<GetUsersUseCase>();
             FindUserByIdUseCase getUserPersonalDataUseCase = serviceProvider.GetService<FindUserByIdUseCase>();
             CreateTokenUseCase createTokenUseCase = serviceProvider.GetService<CreateTokenUseCase>();
+            FindUserByEmailAndPasswordUseCase findUserByEmailAndPasswordUseCase = serviceProvider.GetService<FindUserByEmailAndPasswordUseCase>();
+
             useCaseBus.Subscribe(signUpUserUseCase);
             useCaseBus.Subscribe(sendUserWelcomeEmailUseCase);
             useCaseBus.Subscribe(getUsersUseCase);
             useCaseBus.Subscribe(getUserPersonalDataUseCase);
             useCaseBus.Subscribe(createTokenUseCase);
+            useCaseBus.Subscribe(findUserByEmailAndPasswordUseCase);
 
             List<IMiddlewareHandler> middlewareHandlers = new List<IMiddlewareHandler>
             {
@@ -237,7 +240,7 @@ namespace BlockbusterApp
             //services.AddScoped<IResponse, SignUpUserResponse>();
             services.AddScoped<IResponse, CreateTokenResponse>();
             services.AddScoped<IResponse, GetUsersResponse>();
-            services.AddScoped<IResponse, FindUserByIdResponse>();
+            services.AddScoped<IResponse, FindUserResponse>();
             services.AddScoped<IResponse, EmptyResponse>();
         }
 
@@ -256,6 +259,7 @@ namespace BlockbusterApp
             services.AddScoped<CreateTokenUseCase>();
             services.AddScoped<GetUsersUseCase>();
             services.AddScoped<FindUserByIdUseCase>();
+            services.AddScoped<FindUserByEmailAndPasswordUseCase>();
         }
 
         private void LoadApplicationConverters(IServiceCollection services)
@@ -264,7 +268,7 @@ namespace BlockbusterApp
             services.AddScoped<EmptyResponseConverter>();
             services.AddScoped<TokenConverter>();
             services.AddScoped<IFindUserConverter, GetUsersConverter>();
-            services.AddScoped<FindUserByIdConverter>();
+            services.AddScoped<FindUserConverter>();
         }
     }
 }
