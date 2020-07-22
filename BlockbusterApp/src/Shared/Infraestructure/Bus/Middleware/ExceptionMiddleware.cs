@@ -10,10 +10,10 @@ namespace BlockbusterApp.src.Shared.Infraestructure.Bus.Middleware
 {
     public class ExceptionMiddleware : MiddlewareHandler
     {
-        private ExceptionConverter _converter;
+        private ExceptionConverter converter;
         public ExceptionMiddleware(ExceptionConverter converter)
         {
-            _converter = converter;
+            this.converter = converter;
         }
 
         public override IResponse Handle(IRequest request)
@@ -25,11 +25,11 @@ namespace BlockbusterApp.src.Shared.Infraestructure.Bus.Middleware
             }
             catch (ValidationException validation)
             {
-                return _converter.Convert("400", validation.Message);
+                return this.converter.Convert("400", validation.Message);
             }
             catch(System.Exception ex)
             {
-                return _converter.Convert("500", ex.Message);
+                return this.converter.Convert("500", ex.Message);
             }
         }
     }

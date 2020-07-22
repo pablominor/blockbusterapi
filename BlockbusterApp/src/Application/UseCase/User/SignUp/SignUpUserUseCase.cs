@@ -11,11 +11,11 @@ namespace BlockbusterApp.src.Application.UseCase.User.SignUP
 {
     public class SignUpUserUseCase : IUseCase
     {
-        private IUserFactory _userFactory;
-        private SignUpUserValidator _userValidator;
-        private IUserRepository _userRepository;
+        private IUserFactory userFactory;
+        private SignUpUserValidator userValidator;
+        private IUserRepository userRepository;
         private EmptyResponseConverter emptyResponseConverter;
-        private IEventProvider _eventProvider;
+        private IEventProvider eventProvider;
 
         public SignUpUserUseCase(
             IUserFactory userFactory, 
@@ -24,18 +24,18 @@ namespace BlockbusterApp.src.Application.UseCase.User.SignUP
             EmptyResponseConverter emptyResponseConverter,
             IEventProvider eventProvider)
         {
-            _userFactory = userFactory;
-            _userValidator = userValidator;
-            _userRepository = userRepository;
+            this.userFactory = userFactory;
+            this.userValidator = userValidator;
+            this.userRepository = userRepository;
             this.emptyResponseConverter = emptyResponseConverter;
-            _eventProvider = eventProvider;
+            this.eventProvider = eventProvider;
         }
 
         public IResponse Execute(IRequest req)
         {
             SignUpUserRequest request = req as SignUpUserRequest;
 
-            Domain.UserAggregate.User user = _userFactory.Create(
+            Domain.UserAggregate.User user = this.userFactory.Create(
                 request.Id, 
                 request.Email, 
                 request.Password, 
@@ -45,11 +45,11 @@ namespace BlockbusterApp.src.Application.UseCase.User.SignUP
                 request.Role,
                 request.CountryCode);
 
-            _eventProvider.RecordEvents(user.ReleaseEvents());
+            this.eventProvider.RecordEvents(user.ReleaseEvents());
 
-            _userValidator.Validate(user.userEmail);
+            this.userValidator.Validate(user.userEmail);
 
-            _userRepository.Add(user);
+            this.userRepository.Add(user);
 
             return this.emptyResponseConverter.Convert();
 

@@ -10,17 +10,17 @@ namespace BlockbusterApp.src.Infraestructure.Persistance.Repository
     public class UserRepository : Repository<User>, IUserRepository
     {
 
-        private readonly IServiceScopeFactory _scopeFactory;
+        private readonly IServiceScopeFactory scopeFactory;
 
         public UserRepository(BlockbusterContext context, IServiceScopeFactory scopeFactory) : base(context)
         {
-            _scopeFactory = scopeFactory;
+            this.scopeFactory = scopeFactory;
         }
 
 
         public User FindUserByEmail(UserEmail userEmail)
         {
-            using(var scope = _scopeFactory.CreateScope())
+            using(var scope = this.scopeFactory.CreateScope())
             {
                 var dbContext = scope.ServiceProvider.GetRequiredService<BlockbusterContext>();
                 return dbContext.User.FirstOrDefault(c => c.userEmail.GetValue() == userEmail.GetValue());
@@ -29,7 +29,7 @@ namespace BlockbusterApp.src.Infraestructure.Persistance.Repository
 
         public void Add(User user)
         {
-            using(var scope = _scopeFactory.CreateScope())
+            using(var scope = this.scopeFactory.CreateScope())
             {
                 var dbContext = scope.ServiceProvider.GetRequiredService<BlockbusterContext>();
                 dbContext.User.Add(user);
@@ -38,7 +38,7 @@ namespace BlockbusterApp.src.Infraestructure.Persistance.Repository
 
         public List<User> GetUsers(Dictionary<string, int> page)
         {
-            using(var scope = _scopeFactory.CreateScope())
+            using(var scope = this.scopeFactory.CreateScope())
             {
                 var dbContext = scope.ServiceProvider.GetRequiredService<BlockbusterContext>();
                 return dbContext.User.Skip((page["number"] - 1) * page["size"]).Take(page["size"]).ToList();
@@ -47,7 +47,7 @@ namespace BlockbusterApp.src.Infraestructure.Persistance.Repository
 
         public User FindUserById(UserId userId)
         {
-            using (var scope = _scopeFactory.CreateScope())
+            using (var scope = this.scopeFactory.CreateScope())
             {
                 var dbContext = scope.ServiceProvider.GetRequiredService<BlockbusterContext>();                
                 return dbContext.User.FirstOrDefault(c => c.userId.GetValue() == userId.GetValue());

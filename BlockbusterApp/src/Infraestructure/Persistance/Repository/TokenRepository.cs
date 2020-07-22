@@ -11,17 +11,17 @@ namespace BlockbusterApp.src.Infraestructure.Persistance.Repository
 {
     public class TokenRepository : Repository<Token>, ITokenRepository
     {
-        private readonly IServiceScopeFactory _scopeFactory;
+        private readonly IServiceScopeFactory scopeFactory;
 
         public TokenRepository(BlockbusterContext context, IServiceScopeFactory scopeFactory) : base(context)
         {
-            _scopeFactory = scopeFactory;
+            this.scopeFactory = scopeFactory;
         }
 
 
         public void Add(Token token)
         {
-            using (var scope = _scopeFactory.CreateScope())
+            using (var scope = this.scopeFactory.CreateScope())
             {
                 var dbContext = scope.ServiceProvider.GetRequiredService<BlockbusterContext>();
                 dbContext.Token.Add(token);

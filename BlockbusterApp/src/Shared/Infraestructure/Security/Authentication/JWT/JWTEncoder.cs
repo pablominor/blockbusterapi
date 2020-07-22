@@ -12,16 +12,16 @@ namespace BlockbusterApp.src.Shared.Infraestructure.Security.Authentication.JWT
 {
     public class JWTEncoder : IJWTEncoder
     {
-        private IConfiguration _configuration;
+        private IConfiguration configuration;
 
         public JWTEncoder(IConfiguration configuration)
         {
-            _configuration = configuration;
+            this.configuration = configuration;
         }
 
         public string Encode(Dictionary<string, string> payload)
         {
-            var secret = _configuration.GetValue<string>("AppSettings:Secret");
+            var secret = this.configuration.GetValue<string>("AppSettings:Secret");
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(secret);

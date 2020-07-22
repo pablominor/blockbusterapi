@@ -9,22 +9,22 @@ namespace BlockbusterApp.src.Infraestructure.Service.Mailer
 {
     public class SMTPMailer : IMailer
     {
-        private string _host;
-        private string _from;
-        private string _password;
-        private string _alias;
-        private string _port;
+        private string host;
+        private string from;
+        private string password;
+        private string alias;
+        private string port;
 
         public SMTPMailer(IConfiguration iConfiguration)
         {
             var smtpSection = iConfiguration.GetSection("SMTP");
             if (smtpSection != null)
             {
-                _host = smtpSection.GetSection("Host").Value;
-                _from = smtpSection.GetSection("From").Value;
-                _password = smtpSection.GetSection("Password").Value;
-                _alias = smtpSection.GetSection("Alias").Value;
-                _port = smtpSection.GetSection("Port").Value;
+                this.host = smtpSection.GetSection("Host").Value;
+                this.from = smtpSection.GetSection("From").Value;
+                this.password = smtpSection.GetSection("Password").Value;
+                this.alias = smtpSection.GetSection("Alias").Value;
+                this.port = smtpSection.GetSection("Port").Value;
             }
         }
 
@@ -32,7 +32,7 @@ namespace BlockbusterApp.src.Infraestructure.Service.Mailer
         {
             SmtpClient smtpClient = ConfigSmtpClient();
             MailMessage mailMessage = new MailMessage();
-            mailMessage.From = new MailAddress(_from, _alias);
+            mailMessage.From = new MailAddress(this.from, this.alias);
             mailMessage.BodyEncoding = Encoding.UTF8;
             mailMessage.To.Add(emailModel.GetTo());            
             mailMessage.Body = emailModel.GetBody();
@@ -43,9 +43,9 @@ namespace BlockbusterApp.src.Infraestructure.Service.Mailer
 
         private SmtpClient ConfigSmtpClient()
         {
-            SmtpClient smtpClient = new SmtpClient(_host);
-            smtpClient.Credentials = new NetworkCredential(_from, _password);
-            smtpClient.Port = Int32.Parse(_port);            
+            SmtpClient smtpClient = new SmtpClient(this.host);
+            smtpClient.Credentials = new NetworkCredential(this.from, this.password);
+            smtpClient.Port = Int32.Parse(this.port);            
             smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;            
             smtpClient.EnableSsl = true;
             return smtpClient;

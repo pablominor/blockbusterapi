@@ -8,18 +8,18 @@ namespace BlockbusterApp.src.Application.Event.User
 {
     public class SendWelcomeEmailWhenUserSignedUpEventHandler : IEventHandler
     {
-        private IUseCaseBus _useCaseBus;
+        private IUseCaseBus useCaseBus;
 
         public SendWelcomeEmailWhenUserSignedUpEventHandler(IUseCaseBus useCaseBus) 
         {
-            _useCaseBus = useCaseBus;
+            this.useCaseBus = useCaseBus;
         }
 
         public void Handle(DomainEvent domainEvent)
         {
             Dictionary<string,string> body = domainEvent.Body();
 
-            _useCaseBus.Dispatch(new SendUserWelcomeEmailRequest
+            this.useCaseBus.Dispatch(new SendUserWelcomeEmailRequest
                 (body["email"],
                 body["firstname"],
                 body["lastname"]

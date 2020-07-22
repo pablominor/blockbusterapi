@@ -10,28 +10,28 @@ namespace BlockbusterApp.src.Shared.Infraestructure.Bus.Middleware
 {
     public class TransactionMiddleware : MiddlewareHandler
     {
-        private BlockbusterContext _blockbusterContext;
+        private BlockbusterContext blockbusterContext;
 
         public TransactionMiddleware(BlockbusterContext blockbusterContext)
         {
-            _blockbusterContext = blockbusterContext;
+            this.blockbusterContext = blockbusterContext;
         }
 
         public override IResponse Handle(IRequest request)
         {
-            var transaction = _blockbusterContext.Database.BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+            var transaction = this.blockbusterContext.Database.BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
 
             try
             {
                 IResponse response = base.Handle(request);
-                _blockbusterContext.SaveChanges();
+                this.blockbusterContext.SaveChanges();
                 transaction.Commit();
                 return response;
             }
             catch (System.Exception e)
             {
                 transaction.Rollback();
-                _blockbusterContext.ChangeTracker.Entries().ToList().ForEach(x => x.State = EntityState.Detached);
+                this.blockbusterContext.ChangeTracker.Entries().ToList().ForEach(x => x.State = EntityState.Detached);
                 throw e;
             }
         }

@@ -10,11 +10,11 @@ namespace BlockbusterApp.src.Infraestructure.Service.User
 {
     public class UserFactory : IUserFactory
     {
-        private IHashing _hashing;
+        private IHashing hashing;
 
         public UserFactory(IHashing hashing)
         {
-            _hashing = hashing;
+            this.hashing = hashing;
         }
 
         public Domain.UserAggregate.User Create(
@@ -38,7 +38,7 @@ namespace BlockbusterApp.src.Infraestructure.Service.User
             UserRole userRole = new UserRole(role);
             UserCountryCode userCountryCode = new UserCountryCode(countryCode);
 
-            UserHashedPassword userHashedPassword = _hashing.Hash(password);
+            UserHashedPassword userHashedPassword = this.hashing.Hash(password);
 
             return Domain.UserAggregate.User.SignUp(
                 userId,
