@@ -13,7 +13,7 @@ namespace BlockbusterApp.src.Application.UseCase.Email.SendUserWelcome
             this.configuration = configuration;
         }
 
-        public virtual EmailModel Create(SendUserWelcomeEmailRequest request)
+        public virtual EmailModel Create(string email,string firstName,string lastName)
         {
             var welcomeEmailSection = this.configuration.GetSection("WelcomeEmail");
             string from = "";
@@ -24,8 +24,8 @@ namespace BlockbusterApp.src.Application.UseCase.Email.SendUserWelcome
                 subject = welcomeEmailSection.GetSection("Subject").Value;
             }
 
-            string to = request.Email;
-            string fullName = request.FirstName + " " + request.LastName;
+            string to = email;
+            string fullName = firstName + " " + lastName;
             string body = String.Format("Gracias por registrarte {0}. Recuerda que para iniciar sesión en nuestra aplicación debe usar su email.", fullName);          
             return new EmailModel(from,to, subject, body);
         }

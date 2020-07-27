@@ -7,6 +7,8 @@ using BlockbusterApp.src.Application.UseCase.Token;
 using BlockbusterApp.src.Application.UseCase.User.FindByFilter;
 using BlockbusterApp.src.Application.UseCase.User.FindById;
 using BlockbusterApp.src.Application.UseCase.User.SignUP;
+using BlockbusterApp.src.Domain.CountryAggregate;
+using BlockbusterApp.src.Domain.CountryAggregate.Service;
 using BlockbusterApp.src.Domain.TokenAggregate;
 using BlockbusterApp.src.Domain.UserAggregate;
 using BlockbusterApp.src.Domain.UserAggregate.Service;
@@ -195,6 +197,7 @@ namespace BlockbusterApp
             services.AddScoped<IUserFactory, UserFactory>();
             services.AddScoped<SignUpUserValidator>();
             services.AddScoped<UserFinder>();
+            services.AddScoped<CountryValidator>();
 
             services.AddScoped<ITokenFactory, TokenFactory>();
         }
@@ -214,6 +217,7 @@ namespace BlockbusterApp
 
             services.AddScoped<ITokenFactory, TokenFactory>();
 
+            services.AddScoped<ICountryRepository, CountryRepository>();
 
             services.AddScoped<IJWTEncoder, JWTEncoder>();
             services.AddScoped<TokenAdapter>();

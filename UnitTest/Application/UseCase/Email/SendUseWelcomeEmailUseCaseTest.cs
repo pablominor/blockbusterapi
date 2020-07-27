@@ -20,7 +20,7 @@ namespace UnitTest.Application.UseCase.Email
             EmailModel emailModel = EmailModelStub.ByDefault();
             Mock<IConfiguration> configuration = new Mock<IConfiguration>();
             Mock<WelcomeEmailModelFactory> welcomeEmailModelFactory = new Mock<WelcomeEmailModelFactory>(configuration.Object);
-            welcomeEmailModelFactory.Setup(o => o.Create(request)).Returns(emailModel);
+            welcomeEmailModelFactory.Setup(o => o.Create(request.Email,request.FirstName,request.LastName)).Returns(emailModel);
             Mock<IMailer> mailer = new Mock<IMailer>();
             mailer.Setup(o => o.Send(It.IsAny<EmailModel>()));
             Mock<EmptyResponseConverter> emptyResponseConverter = new Mock<EmptyResponseConverter>();

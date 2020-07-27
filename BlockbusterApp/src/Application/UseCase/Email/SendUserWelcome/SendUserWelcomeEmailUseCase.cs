@@ -20,7 +20,7 @@ namespace BlockbusterApp.src.Application.UseCase.Email.SendUserWelcome
         public IResponse Execute(IRequest req)
         {
             SendUserWelcomeEmailRequest request = req as SendUserWelcomeEmailRequest;
-            EmailModel emailModel = this.welcomeEmailModelFactory.Create(request);
+            EmailModel emailModel = this.welcomeEmailModelFactory.Create(request.Email,request.FirstName,request.LastName);
 
             this.mailer.Send(emailModel);
 

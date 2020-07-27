@@ -1,4 +1,6 @@
 ﻿using BlockbusterApp.src.Application.UseCase.User.SignUP;
+using BlockbusterApp.src.Domain.CountryAggregate;
+using BlockbusterApp.src.Domain.CountryAggregate.Service;
 using BlockbusterApp.src.Domain.UserAggregate;
 using BlockbusterApp.src.Domain.UserAggregate.Service;
 using BlockbusterApp.src.Shared.Application.Bus.UseCase;
@@ -40,21 +42,26 @@ namespace UnitTest.Application.UseCase.User.SignUp
             Mock<IUserRepository> userRepository = new Mock<IUserRepository>();
             userRepository.Setup(o => o.Add(user));
             Mock<SignUpUserValidator> signUpUserValidator = new Mock<SignUpUserValidator>(userRepository.Object);
+            signUpUserValidator.Setup(o => o.Validate(It.IsAny<UserEmail>()));
+            Mock<ICountryRepository> countryRepository = new Mock<ICountryRepository>();
+            Mock<CountryValidator> countryValidator = new Mock<CountryValidator>(countryRepository.Object);
+            countryValidator.Setup(o => o.Validate(It.IsAny<CountryCode>()));
             Mock<EmptyResponseConverter> emptyResponseConverter = new Mock<EmptyResponseConverter>();
             emptyResponseConverter.Setup(o => o.Convert());
-
             SignUpUserUseCase useCase = new SignUpUserUseCase(
                 userFactory.Object,
                 signUpUserValidator.Object,
                 userRepository.Object,
                 emptyResponseConverter.Object,
-                eventProvider.Object
+                eventProvider.Object,
+                countryValidator.Object
                 );
 
             useCase.Execute(request);
 
             userFactory.VerifyAll();
             signUpUserValidator.VerifyAll();
+            countryValidator.VerifyAll();
             userRepository.VerifyAll();
             emptyResponseConverter.VerifyAll();
             eventProvider.VerifyAll();

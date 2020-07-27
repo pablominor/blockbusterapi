@@ -1,13 +1,8 @@
-﻿using BlockbusterApp.src.Domain.UserAggregate.Exception;
-using BlockbusterApp.src.Shared.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using BlockbusterApp.src.Shared.Domain;
 
 namespace BlockbusterApp.src.Domain.UserAggregate
 {
-    public class UserCountryCode : CountryCode
+    public class UserCountryCode : StringValueObject
     {       
         public UserCountryCode(string value) : base(value){}
     }

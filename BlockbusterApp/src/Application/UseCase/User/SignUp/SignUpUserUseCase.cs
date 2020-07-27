@@ -1,11 +1,9 @@
-﻿using BlockbusterApp.src.Domain.UserAggregate;
+﻿using BlockbusterApp.src.Domain.CountryAggregate;
+using BlockbusterApp.src.Domain.CountryAggregate.Service;
+using BlockbusterApp.src.Domain.UserAggregate;
 using BlockbusterApp.src.Domain.UserAggregate.Service;
 using BlockbusterApp.src.Shared.Application.Bus.UseCase;
 using BlockbusterApp.src.Shared.Domain.Event;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BlockbusterApp.src.Application.UseCase.User.SignUP
 {
@@ -16,19 +14,22 @@ namespace BlockbusterApp.src.Application.UseCase.User.SignUP
         private IUserRepository userRepository;
         private EmptyResponseConverter emptyResponseConverter;
         private IEventProvider eventProvider;
+        private CountryValidator countryValidator;
 
         public SignUpUserUseCase(
             IUserFactory userFactory, 
             SignUpUserValidator userValidator, 
             IUserRepository userRepository,
             EmptyResponseConverter emptyResponseConverter,
-            IEventProvider eventProvider)
+            IEventProvider eventProvider,
+            CountryValidator countryValidator)
         {
             this.userFactory = userFactory;
             this.userValidator = userValidator;
             this.userRepository = userRepository;
             this.emptyResponseConverter = emptyResponseConverter;
             this.eventProvider = eventProvider;
+            this.countryValidator = countryValidator;
         }
 
         public IResponse Execute(IRequest req)
@@ -48,6 +49,7 @@ namespace BlockbusterApp.src.Application.UseCase.User.SignUP
             this.eventProvider.RecordEvents(user.ReleaseEvents());
 
             this.userValidator.Validate(user.userEmail);
+            this.countryValidator.Validate(new CountryCode(user.userCountryCode.GetValue()));
 
             this.userRepository.Add(user);
 

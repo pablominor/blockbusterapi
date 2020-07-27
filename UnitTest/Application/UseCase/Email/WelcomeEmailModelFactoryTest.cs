@@ -15,18 +15,11 @@ namespace UnitTest.Application.UseCase.Email
         [Test]
         public void ItShouldCallCollaborators()
         {
+            SendUserWelcomeEmailRequest request = CreateSendUserWelcomeEmailRequest();
+            Mock<IConfiguration> configuration = CreateConfigurationMock();
+            WelcomeEmailModelFactory welcomeEmailModelFactory = CreateWelcomeEmailModelFactory(configuration.Object);
 
-            SendUserWelcomeEmailRequest request = SendUserWelcomeEmailRequestStub.ByDefault();
-            Mock<IConfigurationSection> welcomeEmailConfSection = new Mock<IConfigurationSection>();
-            welcomeEmailConfSection.Setup(o => o.GetSection("From").Value).Returns("pablo3informatica@gmail.com");
-            welcomeEmailConfSection.Setup(o => o.GetSection("Subject").Value).Returns("Welcome email");
-            Mock<IConfiguration> configuration = new Mock<IConfiguration>();
-            configuration.Setup(a => a.GetSection(It.Is<string>(s => s == "WelcomeEmail"))).Returns(welcomeEmailConfSection.Object);
-
-            WelcomeEmailModelFactory welcomeEmailModelFactory = new WelcomeEmailModelFactory(configuration.Object);
-            string fullName = request.FirstName + " " + request.LastName;
-
-            var res = welcomeEmailModelFactory.Create(request);
+            var res = welcomeEmailModelFactory.Create(request.Email, request.FirstName, request.LastName);
 
             configuration.VerifyAll();            
         }
@@ -34,23 +27,38 @@ namespace UnitTest.Application.UseCase.Email
         [Test]
         public void ItShouldCreateAnEmailModel()
         {
-            SendUserWelcomeEmailRequest request = SendUserWelcomeEmailRequestStub.ByDefault();
-            Mock<IConfigurationSection> welcomeEmailConfSection = new Mock<IConfigurationSection>();
-            welcomeEmailConfSection.Setup(o => o.GetSection("From").Value).Returns("pablo3informatica@gmail.com");
-            welcomeEmailConfSection.Setup(o => o.GetSection("Subject").Value).Returns("Welcome email");
-            Mock<IConfiguration> configuration = new Mock<IConfiguration>();
-            configuration.Setup(a => a.GetSection(It.Is<string>(s => s == "WelcomeEmail"))).Returns(welcomeEmailConfSection.Object);
-
-            WelcomeEmailModelFactory welcomeEmailModelFactory = new WelcomeEmailModelFactory(configuration.Object);
+            SendUserWelcomeEmailRequest request = CreateSendUserWelcomeEmailRequest();
+            Mock<IConfiguration> configuration = CreateConfigurationMock();
+            WelcomeEmailModelFactory welcomeEmailModelFactory = CreateWelcomeEmailModelFactory(configuration.Object);
             string fullName = request.FirstName + " " + request.LastName;
 
-            var res = welcomeEmailModelFactory.Create(request);
+            var res = welcomeEmailModelFactory.Create(request.Email, request.FirstName, request.LastName);
 
             Assert.IsInstanceOf<EmailModel>(res);
             Assert.AreEqual(res.GetFrom(), "pablo3informatica@gmail.com");
             Assert.AreEqual(res.GetTo(), request.Email);
             Assert.AreEqual(res.GetSubject(), "Welcome email");
             Assert.AreEqual(res.GetBody(), String.Format("Gracias por registrarte {0}. Recuerda que para iniciar sesión en nuestra aplicación debe usar su email.", fullName));
+        }
+
+        private SendUserWelcomeEmailRequest CreateSendUserWelcomeEmailRequest()
+        {
+            return SendUserWelcomeEmailRequestStub.ByDefault();
+        }
+
+        private Mock<IConfiguration> CreateConfigurationMock()
+        {
+            Mock<IConfigurationSection> welcomeEmailConfSection = new Mock<IConfigurationSection>();
+            welcomeEmailConfSection.Setup(o => o.GetSection("From").Value).Returns("pablo3informatica@gmail.com");
+            welcomeEmailConfSection.Setup(o => o.GetSection("Subject").Value).Returns("Welcome email");
+            Mock<IConfiguration> configuration = new Mock<IConfiguration>();
+            configuration.Setup(a => a.GetSection(It.Is<string>(s => s == "WelcomeEmail"))).Returns(welcomeEmailConfSection.Object);
+            return configuration;
+        }
+
+        private WelcomeEmailModelFactory CreateWelcomeEmailModelFactory(IConfiguration configuration)
+        {
+            return new WelcomeEmailModelFactory(configuration);
         }
     }
 }

@@ -1,8 +1,4 @@
 ﻿using BlockbusterApp.src.Domain.UserAggregate.Service.Exception;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BlockbusterApp.src.Domain.UserAggregate.Service
 {
@@ -15,7 +11,7 @@ namespace BlockbusterApp.src.Domain.UserAggregate.Service
             this.userRepository = userRepository;
         }
 
-        public void Validate(UserEmail userEmail)
+        public virtual void Validate(UserEmail userEmail)
         {
             var user = this.userRepository.FindUserByEmail(userEmail);
             if (user != null)
