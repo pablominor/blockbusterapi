@@ -22,6 +22,7 @@ namespace UnitTest.Domain.UserAggregate.Service
             SignUpUserValidator signUpUserValidator = new SignUpUserValidator(userRepository.Object);
 
             var Exception = Assert.Throws<UserFoundException>(() => signUpUserValidator.Validate(UserEmailStub.ByDefault()));
+
             Assert.Pass(Exception.Message, UserFoundException.FromEmail(UserEmailStub.ByDefault()));
         }
 

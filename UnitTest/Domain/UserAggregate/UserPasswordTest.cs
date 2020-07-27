@@ -22,6 +22,7 @@ namespace UnitTest.Domain.UserAggregate
         {
                        
             var Exception = Assert.Throws<InvalidAttributeException>(() => new UserPassword(password));
+
             Assert.Pass(Exception.Message, InvalidAttributeException.FromValue("password", password));
             Assert.IsInstanceOf<InvalidUserAttributeException>(Exception);
         }
@@ -34,6 +35,7 @@ namespace UnitTest.Domain.UserAggregate
         {
 
             var Exception = Assert.Throws<InvalidAttributeException>(() => UserPassword.Validate(password, repeatPassword));
+
             Assert.Pass(Exception.Message, InvalidAttributeException.FromText("Password must be equal than repeat password"));
             Assert.IsInstanceOf<InvalidUserAttributeException>(Exception);                  
         }

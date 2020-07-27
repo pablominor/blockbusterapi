@@ -18,6 +18,7 @@ namespace UnitTest.Domain.UserAggregate
             string invalidLastName = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 
             var Exception = Assert.Throws<InvalidAttributeException>(() => new UserLastName(invalidLastName));
+
             Assert.Pass(Exception.Message, InvalidAttributeException.FromMaxLength("last name", UserLastName.MAX_LENGTH));
             Assert.IsInstanceOf<InvalidUserAttributeException>(Exception);
         }
@@ -28,6 +29,7 @@ namespace UnitTest.Domain.UserAggregate
             string invalidLastName = "aa";
 
             var Exception = Assert.Throws<InvalidAttributeException>(() => new UserLastName(invalidLastName));
+
             Assert.Pass(Exception.Message, InvalidAttributeException.FromMinLength("last name", UserLastName.MIN_LENGTH));
             Assert.IsInstanceOf<InvalidUserAttributeException>(Exception);
         }

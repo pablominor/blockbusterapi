@@ -24,6 +24,7 @@ namespace UnitTest.Shared.Domain
                 EmailModelStub.TO, 
                 EmailModelStub.SUBJECT, 
                 EmailModelStub.BODY));
+
             Assert.Pass(Exception.Message, InvalidAttributeException.FromValue("from", invalidFrom));
             Assert.IsInstanceOf<InvalidEmailException>(Exception);
         }
@@ -40,6 +41,7 @@ namespace UnitTest.Shared.Domain
                 invalidTo,
                 EmailModelStub.SUBJECT,
                 EmailModelStub.BODY));
+
             Assert.Pass(Exception.Message, InvalidAttributeException.FromValue("to", invalidTo));
             Assert.IsInstanceOf<InvalidEmailException>(Exception);
         }
@@ -56,6 +58,7 @@ namespace UnitTest.Shared.Domain
                 EmailModelStub.TO,
                 invalidSubject,
                 EmailModelStub.BODY));
+
             Assert.Pass(Exception.Message, InvalidAttributeException.FromEmpty("subject"));
             Assert.IsInstanceOf<InvalidEmailException>(Exception);
         }
@@ -72,6 +75,7 @@ namespace UnitTest.Shared.Domain
                 EmailModelStub.TO,
                 EmailModelStub.SUBJECT,
                 invalidBody));
+
             Assert.Pass(Exception.Message, InvalidAttributeException.FromEmpty("body"));
             Assert.IsInstanceOf<InvalidEmailException>(Exception);
         }

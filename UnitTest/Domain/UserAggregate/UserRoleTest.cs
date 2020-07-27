@@ -18,6 +18,7 @@ namespace UnitTest.Domain.UserAggregate
             string invalidRole = "usuario";
 
             var Exception = Assert.Throws<InvalidAttributeException>(() => new UserRole(invalidRole));
+
             Assert.Pass(Exception.Message, InvalidAttributeException.FromText("This role is not correct"));
             Assert.IsInstanceOf<InvalidUserAttributeException>(Exception);
         }

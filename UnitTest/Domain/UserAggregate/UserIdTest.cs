@@ -18,6 +18,7 @@ namespace UnitTest.Domain.UserAggregate
             string invalidEmptyId = "";
 
             var Exception = Assert.Throws<InvalidAttributeException>(() => new UserId(invalidEmptyId));
+
             Assert.Pass(Exception.Message, InvalidAttributeException.FromEmpty("UUID"));
             Assert.IsInstanceOf<InvalidUUIDException>(Exception);
         }
@@ -28,6 +29,7 @@ namespace UnitTest.Domain.UserAggregate
             string invalidId = "123456789";
 
             var Exception = Assert.Throws<InvalidAttributeException>(() => new UserId(invalidId));
+
             Assert.Pass(Exception.Message, InvalidAttributeException.FromValue("UUID",invalidId));
             Assert.IsInstanceOf<InvalidUUIDException>(Exception);
         }

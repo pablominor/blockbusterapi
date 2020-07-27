@@ -18,6 +18,7 @@ namespace UnitTest.Domain.UserAggregate
             string invalidEmail = "blocbusterprueba";
 
             var Exception = Assert.Throws<InvalidAttributeException>(() => new UserEmail(invalidEmail));
+
             Assert.Pass(Exception.Message, InvalidAttributeException.FromValue("email", invalidEmail));
             Assert.IsInstanceOf<InvalidUserAttributeException>(Exception);
         }
