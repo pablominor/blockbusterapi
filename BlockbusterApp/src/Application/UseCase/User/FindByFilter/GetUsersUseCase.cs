@@ -7,9 +7,9 @@ namespace BlockbusterApp.src.Application.UseCase.User.FindByFilter
     public class GetUsersUseCase : IUseCase
     {
         private IUserRepository userRepository;
-        private IFindUserConverter converter;
+        private GetUsersConverter converter;
 
-        public GetUsersUseCase(IUserRepository userRepository, IFindUserConverter converter)
+        public GetUsersUseCase(IUserRepository userRepository, GetUsersConverter converter)
         {
             this.userRepository = userRepository;
             this.converter = converter;

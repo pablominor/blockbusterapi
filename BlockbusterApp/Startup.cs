@@ -271,7 +271,7 @@ namespace BlockbusterApp
             services.AddScoped<ExceptionConverter>();
             services.AddScoped<EmptyResponseConverter>();
             services.AddScoped<TokenConverter>();
-            services.AddScoped<IFindUserConverter, GetUsersConverter>();
+            services.AddScoped<GetUsersConverter>();
             services.AddScoped<FindUserConverter>();
         }
     }

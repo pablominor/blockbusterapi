@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace BlockbusterApp.src.Application.UseCase.User.FindByFilter
 {
-    public class GetUsersConverter : IFindUserConverter
+    public class GetUsersConverter
     {
         private FindUserConverter findUserConverter;
 
