@@ -16,7 +16,7 @@ namespace BlockbusterApp.src.Domain.UserAggregate.Service
             this.userRepository = userRepository;
         }
 
-        public User ById(UserId id)
+        public virtual User ById(UserId id)
         {
             var user = this.userRepository.FindUserById(id);
 

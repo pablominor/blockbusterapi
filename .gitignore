@@ -55,7 +55,6 @@ obj/
 [Dd]ebug*/
 
 #Proyecto
-*.csproj
 *.cache
 
 C:/Codigo/Craft-Code/blockbuster/BlockbusterApp/BlockbusterApp/obj/Debug/

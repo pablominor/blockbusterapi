@@ -18,6 +18,7 @@ using BlockbusterApp.src.Infraestructure.Service.Mailer;
 using BlockbusterApp.src.Infraestructure.Service.Token;
 using BlockbusterApp.src.Infraestructure.Service.User;
 using BlockbusterApp.src.Shared.Application.Bus.UseCase;
+using BlockbusterApp.src.Shared.Application.Bus.UseCase.Response;
 using BlockbusterApp.src.Shared.Domain.Event;
 using BlockbusterApp.src.Shared.Infraestructure.Bus.Event;
 using BlockbusterApp.src.Shared.Infraestructure.Bus.Middleware;
@@ -243,7 +244,7 @@ namespace BlockbusterApp
         {
             //services.AddScoped<IResponse, SignUpUserResponse>();
             services.AddScoped<IResponse, CreateTokenResponse>();
-            services.AddScoped<IResponse, GetUsersResponse>();
+            services.AddScoped<IResponse, ResponseList>();
             services.AddScoped<IResponse, FindUserResponse>();
             services.AddScoped<IResponse, EmptyResponse>();
         }

@@ -3,8 +3,21 @@ using BlockbusterApp.src.Shared.Application.Bus.UseCase;
 
 namespace BlockbusterApp.src.Application.UseCase.User.FindById
 {
-    public class FindUserResponse : IResponse
+    public class FindUserResponse : UserDTO,IResponse
     {
-        public UserDTO User;
+        public FindUserResponse(
+            string id,
+            string email,
+            string firstName,
+            string lastName,
+            string role,
+            string countryCode) 
+            : base(
+                id,
+                email,
+                firstName,
+                lastName,
+                role,
+                countryCode){ }
     }
 }
