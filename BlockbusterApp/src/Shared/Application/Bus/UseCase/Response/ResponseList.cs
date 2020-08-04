@@ -7,6 +7,6 @@ namespace BlockbusterApp.src.Shared.Application.Bus.UseCase.Response
 {
     public class ResponseList : IResponse
     {
-        public List<IResponse> AllResponses;
+        public List<IResponse> Data;
     }
 }

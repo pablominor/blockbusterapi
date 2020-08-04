@@ -20,7 +20,7 @@ namespace BlockbusterApp.src.Infraestructure.Persistance.Mapping
             builder
                 .Property(c => c.userEmail)
                 .HasColumnName("email")
-                .HasColumnType("nvarchar(60")
+                .HasColumnType("nvarchar(60)")
                 .HasConversion(
                     v => v.GetValue(),
                     v => new UserEmail(v)
@@ -29,7 +29,7 @@ namespace BlockbusterApp.src.Infraestructure.Persistance.Mapping
             builder
                 .Property(c => c.userHashedPassword)
                 .HasColumnName("password")
-                .HasColumnType("nvarchar(100")
+                .HasColumnType("nvarchar(100)")
                 .HasConversion(
                     v => v.GetValue(),
                     v => new UserHashedPassword(v)
@@ -38,7 +38,7 @@ namespace BlockbusterApp.src.Infraestructure.Persistance.Mapping
             builder
                 .Property(c => c.userFirstName)
                 .HasColumnName("first_name")
-                .HasColumnType("nvarchar(15")
+                .HasColumnType("nvarchar(15)")
                 .HasConversion(
                     v => v.GetValue(),
                     v => new UserFirstName(v)
@@ -47,7 +47,7 @@ namespace BlockbusterApp.src.Infraestructure.Persistance.Mapping
             builder
                 .Property(c => c.userLastName)
                 .HasColumnName("last_name")
-                .HasColumnType("nvarchar(30")
+                .HasColumnType("nvarchar(30)")
                 .HasConversion(
                     v => v.GetValue(),
                     v => new UserLastName(v)
@@ -56,7 +56,7 @@ namespace BlockbusterApp.src.Infraestructure.Persistance.Mapping
             builder
                 .Property(c => c.userRole)
                 .HasColumnName("role")
-                .HasColumnType("nvarchar(20")
+                .HasColumnType("nvarchar(20)")
                 .HasConversion(
                     v => v.GetValue(),
                     v => new UserRole(v)

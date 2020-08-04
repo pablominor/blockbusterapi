@@ -14,17 +14,19 @@ namespace BlockbusterApp.src.Shared.Application.Bus.UseCase.Response
             this.converter = converter;
         }
 
-        public IResponse Convert(IEnumerable<dynamic> objects)
+        public abstract IResponse Convert(IEnumerable<dynamic> objects);
+
+        public List<IResponse> GetListResponses(IEnumerable<dynamic> objects)
         {
-            ResponseList responseList = new ResponseList();
+            List<IResponse> data = new List<IResponse>();
 
             foreach (var obj in objects)
             {
                 IResponse responseUser = this.converter.Convert(obj);
-                responseList.AllResponses.Add(responseUser);
+                data.Add(responseUser);
             }
 
-            return responseList;
+            return data;
         }
     }
 }
