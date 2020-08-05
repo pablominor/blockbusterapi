@@ -12,7 +12,7 @@ namespace UnitTest.Application.UseCase.User.FindById
         public void ItShouldReturnCorrectResponse()
         {
             BlockbusterApp.src.Domain.UserAggregate.User user = UserStub.ByDefault();
-            FindUserConverter findUserConverter = new FindUserConverter();
+            FindUserResponseConverter findUserConverter = new FindUserResponseConverter();
             
             var res = findUserConverter.Convert(user);
 

@@ -10,7 +10,7 @@ namespace BlockbusterApp.src.Application.UseCase.Token
     {
         public TokenConverter() { }
 
-        public IResponse Convert(Domain.TokenAggregate.Token token)
+        public virtual IResponse Convert(Domain.TokenAggregate.Token token)
         {
             return new CreateTokenResponse()
             {

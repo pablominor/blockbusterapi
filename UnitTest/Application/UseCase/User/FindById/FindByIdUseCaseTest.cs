@@ -19,14 +19,17 @@ namespace UnitTest.Application.UseCase.User.FindById
             Mock<IUserRepository> userRepository = new Mock<IUserRepository>();
             Mock<UserFinder> userFinder = new Mock<UserFinder>(userRepository.Object);
             userFinder.Setup(o => o.ById(It.IsAny<UserId>())).Returns(user);
-            Mock<FindUserConverter> converter = new Mock<FindUserConverter>();
+            Mock<FindUserResponseConverter> converter = new Mock<FindUserResponseConverter>();
             converter.Setup(o => o.Convert(user));
-            FindUserByIdUseCase useCase = new FindUserByIdUseCase(converter.Object, userFinder.Object);
+            Mock<IUserAuthorization> userAuthorization = new Mock<IUserAuthorization>();
+            userAuthorization.Setup(o => o.AuthorizeAsOwner(It.IsAny<UserId>()));
+            FindUserByIdUseCase useCase = new FindUserByIdUseCase(converter.Object, userFinder.Object,userAuthorization.Object);
 
             useCase.Execute(request);
 
+            userAuthorization.VerifyAll();
             userFinder.VerifyAll();
-            converter.VerifyAll();            
+            converter.VerifyAll();
         }
     }
 }

@@ -16,7 +16,7 @@ namespace BlockbusterApp.src.Infraestructure.Service.Token
             this.tokenTranslator = tokenTranslator;
         }
 
-        public Dictionary<string,string> FindPayloadFromEmailAndPassword(string email, string password)
+        public virtual Dictionary<string,string> FindPayloadFromEmailAndPassword(string email, string password)
         {
             Domain.UserAggregate.User user = this.tokenFacade.FindUserFromEmailAndPassword(email, password);
             return this.tokenTranslator.FromRepresentationToPayLoad(user);
