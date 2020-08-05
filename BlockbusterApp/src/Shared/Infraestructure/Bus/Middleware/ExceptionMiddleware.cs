@@ -27,6 +27,10 @@ namespace BlockbusterApp.src.Shared.Infraestructure.Bus.Middleware
             {
                 return this.converter.Convert("400", validation.Message);
             }
+            catch(SecurityException validation)
+            {
+                return this.converter.Convert("403", validation.Message);
+            }
             catch(System.Exception ex)
             {
                 return this.converter.Convert("500", ex.Message);

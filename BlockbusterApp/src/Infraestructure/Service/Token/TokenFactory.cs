@@ -19,7 +19,7 @@ namespace BlockbusterApp.src.Infraestructure.Service.Token
         {
             string hash = this.JWTEnconder.Encode(payload);
             TokenHash tokenHash = new TokenHash(hash);
-            TokenUserId tokenUserId = new TokenUserId(payload["user_id"]);
+            TokenUserId tokenUserId = new TokenUserId(payload[TokenClaimTypes.USER_ID]);
 
             return Domain.TokenAggregate.Token.Create(tokenHash, tokenUserId);
         }

@@ -3,9 +3,9 @@ using BlockbusterApp.src.Shared.Application.Bus.UseCase.Response;
 
 namespace BlockbusterApp.src.Application.UseCase.User.FindById
 {
-    public class FindUserConverter : Converter
+    public class FindUserResponseConverter : ResponseConverter
     {
-        public FindUserConverter() { }
+        public FindUserResponseConverter() { }
 
         public override IResponse Convert(dynamic item)
         {

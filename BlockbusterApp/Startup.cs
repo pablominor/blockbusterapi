@@ -13,6 +13,7 @@ using BlockbusterApp.src.Domain.TokenAggregate;
 using BlockbusterApp.src.Domain.UserAggregate;
 using BlockbusterApp.src.Domain.UserAggregate.Service;
 using BlockbusterApp.src.Infraestructure.Persistance.Repository;
+using BlockbusterApp.src.Infraestructure.Security.User;
 using BlockbusterApp.src.Infraestructure.Service.Hashing;
 using BlockbusterApp.src.Infraestructure.Service.Mailer;
 using BlockbusterApp.src.Infraestructure.Service.Token;
@@ -58,11 +59,11 @@ namespace BlockbusterApp
             var appSettingsSection = Configuration.GetSection("AppSettings");
             var secret = Configuration.GetValue<string>("AppSettings:Secret");
             var key = Encoding.ASCII.GetBytes(secret);
-
+           
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;                
             })
                 .AddJwtBearer(x =>
                 {
@@ -85,7 +86,13 @@ namespace BlockbusterApp
             LoadApplicacionDependencies(services);
             LoadDomainDependencies(services);
             LoadInfraestructureDependencies(services);
-                        
+
+
+            //services.AddMvc(options =>
+            //{
+            //    options.Filters.Add(new ApiExceptionFilter());
+            //});
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddMvcCore().AddVersionedApiExplorer(o => o.GroupNameFormat = "'v'VVV");
@@ -167,8 +174,8 @@ namespace BlockbusterApp
             }
 
             app.UseHttpsRedirection();
-            app.UseAuthentication();
-           
+            app.UseAuthentication();            
+
             app.UseSwagger();
             app.UseSwaggerUI(
                 options =>
@@ -205,6 +212,7 @@ namespace BlockbusterApp
 
         private void LoadInfraestructureDependencies(IServiceCollection services)
         {
+            services.AddScoped<ApiExceptionFilter>();
             services.AddScoped<IHashing, DefaultHashing>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddSingleton<BlockbusterContext>();
@@ -226,6 +234,10 @@ namespace BlockbusterApp
             services.AddScoped<TokenTranslator>();
 
             services.AddSingleton<IUseCaseBus, UseCaseBus>();
+
+            services.AddScoped<IUserAuthorization, UserAuthorization>();
+            services.AddScoped<IUserProvider, UserProvider>();
+            services.AddHttpContextAccessor();
 
             LoadInfraRequestsDependencies(services);
             LoadInfraResponsesDependencies(services);
@@ -273,7 +285,7 @@ namespace BlockbusterApp
             services.AddScoped<EmptyResponseConverter>();
             services.AddScoped<TokenConverter>();
             services.AddScoped<GetUsersConverter>();
-            services.AddScoped<FindUserConverter>();
+            services.AddScoped<FindUserResponseConverter>();
         }
     }
 }

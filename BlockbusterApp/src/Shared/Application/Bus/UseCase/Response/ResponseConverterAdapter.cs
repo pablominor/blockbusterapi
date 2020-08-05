@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace BlockbusterApp.src.Shared.Application.Bus.UseCase.Response
 {
-    public abstract class ConverterAdapter
+    public abstract class ResponseConverterAdapter
     {
-        private Converter converter;
+        private ResponseConverter converter;
 
-        public ConverterAdapter(Converter converter)
+        public ResponseConverterAdapter(ResponseConverter converter)
         {
             this.converter = converter;
         }

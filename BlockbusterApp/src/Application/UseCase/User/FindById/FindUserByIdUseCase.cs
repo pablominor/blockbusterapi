@@ -6,13 +6,15 @@ namespace BlockbusterApp.src.Application.UseCase.User.FindById
 {
     public class FindUserByIdUseCase : IUseCase
     {
-        private FindUserConverter converter;
+        private FindUserResponseConverter converter;
         private UserFinder userFinder;
+        private IUserAuthorization userAuthorization;
 
-        public FindUserByIdUseCase(FindUserConverter converter, UserFinder userFinder)
+        public FindUserByIdUseCase(FindUserResponseConverter converter, UserFinder userFinder, IUserAuthorization userAuthorization)
         {
             this.converter = converter;
             this.userFinder = userFinder;
+            this.userAuthorization = userAuthorization;
         }
 
         public IResponse Execute(IRequest req)
@@ -20,6 +22,8 @@ namespace BlockbusterApp.src.Application.UseCase.User.FindById
             FindUserByIdRequest request = req as FindUserByIdRequest;
 
             UserId userId = new UserId(request.Id);
+
+            this.userAuthorization.AuthorizeAsOwner(userId);
 
             var user = userFinder.ById(userId);
 

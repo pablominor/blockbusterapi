@@ -29,11 +29,11 @@ namespace BlockbusterApp.src.Shared.Infraestructure.Security.Authentication.JWT
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim("user_id", payload["user_id"]),
-                    new Claim("email", payload["email"]),
-                    new Claim("first_name", payload["first_name"]),
-                    new Claim("last_name", payload["last_name"]),
-                    new Claim("role", payload["role"])
+                    new Claim(TokenClaimTypes.USER_ID, payload[TokenClaimTypes.USER_ID]),
+                    new Claim(TokenClaimTypes.EMAIL, payload[TokenClaimTypes.EMAIL]),
+                    new Claim(TokenClaimTypes.FIRST_NAME, payload[TokenClaimTypes.FIRST_NAME]),
+                    new Claim(TokenClaimTypes.LAST_NAME, payload[TokenClaimTypes.LAST_NAME]),
+                    new Claim(TokenClaimTypes.ROLE, payload[TokenClaimTypes.ROLE])
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)

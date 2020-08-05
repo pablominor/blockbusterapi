@@ -5,17 +5,17 @@ using System.Collections.Generic;
 
 namespace BlockbusterApp.src.Application.UseCase.User.FindByFilter
 {
-    public class GetUsersConverter : ConverterAdapter
+    public class GetUsersConverter : ResponseConverterAdapter
     {
 
-        public GetUsersConverter():base(new FindUserConverter())
+        public GetUsersConverter():base(new FindUserResponseConverter())
         {
         }
 
         public override IResponse Convert(IEnumerable<dynamic> objects)
         {
             GetUsersResponse response = new GetUsersResponse();
-            response.Users = this.GetListResponses(objects);
+            response.Users = this.GetListResponses(objects);            
             return response;
         }
 

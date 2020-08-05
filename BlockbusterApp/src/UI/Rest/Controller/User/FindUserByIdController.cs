@@ -1,11 +1,12 @@
 ﻿using BlockbusterApp.src.Application.UseCase.User.FindById;
+using BlockbusterApp.src.Domain.UserAggregate;
 using BlockbusterApp.src.Shared.Infraestructure.Bus.UseCase;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlockbusterApp.src.UI.Rest.Controller.User
 {
-    //[Authorize]
+    [Authorize]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/user")]
     [ApiController]
@@ -16,8 +17,7 @@ namespace BlockbusterApp.src.UI.Rest.Controller.User
 
         }
         
-        //[Authorize(Roles = UserRole.ROLE_ADMIN)]
-        [AllowAnonymous]
+        [Authorize(Roles = UserRole.ROLE_USER)]
         [HttpGet]
         public IActionResult FindUserById(FindUserByIdRequest request)
         {
