@@ -212,7 +212,6 @@ namespace BlockbusterApp
 
         private void LoadInfraestructureDependencies(IServiceCollection services)
         {
-            services.AddScoped<ApiExceptionFilter>();
             services.AddScoped<IHashing, DefaultHashing>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddSingleton<BlockbusterContext>();
@@ -256,7 +255,7 @@ namespace BlockbusterApp
         {
             //services.AddScoped<IResponse, SignUpUserResponse>();
             services.AddScoped<IResponse, CreateTokenResponse>();
-            services.AddScoped<IResponse, ResponseList>();
+            //services.AddScoped<IResponse, CollectionResponse>();
             services.AddScoped<IResponse, FindUserResponse>();
             services.AddScoped<IResponse, EmptyResponse>();
         }

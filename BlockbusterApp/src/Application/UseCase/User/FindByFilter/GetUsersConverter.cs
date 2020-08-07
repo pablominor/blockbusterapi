@@ -12,12 +12,5 @@ namespace BlockbusterApp.src.Application.UseCase.User.FindByFilter
         {
         }
 
-        public override IResponse Convert(IEnumerable<dynamic> objects)
-        {
-            GetUsersResponse response = new GetUsersResponse();
-            response.Users = this.GetListResponses(objects);            
-            return response;
-        }
-
     }
 }
