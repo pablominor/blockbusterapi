@@ -19,6 +19,8 @@ namespace BlockbusterApp.src.Shared.Application.Bus.UseCase.Response
         {
             CollectionResponse<IResponse> collectionResponse = new CollectionResponse<IResponse>();
 
+            collectionResponse.Clear();
+
             foreach (var obj in objects)
             {
                 IResponse responseUser = this.converter.Convert(obj);

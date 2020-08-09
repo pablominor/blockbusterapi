@@ -87,12 +87,6 @@ namespace BlockbusterApp
             LoadDomainDependencies(services);
             LoadInfraestructureDependencies(services);
 
-
-            //services.AddMvc(options =>
-            //{
-            //    options.Filters.Add(new ApiExceptionFilter());
-            //});
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddMvcCore().AddVersionedApiExplorer(o => o.GroupNameFormat = "'v'VVV");

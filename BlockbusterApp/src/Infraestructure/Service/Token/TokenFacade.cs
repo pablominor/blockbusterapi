@@ -24,14 +24,10 @@ namespace BlockbusterApp.src.Infraestructure.Service.Token
 
         public Domain.UserAggregate.User FindUserFromEmailAndPassword(string email,string password)
         {
-            //IResponse res = this.useCaseBus.Dispatch(new FindUserByEmailAndPasswordRequest(email,password));
-            //UserResponse response = res as UserResponse;
-            //return response.User;
 
-            Domain.UserAggregate.User user = this.userRepository.FindUserByEmail(new UserEmail(email));
-            //todo usecasebus
-            //todo check with password
-            return user;
+            IResponse res = this.useCaseBus.Dispatch(new FindUserByEmailAndPasswordRequest(email, password));
+            UserResponse response = res as UserResponse;
+            return response.User;                        
         }       
     }
 }
