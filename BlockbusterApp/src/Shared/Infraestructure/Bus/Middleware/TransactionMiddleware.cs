@@ -17,6 +17,11 @@ namespace BlockbusterApp.src.Shared.Infraestructure.Bus.Middleware
             this.blockbusterContext = blockbusterContext;
         }
 
+        public string Name() 
+        {
+            return this.GetType().Name;
+        }
+
         public override IResponse Handle(IRequest request)
         {
             var transaction = this.blockbusterContext.Database.BeginTransaction(System.Data.IsolationLevel.ReadCommitted);

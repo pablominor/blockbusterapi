@@ -16,6 +16,11 @@ namespace BlockbusterApp.src.Shared.Infraestructure.Bus.Middleware
             this.converter = converter;
         }
 
+        public string Name()
+        {
+            return this.GetType().Name;
+        }
+
         public override IResponse Handle(IRequest request)
         {
             try

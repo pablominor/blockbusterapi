@@ -14,6 +14,9 @@ namespace BlockbusterApp.src.Shared.Infraestructure.Bus.UseCase
         private Dictionary<string, UseCaseMiddleware> useCases;
         private List<IMiddlewareHandler> middlewareHanders;
 
+        private const string TRANSACTION_MIDDLEWARE = "TransactionMiddleware";
+        private const string EXCEPTION_MIDDLEWARE = "ExceptionMiddleware";
+
         public UseCaseBus()
         {
             useCases = new Dictionary<string, UseCaseMiddleware>();
@@ -49,8 +52,7 @@ namespace BlockbusterApp.src.Shared.Infraestructure.Bus.UseCase
 
             foreach (IMiddlewareHandler middlewareHandler in this.middlewareHanders)
             {
-                if (IsTransactionMiddleware(middlewareHandler) && !UseCaseCalledFromController(stackClassName)) { continue; } 
-                if (IsExceptionMiddleware(middlewareHandler) && !UseCaseCalledFromController(stackClassName)) { continue; }
+                if (ItShouldSkipMiddleware(middlewareHandler,stackClassName)) { continue; }
                 middlewareHandler.SetNext(mHandler);
                 mHandler = middlewareHandler;
             }
@@ -58,17 +60,27 @@ namespace BlockbusterApp.src.Shared.Infraestructure.Bus.UseCase
             return mHandler.Handle(req);
         }
 
-        private bool IsTransactionMiddleware(IMiddlewareHandler middlewareHandler)
+        private bool ItShouldSkipMiddleware(IMiddlewareHandler middlewareHandler, string stackClassName)
         {
-            return middlewareHandler.GetType().Name == typeof(TransactionMiddleware).Name;
+            return IsAMiddlewareThatCanOnlyBeCalledOnce(middlewareHandler)
+                    && !CalledFromController(stackClassName);
         }
 
-        private bool IsExceptionMiddleware(IMiddlewareHandler middlewareHandler)
+        private bool IsAMiddlewareThatCanOnlyBeCalledOnce(IMiddlewareHandler middlewareHandler)
         {
-            return middlewareHandler.GetType().Name == typeof(ExceptionMiddleware).Name;
+            string middlewareHandlerName = middlewareHandler.GetType().Name;
+            switch (middlewareHandlerName)
+            {
+                case TRANSACTION_MIDDLEWARE:
+                    return true;                  
+                case EXCEPTION_MIDDLEWARE:
+                    return true;
+                default:
+                    return false;
+            }        
         }
 
-        private bool UseCaseCalledFromController(string stackClassName)
+        private bool CalledFromController(string stackClassName)
         {            
             return stackClassName == typeof(Controller).Name;
         }
