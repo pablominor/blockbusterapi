@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlockbusterApp", "BlockbusterApp\BlockbusterApp.csproj", "{B9593297-5E42-41EB-8E17-98EC7ED2603B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "UnitTest\UnitTest.csproj", "{07A6A8B5-35EC-4518-97A6-1B6F26B8312F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTest", "UnitTest\UnitTest.csproj", "{07A6A8B5-35EC-4518-97A6-1B6F26B8312F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

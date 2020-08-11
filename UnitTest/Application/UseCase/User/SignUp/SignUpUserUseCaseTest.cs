@@ -1,19 +1,15 @@
 ﻿using BlockbusterApp.src.Application.UseCase.User.SignUP;
 using BlockbusterApp.src.Domain.CountryAggregate;
-using BlockbusterApp.src.Domain.CountryAggregate.Service;
 using BlockbusterApp.src.Domain.UserAggregate;
 using BlockbusterApp.src.Domain.UserAggregate.Service;
 using BlockbusterApp.src.Shared.Application.Bus.UseCase;
 using BlockbusterApp.src.Shared.Domain.Event;
 using Moq;
 using NUnit.Framework;
-using NUnit.Framework.Internal.Execution;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnitTest.Stub.Request;
-using UnitTest.Stub.UserAggregate;
+using UnitTest.Domain.UserAggregate.Stub;
+using UnitTest.Application.UseCase.User.SignUp.Stub;
+using UnitTest.Domain.Repository;
 
 namespace UnitTest.Application.UseCase.User.SignUp
 {
@@ -39,13 +35,11 @@ namespace UnitTest.Application.UseCase.User.SignUp
                 .Returns(user);
             Mock<IEventProvider> eventProvider = new Mock<IEventProvider>();
             eventProvider.Setup(o => o.RecordEvents(It.IsAny<List<DomainEvent>>()));
-            Mock<IUserRepository> userRepository = new Mock<IUserRepository>();
+            Mock<IUserRepository> userRepository = RepositoryMockGenerator.CreateUserRepository();
             userRepository.Setup(o => o.Add(user));
             Mock<SignUpUserValidator> signUpUserValidator = new Mock<SignUpUserValidator>(userRepository.Object);
             signUpUserValidator.Setup(o => o.Validate(It.IsAny<UserEmail>()));
             Mock<ICountryRepository> countryRepository = new Mock<ICountryRepository>();
-            Mock<CountryValidator> countryValidator = new Mock<CountryValidator>(countryRepository.Object);
-            countryValidator.Setup(o => o.Validate(It.IsAny<CountryCode>()));
             Mock<EmptyResponseConverter> emptyResponseConverter = new Mock<EmptyResponseConverter>();
             emptyResponseConverter.Setup(o => o.Convert());
             SignUpUserUseCase useCase = new SignUpUserUseCase(
@@ -53,15 +47,13 @@ namespace UnitTest.Application.UseCase.User.SignUp
                 signUpUserValidator.Object,
                 userRepository.Object,
                 emptyResponseConverter.Object,
-                eventProvider.Object,
-                countryValidator.Object
+                eventProvider.Object
                 );
 
             useCase.Execute(request);
 
             userFactory.VerifyAll();
             signUpUserValidator.VerifyAll();
-            countryValidator.VerifyAll();
             userRepository.VerifyAll();
             emptyResponseConverter.VerifyAll();
             eventProvider.VerifyAll();

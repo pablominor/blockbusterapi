@@ -1,20 +1,24 @@
-﻿using BlockbusterApp.src.Application.UseCase.User.FindByEmalAndPassword;
-using BlockbusterApp.src.Domain.UserAggregate;
+﻿using BlockbusterApp.src.Domain.UserAggregate;
 using BlockbusterApp.src.Domain.UserAggregate.Service;
 using BlockbusterApp.src.Infraestructure.Service.Hashing;
 using BlockbusterApp.src.Shared.Application.Bus.UseCase;
 
-namespace BlockbusterApp.src.Application.UseCase.User.FindById
+namespace BlockbusterApp.src.Application.UseCase.User.FindByEmalAndPassword
 {
     public class FindUserByEmailAndPasswordUseCase : IUseCase
     {
         private UserFinder userFinder;
         private IHashing hashing;
+        private UserResponseConverter converter;
 
-        public FindUserByEmailAndPasswordUseCase(UserFinder userFinder, IHashing hashing)
+        public FindUserByEmailAndPasswordUseCase(
+            UserFinder userFinder, 
+            IHashing hashing, 
+            UserResponseConverter converter)
         {
             this.userFinder = userFinder;
             this.hashing = hashing;
+            this.converter = converter;
         }
 
         public IResponse Execute(IRequest req)
@@ -26,7 +30,7 @@ namespace BlockbusterApp.src.Application.UseCase.User.FindById
 
             var user = userFinder.ByEmailAndPassword(userEmail,userHashedPassword);
 
-            return new UserResponse(user);            
+            return this.converter.Convert(user); 
         }
     }
 }

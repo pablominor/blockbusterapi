@@ -5,8 +5,7 @@ using BlockbusterApp.src.Shared.Domain;
 using Microsoft.Extensions.Configuration;
 using Moq;
 using NUnit.Framework;
-using UnitTest.Stub.Email;
-using UnitTest.Stub.Request;
+using UnitTest.Application.UseCase.Email.Stub;
 
 namespace UnitTest.Application.UseCase.Email
 {

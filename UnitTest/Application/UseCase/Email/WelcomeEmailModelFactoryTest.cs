@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Moq;
 using NUnit.Framework;
 using System;
+using UnitTest.Application.UseCase.Email.Stub;
 using UnitTest.Stub.Request;
 
 namespace UnitTest.Application.UseCase.Email

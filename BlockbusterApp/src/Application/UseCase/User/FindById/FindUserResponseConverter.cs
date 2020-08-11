@@ -7,7 +7,7 @@ namespace BlockbusterApp.src.Application.UseCase.User.FindById
     {
         public FindUserResponseConverter() { }
 
-        public IResponse Convert(dynamic item)
+        public virtual IResponse Convert(dynamic item)
         {
             Domain.UserAggregate.User user = item as Domain.UserAggregate.User;
 

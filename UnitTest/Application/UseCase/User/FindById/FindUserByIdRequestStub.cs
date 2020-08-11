@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using UnitTest.Stub.UserAggregate;
+using UnitTest.Domain.UserAggregate.Stub;
 
 namespace UnitTest.Application.UseCase.User.FindById
 {

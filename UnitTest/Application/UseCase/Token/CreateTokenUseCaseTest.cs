@@ -7,7 +7,9 @@ using Moq;
 using NUnit.Framework;
 using System.Collections.Generic;
 using UnitTest.Stub.Request;
-using UnitTest.Stub.UserAggregate;
+using UnitTest.Domain.TokenAggregate.Stub;
+using UnitTest.Domain.UserAggregate.Stub;
+using UnitTest.Domain.Repository;
 
 namespace UnitTest.Application.UseCase.Token
 {
@@ -25,7 +27,7 @@ namespace UnitTest.Application.UseCase.Token
             BlockbusterApp.src.Domain.TokenAggregate.Token token = TokenStub.ByDefault();
             Mock<ITokenFactory> tokenFactory = new Mock<ITokenFactory>();
             tokenFactory.Setup(o => o.Create(payload)).Returns(token);
-            Mock<ITokenRepository> tokenRepository = new Mock<ITokenRepository>();
+            Mock<ITokenRepository> tokenRepository = RepositoryMockGenerator.CreateTokenRepository();
             tokenRepository.Setup(o => o.Add(token));
             Mock<TokenConverter> tokenConverter = new Mock<TokenConverter>();
             tokenConverter.Setup(o => o.Convert(token));
@@ -54,9 +56,8 @@ namespace UnitTest.Application.UseCase.Token
 
         private Mock<TokenFacade> getTokenFacade()
         {
-            Mock<IUseCaseBus> useCaseBus = new Mock<IUseCaseBus>();
-            Mock<IUserRepository> userRepository = new Mock<IUserRepository>();
-            Mock<TokenFacade> tokenFacade = new Mock<TokenFacade>(useCaseBus.Object,userRepository.Object);
+            Mock<IUseCaseBus> useCaseBus = new Mock<IUseCaseBus>();            
+            Mock<TokenFacade> tokenFacade = new Mock<TokenFacade>(useCaseBus.Object);
             return tokenFacade;
         }
     }

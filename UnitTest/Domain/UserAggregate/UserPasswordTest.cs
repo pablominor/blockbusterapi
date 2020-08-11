@@ -5,7 +5,7 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using UnitTest.Stub.UserAggregate;
+using UnitTest.Domain.UserAggregate.Stub;
 
 namespace UnitTest.Domain.UserAggregate
 {

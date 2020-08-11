@@ -1,6 +1,6 @@
 ﻿using BlockbusterApp.src.Application.UseCase.User.FindById;
 using NUnit.Framework;
-using UnitTest.Stub.UserAggregate;
+using UnitTest.Domain.UserAggregate.Stub;
 
 namespace UnitTest.Application.UseCase.User.FindById
 {

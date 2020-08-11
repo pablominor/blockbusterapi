@@ -14,17 +14,14 @@ namespace BlockbusterApp.src.Infraestructure.Service.Token
     public class TokenFacade
     {
         private IUseCaseBus useCaseBus;
-        private IUserRepository userRepository;
 
-        public TokenFacade(IUseCaseBus useCaseBus, IUserRepository userRepository)
+        public TokenFacade(IUseCaseBus useCaseBus)
         {
             this.useCaseBus = useCaseBus;
-            this.userRepository = userRepository;
         }
 
         public Domain.UserAggregate.User FindUserFromEmailAndPassword(string email,string password)
         {
-
             IResponse res = this.useCaseBus.Dispatch(new FindUserByEmailAndPasswordRequest(email, password));
             UserResponse response = res as UserResponse;
             return response.User;                        

@@ -1,5 +1,8 @@
-﻿using BlockbusterApp.src.Domain.UserAggregate;
+﻿using BlockbusterApp.src.Application.UseCase.Country.FindByCode;
+using BlockbusterApp.src.Domain.UserAggregate;
 using BlockbusterApp.src.Infraestructure.Service.Hashing;
+using BlockbusterApp.src.Shared.Application.Bus.UseCase;
+using BlockbusterApp.src.Shared.Infraestructure.Bus.UseCase;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,10 +14,12 @@ namespace BlockbusterApp.src.Infraestructure.Service.User
     public class UserFactory : IUserFactory
     {
         private IHashing hashing;
+        private IUseCaseBus useCaseBus;
 
-        public UserFactory(IHashing hashing)
+        public UserFactory(IHashing hashing, IUseCaseBus useCaseBus)
         {
             this.hashing = hashing;
+            this.useCaseBus = useCaseBus;
         }
 
         public Domain.UserAggregate.User Create(
@@ -36,6 +41,8 @@ namespace BlockbusterApp.src.Infraestructure.Service.User
             UserFirstName userFirstName = new UserFirstName(firstName);
             UserLastName userLastName = new UserLastName(lastName);
             UserRole userRole = new UserRole(role);
+
+            IResponse res = this.useCaseBus.Dispatch(new FindCountryByCodeRequest(countryCode));
             UserCountryCode userCountryCode = new UserCountryCode(countryCode);
 
             UserHashedPassword userHashedPassword = this.hashing.Hash(password);

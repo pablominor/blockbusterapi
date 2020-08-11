@@ -3,10 +3,8 @@ using BlockbusterApp.src.Domain.UserAggregate.Service;
 using BlockbusterApp.src.Domain.UserAggregate.Service.Exception;
 using Moq;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using UnitTest.Stub.UserAggregate;
+using UnitTest.Domain.Repository;
+using UnitTest.Domain.UserAggregate.Stub;
 
 namespace UnitTest.Domain.UserAggregate.Service
 {
@@ -17,7 +15,7 @@ namespace UnitTest.Domain.UserAggregate.Service
         [Test]
         public void ItShouldThrowExceptionWhenFindUserWithSameEmail()
         {
-            Mock<IUserRepository> userRepository = new Mock<IUserRepository>();
+            Mock<IUserRepository> userRepository = RepositoryMockGenerator.CreateUserRepository();
             userRepository.Setup(o => o.FindUserByEmail(UserEmailStub.ByDefault())).Returns(UserStub.ByDefault());
             SignUpUserValidator signUpUserValidator = new SignUpUserValidator(userRepository.Object);
 
@@ -29,7 +27,7 @@ namespace UnitTest.Domain.UserAggregate.Service
         [Test]
         public void ItShouldValidateAnCallCollaborators()
         {
-            Mock<IUserRepository> userRepository = new Mock<IUserRepository>();
+            Mock<IUserRepository> userRepository = RepositoryMockGenerator.CreateUserRepository();
             userRepository.Setup(o => o.FindUserByEmail(It.IsAny<UserEmail>()));
             SignUpUserValidator signUpUserValidator = new SignUpUserValidator(userRepository.Object);
 

@@ -14,22 +14,19 @@ namespace BlockbusterApp.src.Application.UseCase.User.SignUP
         private IUserRepository userRepository;
         private EmptyResponseConverter emptyResponseConverter;
         private IEventProvider eventProvider;
-        private CountryValidator countryValidator;
 
         public SignUpUserUseCase(
             IUserFactory userFactory, 
             SignUpUserValidator userValidator, 
             IUserRepository userRepository,
             EmptyResponseConverter emptyResponseConverter,
-            IEventProvider eventProvider,
-            CountryValidator countryValidator)
+            IEventProvider eventProvider)
         {
             this.userFactory = userFactory;
             this.userValidator = userValidator;
             this.userRepository = userRepository;
             this.emptyResponseConverter = emptyResponseConverter;
             this.eventProvider = eventProvider;
-            this.countryValidator = countryValidator;
         }
 
         public IResponse Execute(IRequest req)
@@ -49,7 +46,6 @@ namespace BlockbusterApp.src.Application.UseCase.User.SignUP
             this.eventProvider.RecordEvents(user.ReleaseEvents());
 
             this.userValidator.Validate(user.userEmail);
-            this.countryValidator.Validate(new CountryCode(user.userCountryCode.GetValue()));
 
             this.userRepository.Add(user);
 

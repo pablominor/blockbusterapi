@@ -1,6 +1,6 @@
 ﻿using BlockbusterApp.src.Shared.Application.Bus.UseCase;
 
-namespace BlockbusterApp.src.Application.UseCase.User.FindById
+namespace BlockbusterApp.src.Application.UseCase.User.FindByEmalAndPassword
 {
     public class FindUserByEmailAndPasswordRequest : IRequest
     {

@@ -14,5 +14,11 @@ namespace BlockbusterApp.src.Domain.CountryAggregate
             this.code = code;
             this.tax = tax;
         }
+
+        public static Country Create(CountryCode code, CountryTax tax)
+        {
+            Country country = new Country(code, tax);
+            return country;
+        }
     }
 }

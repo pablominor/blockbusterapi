@@ -1,8 +1,5 @@
 ﻿using BlockbusterApp.src.Domain.TokenAggregate;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using UnitTest.Stub.UserAggregate;
+using UnitTest.Domain.UserAggregate.Stub;
 
 namespace UnitTest.Domain.TokenAggregate.Stub
 {

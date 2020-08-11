@@ -2,13 +2,11 @@
 using BlockbusterApp.src.Shared.Infraestructure.Bus.Middleware.Exception;
 using BlockbusterApp.src.Shared.Infraestructure.Bus.UseCase;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BlockbusterApp.src.Shared.UI.Rest.Controller
 {
+    [ExcludeFromCodeCoverage]
     public abstract class Controller : ControllerBase
     {
         private IUseCaseBus useCaseBus;

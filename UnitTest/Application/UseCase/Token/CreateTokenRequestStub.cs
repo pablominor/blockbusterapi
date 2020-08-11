@@ -1,9 +1,5 @@
 ﻿using BlockbusterApp.src.Application.UseCase.Token;
-using BlockbusterApp.src.Application.UseCase.User.SignUP;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using UnitTest.Stub.UserAggregate;
+using UnitTest.Domain.UserAggregate.Stub;
 
 namespace UnitTest.Stub.Request
 {
