@@ -26,6 +26,8 @@ using BlockbusterApp.src.Shared.Infraestructure.Bus.Event;
 using BlockbusterApp.src.Shared.Infraestructure.Bus.Middleware;
 using BlockbusterApp.src.Shared.Infraestructure.Bus.Middleware.Exception;
 using BlockbusterApp.src.Shared.Infraestructure.Bus.UseCase;
+using BlockbusterApp.src.Shared.Infraestructure.Bus.UseCase.Response;
+using BlockbusterApp.src.Shared.Infraestructure.Bus.UseCase.URL;
 using BlockbusterApp.src.Shared.Infraestructure.Persistance.Context;
 using BlockbusterApp.src.Shared.Infraestructure.Persistance.Repository;
 using BlockbusterApp.src.Shared.Infraestructure.Security.Authentication.JWT;
@@ -154,7 +156,8 @@ namespace BlockbusterApp
             {
                 serviceProvider.GetService<TransactionMiddleware>(),
                 serviceProvider.GetService<EventDispatcherSyncMiddleware>(),
-                serviceProvider.GetService<ExceptionMiddleware>()
+                serviceProvider.GetService<ExceptionMiddleware>(),
+                serviceProvider.GetService<ResponseMiddleware>()
             };
 
             useCaseBus.SetMiddlewares(middlewareHandlers);
@@ -233,7 +236,10 @@ namespace BlockbusterApp
             services.AddSingleton<IUseCaseBus, UseCaseBus>();
 
             services.AddScoped<IUserProvider, UserProvider>();
+            services.AddScoped<IUrlProvider, UrlProvider>();
             services.AddHttpContextAccessor();
+
+            services.AddScoped<JSONFormatter>();
 
             LoadInfraRequestsDependencies(services);
             LoadInfraResponsesDependencies(services);
@@ -264,6 +270,7 @@ namespace BlockbusterApp
             services.AddSingleton<TransactionMiddleware>();
             services.AddScoped<EventDispatcherSyncMiddleware>();
             services.AddScoped<ExceptionMiddleware>();
+            services.AddScoped<ResponseMiddleware>();
         }
 
         private void LoadApplicationUseCases(IServiceCollection services)

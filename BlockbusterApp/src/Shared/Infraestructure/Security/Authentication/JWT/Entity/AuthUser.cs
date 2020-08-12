@@ -9,7 +9,7 @@ namespace BlockbusterApp.src.Shared.Infraestructure.Security.Authentication.JWT.
     public class AuthUser
     {
 
-        public virtual string userId { get; }
+        public string userId { get; }
         public string email { get; }
         public string firstName { get; }
         public string lastName { get; }

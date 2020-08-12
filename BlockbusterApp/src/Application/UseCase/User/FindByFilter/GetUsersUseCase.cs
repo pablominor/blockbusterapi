@@ -1,7 +1,5 @@
-﻿using BlockbusterApp.src.Application.UseCase.User.FindById;
-using BlockbusterApp.src.Domain.UserAggregate;
+﻿using BlockbusterApp.src.Domain.UserAggregate;
 using BlockbusterApp.src.Shared.Application.Bus.UseCase;
-using System.Collections.ObjectModel;
 
 namespace BlockbusterApp.src.Application.UseCase.User.FindByFilter
 {
@@ -22,7 +20,7 @@ namespace BlockbusterApp.src.Application.UseCase.User.FindByFilter
 
             var users = this.userRepository.GetUsers(request.Page());
 
-            return this.converter.Convert(users);            
+            return this.converter.Convert(users);
         }
 
     }

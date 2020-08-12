@@ -13,13 +13,6 @@ namespace BlockbusterApp.src.Application.UseCase.User.FindByFilter
         }
 
 
-        public GetUsersResponse<IResponse> Convert(IEnumerable<dynamic> users)
-        {
-            return new GetUsersResponse<IResponse>()
-            {
-                Users = base.Convert(users).Items()
-            };
-        }
 
     }
 }
