@@ -27,7 +27,7 @@ namespace UnitTest.Application.UseCase.Token
             BlockbusterApp.src.Domain.TokenAggregate.Token token = TokenStub.ByDefault();
             Mock<ITokenFactory> tokenFactory = new Mock<ITokenFactory>();
             tokenFactory.Setup(o => o.Create(payload)).Returns(token);
-            Mock<ITokenRepository> tokenRepository = RepositoryMockGenerator.CreateTokenRepository();
+            Mock<ITokenRepository> tokenRepository = RepositoryStub.CreateTokenRepository();
             tokenRepository.Setup(o => o.Add(token));
             Mock<TokenConverter> tokenConverter = new Mock<TokenConverter>();
             tokenConverter.Setup(o => o.Convert(token));

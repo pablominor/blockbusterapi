@@ -15,7 +15,7 @@ namespace UnitTest.Domain.UserAggregate.Service
         [Test]
         public void ItShouldThrowExceptionWhenFindUserWithSameEmail()
         {
-            Mock<IUserRepository> userRepository = RepositoryMockGenerator.CreateUserRepository();
+            Mock<IUserRepository> userRepository = RepositoryStub.CreateUserRepository();
             userRepository.Setup(o => o.FindUserByEmail(UserEmailStub.ByDefault())).Returns(UserStub.ByDefault());
             SignUpUserValidator signUpUserValidator = new SignUpUserValidator(userRepository.Object);
 
@@ -27,7 +27,7 @@ namespace UnitTest.Domain.UserAggregate.Service
         [Test]
         public void ItShouldValidateAnCallCollaborators()
         {
-            Mock<IUserRepository> userRepository = RepositoryMockGenerator.CreateUserRepository();
+            Mock<IUserRepository> userRepository = RepositoryStub.CreateUserRepository();
             userRepository.Setup(o => o.FindUserByEmail(It.IsAny<UserEmail>()));
             SignUpUserValidator signUpUserValidator = new SignUpUserValidator(userRepository.Object);
 

@@ -1,10 +1,8 @@
-﻿using BlockbusterApp.src.Domain.TokenAggregate;
+﻿using BlockbusterApp.src.Shared.Infraestructure.Security.Authentication.JWT.Entity;
 using Microsoft.AspNetCore.Http;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace BlockbusterApp.src.Shared.Infraestructure.Security.Authentication.JWT
 {
@@ -17,10 +15,14 @@ namespace BlockbusterApp.src.Shared.Infraestructure.Security.Authentication.JWT
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public string GetUserId()
+        public AuthUser GetUser()
         {
-            return _context.HttpContext.User.Claims
-                       .First(i => i.Type == TokenClaimTypes.USER_ID).Value;
+            return AuthUser.Create(
+                _context.HttpContext.User.Claims.First(i => i.Type == TokenClaimTypes.USER_ID).Value,
+                _context.HttpContext.User.FindFirst(ClaimTypes.Email).Value,
+                _context.HttpContext.User.Claims.First(i => i.Type == TokenClaimTypes.FIRST_NAME).Value,
+                _context.HttpContext.User.Claims.First(i => i.Type == TokenClaimTypes.LAST_NAME).Value,
+                _context.HttpContext.User.FindFirst(ClaimTypes.Role).Value);
         }
     }
 

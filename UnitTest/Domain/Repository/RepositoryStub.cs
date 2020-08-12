@@ -8,7 +8,7 @@ using System.Text;
 
 namespace UnitTest.Domain.Repository
 {
-    public class RepositoryMockGenerator
+    public class RepositoryStub
     {
         public static Mock<IUserRepository> CreateUserRepository()
         {

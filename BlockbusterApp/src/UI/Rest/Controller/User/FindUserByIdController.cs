@@ -21,8 +21,9 @@ namespace BlockbusterApp.src.UI.Rest.Controller.User
         
         [Authorize(Roles = UserRole.ROLE_USER)]
         [HttpGet]
-        public IActionResult FindUserById(FindUserByIdRequest request)
+        public IActionResult FindUserById()
         {
+            FindUserByIdRequest request = new FindUserByIdRequest();
             return Dispatch(request);
         }
     }

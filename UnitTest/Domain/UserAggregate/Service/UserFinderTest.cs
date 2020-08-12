@@ -26,7 +26,7 @@ namespace UnitTest.Domain.UserAggregate.Service
         [Test]
         public void ItShouldThrowExceptionFromUserNotFoundById()
         {
-            Mock<IUserRepository> userRepository = RepositoryMockGenerator.CreateUserRepository();
+            Mock<IUserRepository> userRepository = RepositoryStub.CreateUserRepository();
             userRepository.Setup(o => o.FindUserById(It.IsAny<UserId>())).Returns(this.userNull);
             UserFinder userFinder = new UserFinder(userRepository.Object);
 
@@ -39,7 +39,7 @@ namespace UnitTest.Domain.UserAggregate.Service
         [Test]
         public void ItShouldThrowExceptionFromUserNotFoundByEmailAndPassword()
         {
-            Mock<IUserRepository> userRepository = RepositoryMockGenerator.CreateUserRepository();
+            Mock<IUserRepository> userRepository = RepositoryStub.CreateUserRepository();
             userRepository.Setup(o => o.FindUserByEmailAndPassword(It.IsAny<UserEmail>(), It.IsAny<UserHashedPassword>())).Returns(this.userNull);
             UserFinder userFinder = new UserFinder(userRepository.Object);
 
@@ -53,7 +53,7 @@ namespace UnitTest.Domain.UserAggregate.Service
         public void ItShouldFindUserById()
         {
             BlockbusterApp.src.Domain.UserAggregate.User user = UserStub.ByDefault();
-            Mock<IUserRepository> userRepository = RepositoryMockGenerator.CreateUserRepository();
+            Mock<IUserRepository> userRepository = RepositoryStub.CreateUserRepository();
             userRepository.Setup(o => o.FindUserById(It.IsAny<UserId>())).Returns(user);
             UserFinder userFinder = new UserFinder(userRepository.Object);
 
@@ -67,7 +67,7 @@ namespace UnitTest.Domain.UserAggregate.Service
         public void ItShouldFindUserByEmailAndPassword()
         {
             BlockbusterApp.src.Domain.UserAggregate.User user = UserStub.ByDefault();
-            Mock<IUserRepository> userRepository = RepositoryMockGenerator.CreateUserRepository();
+            Mock<IUserRepository> userRepository = RepositoryStub.CreateUserRepository();
             userRepository.Setup(o => o.FindUserByEmailAndPassword(It.IsAny<UserEmail>(), It.IsAny<UserHashedPassword>())).Returns(user);
             UserFinder userFinder = new UserFinder(userRepository.Object);
 

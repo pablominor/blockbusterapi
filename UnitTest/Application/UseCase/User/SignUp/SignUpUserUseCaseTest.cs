@@ -35,7 +35,7 @@ namespace UnitTest.Application.UseCase.User.SignUp
                 .Returns(user);
             Mock<IEventProvider> eventProvider = new Mock<IEventProvider>();
             eventProvider.Setup(o => o.RecordEvents(It.IsAny<List<DomainEvent>>()));
-            Mock<IUserRepository> userRepository = RepositoryMockGenerator.CreateUserRepository();
+            Mock<IUserRepository> userRepository = RepositoryStub.CreateUserRepository();
             userRepository.Setup(o => o.Add(user));
             Mock<SignUpUserValidator> signUpUserValidator = new Mock<SignUpUserValidator>(userRepository.Object);
             signUpUserValidator.Setup(o => o.Validate(It.IsAny<UserEmail>()));

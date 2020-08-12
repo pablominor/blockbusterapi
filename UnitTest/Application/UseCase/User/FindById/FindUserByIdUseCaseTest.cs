@@ -1,10 +1,11 @@
 ﻿using BlockbusterApp.src.Application.UseCase.User.FindById;
 using BlockbusterApp.src.Domain.UserAggregate;
 using BlockbusterApp.src.Domain.UserAggregate.Service;
+using BlockbusterApp.src.Shared.Infraestructure.Security.Authentication.JWT;
 using Moq;
 using NUnit.Framework;
-using UnitTest.Domain.Repository;
 using UnitTest.Domain.UserAggregate.Stub;
+using UnitTest.Shared.Infraestructure.Security.Authentication.JWT;
 
 namespace UnitTest.Application.UseCase.User.FindById
 {
@@ -17,18 +18,18 @@ namespace UnitTest.Application.UseCase.User.FindById
         {
             FindUserByIdRequest request = FindUserByIdRequestStub.ByDefault();
             BlockbusterApp.src.Domain.UserAggregate.User user = UserStub.ByDefault();
-            Mock<IUserRepository> userRepository = RepositoryMockGenerator.CreateUserRepository();
-            Mock<UserFinder> userFinder = new Mock<UserFinder>(userRepository.Object);
+            Mock<IUserProvider> userProvider = new Mock<IUserProvider>();            
+            userProvider.Setup(o => o.GetUser()).Returns(AuthUserStub.ByDefaultWithRoleAdmin());
+            Mock<UserFinder> userFinder = UserFinderStub.ByDefault();
             userFinder.Setup(o => o.ById(It.IsAny<UserId>())).Returns(user);
             Mock<FindUserResponseConverter> converter = new Mock<FindUserResponseConverter>();
             converter.Setup(o => o.Convert(user));
-            Mock<IUserAuthorization> userAuthorization = new Mock<IUserAuthorization>();
-            userAuthorization.Setup(o => o.AuthorizeAsOwner(It.IsAny<UserId>()));
-            FindUserByIdUseCase useCase = new FindUserByIdUseCase(converter.Object, userFinder.Object,userAuthorization.Object);
+            
+            FindUserByIdUseCase useCase = new FindUserByIdUseCase(converter.Object, userFinder.Object,userProvider.Object);
 
             useCase.Execute(request);
 
-            userAuthorization.VerifyAll();
+            userProvider.VerifyAll();
             userFinder.VerifyAll();
             converter.VerifyAll();
         }

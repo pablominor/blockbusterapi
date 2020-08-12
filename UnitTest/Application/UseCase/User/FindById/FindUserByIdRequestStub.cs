@@ -8,18 +8,9 @@ namespace UnitTest.Application.UseCase.User.FindById
 {
     public class FindUserByIdRequestStub
     {
-        public static FindUserByIdRequest Create(
-            string Id
-            )
-        {
-            return new FindUserByIdRequest(Id);
-        }
-
         public static FindUserByIdRequest ByDefault()
         {
-            return new FindUserByIdRequest(
-                UserIdStub.ByDefault().GetValue()                
-            );
+            return new FindUserByIdRequest();
         }
     }
 }

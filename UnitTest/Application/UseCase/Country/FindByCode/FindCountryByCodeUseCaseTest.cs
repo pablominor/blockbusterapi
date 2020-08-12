@@ -17,7 +17,7 @@ namespace UnitTest.Application.UseCase.Country.FindByCode
         {
             FindCountryByCodeRequest request = FindCountryByCodeRequestStub.ByDefault();
             BlockbusterApp.src.Domain.CountryAggregate.Country country = CountryStub.ByDefault();
-            Mock<ICountryRepository> countryRepository = RepositoryMockGenerator.CreateCountryRepository();
+            Mock<ICountryRepository> countryRepository = RepositoryStub.CreateCountryRepository();
             Mock<CountryFinder> countryFinder = new Mock<CountryFinder>(countryRepository.Object);
             countryFinder.Setup(o => o.ByCode(It.IsAny<CountryCode>())).Returns(country);
             Mock<CountryResponseConverter> converter = new Mock<CountryResponseConverter>();

@@ -4,6 +4,7 @@ using BlockbusterApp.src.Domain.UserAggregate.Service;
 using BlockbusterApp.src.Infraestructure.Service.Hashing;
 using Moq;
 using NUnit.Framework;
+using UnitTest.Application.UseCase.User.FindById;
 using UnitTest.Domain.Repository;
 using UnitTest.Domain.UserAggregate.Stub;
 
@@ -17,7 +18,7 @@ namespace UnitTest.Application.UseCase.User.FindByEmailAndPassword
         public void ItShouldCallCollaborators()
         {
             FindUserByEmailAndPasswordRequest request = FindUserByEmailAndPasswordRequestStub.ByDefault();
-            Mock<UserFinder> userFinder = CreateUserFinderMock();
+            Mock<UserFinder> userFinder = UserFinderStub.ByDefault();
             userFinder.Setup(o => o.ByEmailAndPassword(It.IsAny<UserEmail>(), It.IsAny<UserHashedPassword>()));
             Mock<UserResponseConverter> converter = new Mock<UserResponseConverter>();
             converter.Setup(o => o.Convert(It.IsAny<BlockbusterApp.src.Domain.UserAggregate.User>()));            
@@ -34,13 +35,5 @@ namespace UnitTest.Application.UseCase.User.FindByEmailAndPassword
             hashing.VerifyAll();
             converter.VerifyAll();
         }
-
-        private Mock<UserFinder> CreateUserFinderMock()
-        {
-            Mock<IUserRepository> userRepository = RepositoryMockGenerator.CreateUserRepository();
-            Mock<UserFinder> userFinder = new Mock<UserFinder>(userRepository.Object);
-            return userFinder;
-        }
-
     }
 }

@@ -21,7 +21,7 @@ namespace UnitTest.Domain.CountryAggregate.Service
         public void ItShouldThrowExceptionFromCountryNotFoundByCode()
         {
             Country country = null;
-            Mock<ICountryRepository> countryRepository = RepositoryMockGenerator.CreateCountryRepository();
+            Mock<ICountryRepository> countryRepository = RepositoryStub.CreateCountryRepository();
             countryRepository.Setup(o => o.FindCountryByCode(It.IsAny<CountryCode>())).Returns(country);
             CountryFinder countryFinder = new CountryFinder(countryRepository.Object);
 
@@ -35,7 +35,7 @@ namespace UnitTest.Domain.CountryAggregate.Service
         public void ItShouldFindCountryByCode()
         {
             Country country = CountryStub.ByDefault();
-            Mock<ICountryRepository> countryRepository = RepositoryMockGenerator.CreateCountryRepository();
+            Mock<ICountryRepository> countryRepository = RepositoryStub.CreateCountryRepository();
             countryRepository.Setup(o => o.FindCountryByCode(It.IsAny<CountryCode>())).Returns(country);
             CountryFinder countryFinder = new CountryFinder(countryRepository.Object);
 

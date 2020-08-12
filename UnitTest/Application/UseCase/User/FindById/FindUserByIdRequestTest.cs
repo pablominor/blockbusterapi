@@ -11,13 +11,11 @@ namespace UnitTest.Application.UseCase.User.FindById
         [Test]
         public void ItShouldReturnSameNumberOfValuesWhenRequestIsCorrect()
         {
-            FindUserByIdRequest request = new FindUserByIdRequest(
-                UserIdStub.ByDefault().GetValue());
+            FindUserByIdRequest request = new FindUserByIdRequest();
             Type type = typeof(FindUserByIdRequest);
             int numberOfFields = type.GetProperties().Length;
 
-            Assert.AreEqual(numberOfFields, 1);
-            Assert.AreEqual(request.Id, UserIdStub.ByDefault().GetValue());
+            Assert.AreEqual(numberOfFields, 0);
         }
     }
 }

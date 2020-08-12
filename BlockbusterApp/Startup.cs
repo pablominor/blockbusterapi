@@ -16,13 +16,11 @@ using BlockbusterApp.src.Domain.TokenAggregate;
 using BlockbusterApp.src.Domain.UserAggregate;
 using BlockbusterApp.src.Domain.UserAggregate.Service;
 using BlockbusterApp.src.Infraestructure.Persistance.Repository;
-using BlockbusterApp.src.Infraestructure.Security.User;
 using BlockbusterApp.src.Infraestructure.Service.Hashing;
 using BlockbusterApp.src.Infraestructure.Service.Mailer;
 using BlockbusterApp.src.Infraestructure.Service.Token;
 using BlockbusterApp.src.Infraestructure.Service.User;
 using BlockbusterApp.src.Shared.Application.Bus.UseCase;
-using BlockbusterApp.src.Shared.Application.Bus.UseCase.Response;
 using BlockbusterApp.src.Shared.Domain.Event;
 using BlockbusterApp.src.Shared.Infraestructure.Bus.Event;
 using BlockbusterApp.src.Shared.Infraestructure.Bus.Middleware;
@@ -234,7 +232,6 @@ namespace BlockbusterApp
 
             services.AddSingleton<IUseCaseBus, UseCaseBus>();
 
-            services.AddScoped<IUserAuthorization, UserAuthorization>();
             services.AddScoped<IUserProvider, UserProvider>();
             services.AddHttpContextAccessor();
 
@@ -288,6 +285,7 @@ namespace BlockbusterApp
             services.AddScoped<GetUsersConverter>();
             services.AddScoped<FindUserResponseConverter>();
             services.AddScoped<CountryResponseConverter>();
+            services.AddScoped<UserResponseConverter>();
         }
     }
 }

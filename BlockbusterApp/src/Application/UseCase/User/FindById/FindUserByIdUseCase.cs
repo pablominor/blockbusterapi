@@ -1,6 +1,7 @@
 ﻿using BlockbusterApp.src.Domain.UserAggregate;
 using BlockbusterApp.src.Domain.UserAggregate.Service;
 using BlockbusterApp.src.Shared.Application.Bus.UseCase;
+using BlockbusterApp.src.Shared.Infraestructure.Security.Authentication.JWT;
 
 namespace BlockbusterApp.src.Application.UseCase.User.FindById
 {
@@ -8,22 +9,18 @@ namespace BlockbusterApp.src.Application.UseCase.User.FindById
     {
         private FindUserResponseConverter converter;
         private UserFinder userFinder;
-        private IUserAuthorization userAuthorization;
+        private IUserProvider userProvider;
 
-        public FindUserByIdUseCase(FindUserResponseConverter converter, UserFinder userFinder, IUserAuthorization userAuthorization)
+        public FindUserByIdUseCase(FindUserResponseConverter converter, UserFinder userFinder, IUserProvider userProvider)
         {
             this.converter = converter;
             this.userFinder = userFinder;
-            this.userAuthorization = userAuthorization;
+            this.userProvider = userProvider;
         }
 
         public IResponse Execute(IRequest req)
-        {
-            FindUserByIdRequest request = req as FindUserByIdRequest;
-
-            UserId userId = new UserId(request.Id);
-
-            this.userAuthorization.AuthorizeAsOwner(userId);
+        {            
+            UserId userId = new UserId(userProvider.GetUser().userId);            
 
             var user = userFinder.ById(userId);
 
