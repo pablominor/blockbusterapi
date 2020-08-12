@@ -1,11 +1,9 @@
 ﻿using BlockbusterApp.src.Shared.Application.Bus.UseCase;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BlockbusterApp.src.Shared.Infraestructure.Bus.Middleware
 {
+    [ExcludeFromCodeCoverage]
     public class UseCaseMiddleware : MiddlewareHandler
     {
         private IUseCase useCase;

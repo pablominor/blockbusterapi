@@ -2,11 +2,11 @@
 using BlockbusterApp.src.Shared.Domain.Event;
 using BlockbusterApp.src.Shared.Infraestructure.Bus.Event;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BlockbusterApp.src.Shared.Infraestructure.Bus.Middleware
 {
+    [ExcludeFromCodeCoverage]
     public class EventDispatcherSyncMiddleware : MiddlewareHandler
     {
         private IEventProvider eventProvider;

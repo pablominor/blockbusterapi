@@ -1,12 +1,10 @@
 ﻿using BlockbusterApp.src.Shared.Domain.Event;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BlockbusterApp.src.Shared.Infraestructure.Bus.Event
 {
-
+    [ExcludeFromCodeCoverage]
     public class EventProvider : IEventProvider
     {
         private List<DomainEvent> events;

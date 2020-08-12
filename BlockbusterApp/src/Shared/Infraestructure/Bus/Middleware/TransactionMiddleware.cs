@@ -1,13 +1,12 @@
 ﻿using BlockbusterApp.src.Shared.Application.Bus.UseCase;
 using BlockbusterApp.src.Shared.Infraestructure.Persistance.Context;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace BlockbusterApp.src.Shared.Infraestructure.Bus.Middleware
 {
+    [ExcludeFromCodeCoverage]
     public class TransactionMiddleware : MiddlewareHandler
     {
         private BlockbusterContext blockbusterContext;

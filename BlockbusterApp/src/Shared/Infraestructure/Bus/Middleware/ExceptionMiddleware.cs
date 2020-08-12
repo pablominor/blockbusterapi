@@ -1,13 +1,11 @@
 ﻿using BlockbusterApp.src.Shared.Application.Bus.UseCase;
 using BlockbusterApp.src.Shared.Domain.Exception;
 using BlockbusterApp.src.Shared.Infraestructure.Bus.Middleware.Exception;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BlockbusterApp.src.Shared.Infraestructure.Bus.Middleware
 {
+    [ExcludeFromCodeCoverage]
     public class ExceptionMiddleware : MiddlewareHandler
     {
         private ExceptionConverter converter;
