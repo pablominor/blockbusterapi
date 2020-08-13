@@ -11,13 +11,17 @@ namespace BlockbusterApp.src.Domain.TokenAggregate
     public class Token : AggregateRoot
     {
         [Key]
+        public int id { get; set; }
         public TokenHash hash { 
             get;
             protected set;
         }
         public TokenUserId userId { get; }
         public TokenCreatedAt createdAt { get; }
-        public TokenUpdatedAt updatedAt { get; }
+        public TokenUpdatedAt updatedAt { 
+            get;
+            protected set;
+        }
 
         private Token(
             TokenHash hash, 
@@ -55,6 +59,7 @@ namespace BlockbusterApp.src.Domain.TokenAggregate
         public void UpdateHash(TokenHash hash)
         {
             this.hash = hash;
+            this.updatedAt = new TokenUpdatedAt(DateTime.Now);
         }
     }
 }

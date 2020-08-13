@@ -8,5 +8,7 @@ namespace BlockbusterApp.src.Domain.TokenAggregate
     public interface ITokenRepository
     {
         void Add(Token token);
+        void Update(Token token);
+        Token FindByUserId(TokenUserId tokenUserId);
     }
 }

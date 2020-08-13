@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BlockbusterApp.src.Application.UseCase.Token
+namespace BlockbusterApp.src.Application.UseCase.Token.Create
 {
     public class CreateTokenRequest : IRequest
     {

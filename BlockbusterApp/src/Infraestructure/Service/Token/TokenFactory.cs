@@ -1,9 +1,6 @@
 ﻿using BlockbusterApp.src.Domain.TokenAggregate;
 using BlockbusterApp.src.Shared.Infraestructure.Security.Authentication.JWT;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BlockbusterApp.src.Infraestructure.Service.Token
 {

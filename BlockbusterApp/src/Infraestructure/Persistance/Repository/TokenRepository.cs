@@ -27,5 +27,23 @@ namespace BlockbusterApp.src.Infraestructure.Persistance.Repository
                 dbContext.Token.Add(token);
             }
         }
+
+        public void Update(Token token)
+        {
+            using (var scope = this.scopeFactory.CreateScope())
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<BlockbusterContext>();
+                dbContext.Token.Update(token);
+            }
+        }
+
+        public Token FindByUserId(TokenUserId tokenUserId)
+        {
+            using (var scope = this.scopeFactory.CreateScope())
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<BlockbusterContext>();
+                return dbContext.Token.FirstOrDefault(c => c.userId.GetValue() == tokenUserId.GetValue());
+            }
+        }
     }
 }

@@ -8,6 +8,5 @@ namespace BlockbusterApp.src.Domain.TokenAggregate
     public interface ITokenFactory
     {
         Token Create(Dictionary<string,string> payload);
-
     }
 }

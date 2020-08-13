@@ -5,7 +5,7 @@ using System.Linq;
 using System.Security.Policy;
 using System.Threading.Tasks;
 
-namespace BlockbusterApp.src.Application.UseCase.Token
+namespace BlockbusterApp.src.Application.UseCase.Token.Create
 {
     public class CreateTokenResponse : IResponse
     {

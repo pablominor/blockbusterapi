@@ -13,6 +13,11 @@ namespace BlockbusterApp.src.Infraestructure.Persistance.Mapping
         public void Configure(EntityTypeBuilder<Token> builder)
         {
             builder
+                .Property(c => c.id)
+                .HasColumnName("id")
+                .HasColumnType("int")
+                .IsRequired();
+            builder
                 .Property(c => c.hash)
                 .HasColumnName("hash")
                 .HasColumnType("text")

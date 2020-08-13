@@ -6,6 +6,8 @@ using BlockbusterApp.src.Application.Event.User;
 using BlockbusterApp.src.Application.UseCase.Country.FindByCode;
 using BlockbusterApp.src.Application.UseCase.Email.SendUserWelcome;
 using BlockbusterApp.src.Application.UseCase.Token;
+using BlockbusterApp.src.Application.UseCase.Token.Create;
+using BlockbusterApp.src.Application.UseCase.Token.Update;
 using BlockbusterApp.src.Application.UseCase.User.FindByEmalAndPassword;
 using BlockbusterApp.src.Application.UseCase.User.FindByFilter;
 using BlockbusterApp.src.Application.UseCase.User.FindById;
@@ -13,6 +15,7 @@ using BlockbusterApp.src.Application.UseCase.User.SignUP;
 using BlockbusterApp.src.Domain.CountryAggregate;
 using BlockbusterApp.src.Domain.CountryAggregate.Service;
 using BlockbusterApp.src.Domain.TokenAggregate;
+using BlockbusterApp.src.Domain.TokenAggregate.Service;
 using BlockbusterApp.src.Domain.UserAggregate;
 using BlockbusterApp.src.Domain.UserAggregate.Service;
 using BlockbusterApp.src.Infraestructure.Persistance.Repository;
@@ -143,6 +146,7 @@ namespace BlockbusterApp
             CreateTokenUseCase createTokenUseCase = serviceProvider.GetService<CreateTokenUseCase>();
             FindUserByEmailAndPasswordUseCase findUserByEmailAndPasswordUseCase = serviceProvider.GetService<FindUserByEmailAndPasswordUseCase>();
             FindCountryByCodeUseCase findCountryByCodeUseCase = serviceProvider.GetService<FindCountryByCodeUseCase>();
+            UpdateTokenUseCase updateTokenUseCase = serviceProvider.GetService<UpdateTokenUseCase>();
 
             useCaseBus.Subscribe(signUpUserUseCase);
             useCaseBus.Subscribe(sendUserWelcomeEmailUseCase);
@@ -151,6 +155,7 @@ namespace BlockbusterApp
             useCaseBus.Subscribe(createTokenUseCase);
             useCaseBus.Subscribe(findUserByEmailAndPasswordUseCase);
             useCaseBus.Subscribe(findCountryByCodeUseCase);
+            useCaseBus.Subscribe(updateTokenUseCase);
 
             List<IMiddlewareHandler> middlewareHandlers = new List<IMiddlewareHandler>
             {
@@ -207,6 +212,7 @@ namespace BlockbusterApp
             services.AddScoped<SignUpUserValidator>();
             services.AddScoped<UserFinder>();
             services.AddScoped<CountryFinder>();
+            services.AddScoped<TokenUpdaterService>();
 
             services.AddScoped<ITokenFactory, TokenFactory>();
         }
@@ -253,6 +259,7 @@ namespace BlockbusterApp
             services.AddScoped<IRequest, GetUsersRequest>();
             services.AddScoped<IRequest, FindUserByIdRequest>();
             services.AddScoped<IRequest, FindCountryByCodeRequest>();
+            services.AddScoped<IRequest, UpdateTokenRequest>();
         }
 
         private void LoadInfraResponsesDependencies(IServiceCollection services)
@@ -282,6 +289,7 @@ namespace BlockbusterApp
             services.AddScoped<FindUserByIdUseCase>();
             services.AddScoped<FindUserByEmailAndPasswordUseCase>();
             services.AddScoped<FindCountryByCodeUseCase>();
+            services.AddScoped<UpdateTokenUseCase>();
         }
 
         private void LoadApplicationConverters(IServiceCollection services)
