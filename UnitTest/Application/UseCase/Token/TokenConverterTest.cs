@@ -1,5 +1,4 @@
-﻿using BlockbusterApp.src.Application.UseCase.Token;
-using BlockbusterApp.src.Domain.TokenAggregate;
+﻿using BlockbusterApp.src.Application.UseCase.Token.Create;
 using NUnit.Framework;
 using UnitTest.Domain.TokenAggregate.Stub;
 

@@ -10,7 +10,7 @@ namespace UnitTest.Application.UseCase.User.FindById
     {
         public static FindUserByIdRequest ByDefault()
         {
-            return new FindUserByIdRequest();
+            return new FindUserByIdRequest(UserIdStub.ByDefault().GetValue());
         }
     }
 }

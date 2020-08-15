@@ -1,4 +1,4 @@
-﻿using BlockbusterApp.src.Application.UseCase.Token;
+﻿using BlockbusterApp.src.Application.UseCase.Token.Create;
 using UnitTest.Domain.UserAggregate.Stub;
 
 namespace UnitTest.Stub.Request

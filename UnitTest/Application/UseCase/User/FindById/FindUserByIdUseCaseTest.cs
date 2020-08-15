@@ -18,18 +18,14 @@ namespace UnitTest.Application.UseCase.User.FindById
         {
             FindUserByIdRequest request = FindUserByIdRequestStub.ByDefault();
             BlockbusterApp.src.Domain.UserAggregate.User user = UserStub.ByDefault();
-            Mock<IUserProvider> userProvider = new Mock<IUserProvider>();            
-            userProvider.Setup(o => o.GetUser()).Returns(AuthUserStub.ByDefaultWithRoleAdmin());
             Mock<UserFinder> userFinder = UserFinderStub.ByDefault();
             userFinder.Setup(o => o.ById(It.IsAny<UserId>())).Returns(user);
             Mock<FindUserResponseConverter> converter = new Mock<FindUserResponseConverter>();
-            converter.Setup(o => o.Convert(user));
-            
-            FindUserByIdUseCase useCase = new FindUserByIdUseCase(converter.Object, userFinder.Object,userProvider.Object);
+            converter.Setup(o => o.Convert(user));            
+            FindUserByIdUseCase useCase = new FindUserByIdUseCase(converter.Object, userFinder.Object);
 
             useCase.Execute(request);
 
-            userProvider.VerifyAll();
             userFinder.VerifyAll();
             converter.VerifyAll();
         }

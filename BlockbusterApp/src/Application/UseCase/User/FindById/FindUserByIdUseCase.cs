@@ -9,18 +9,18 @@ namespace BlockbusterApp.src.Application.UseCase.User.FindById
     {
         private FindUserResponseConverter converter;
         private UserFinder userFinder;
-        private IUserProvider userProvider;
 
-        public FindUserByIdUseCase(FindUserResponseConverter converter, UserFinder userFinder, IUserProvider userProvider)
+        public FindUserByIdUseCase(FindUserResponseConverter converter, UserFinder userFinder)
         {
             this.converter = converter;
             this.userFinder = userFinder;
-            this.userProvider = userProvider;
         }
 
         public IResponse Execute(IRequest req)
         {            
-            UserId userId = new UserId(userProvider.GetUser().userId);            
+            FindUserByIdRequest request = req as FindUserByIdRequest;
+
+            UserId userId = new UserId(request.id);            
 
             var user = userFinder.ById(userId);
 

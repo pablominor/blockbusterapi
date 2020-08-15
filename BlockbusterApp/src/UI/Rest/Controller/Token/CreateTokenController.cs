@@ -1,5 +1,6 @@
 ﻿using BlockbusterApp.src.Application.UseCase.Token.Create;
 using BlockbusterApp.src.Shared.Infraestructure.Bus.UseCase;
+using BlockbusterApp.src.Shared.Infraestructure.Security.Authentication.JWT;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics.CodeAnalysis;
@@ -12,7 +13,10 @@ namespace BlockbusterApp.src.UI.Rest.Controller.Token
     [ApiController]
     public class CreateTokenController : Shared.UI.Rest.Controller.Controller
     {
-        public CreateTokenController(IUseCaseBus useCaseBus) :base(useCaseBus)
+        public CreateTokenController(
+            IUseCaseBus useCaseBus,
+            IUserProvider userProvider) 
+            : base(useCaseBus,userProvider)
         {
 
         }

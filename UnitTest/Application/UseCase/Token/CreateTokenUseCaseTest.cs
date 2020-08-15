@@ -10,6 +10,8 @@ using UnitTest.Stub.Request;
 using UnitTest.Domain.TokenAggregate.Stub;
 using UnitTest.Domain.UserAggregate.Stub;
 using UnitTest.Domain.Repository;
+using BlockbusterApp.src.Application.UseCase.Token.Create;
+using UnitTest.Shared.Application.Bus.UseCase;
 
 namespace UnitTest.Application.UseCase.Token
 {
@@ -31,11 +33,13 @@ namespace UnitTest.Application.UseCase.Token
             tokenRepository.Setup(o => o.Add(token));
             Mock<TokenConverter> tokenConverter = new Mock<TokenConverter>();
             tokenConverter.Setup(o => o.Convert(token));
+            Mock<IUseCaseBus> useCaseBus = UseCaseBusMockGenerator.CreateUseCaseBusThatDispatchAnyRequest();
             CreateTokenUseCase useCase = new CreateTokenUseCase(
                 tokenAdapter.Object,
                 tokenFactory.Object,
                 tokenRepository.Object,
-                tokenConverter.Object);
+                tokenConverter.Object,
+                useCaseBus.Object);
 
             useCase.Execute(request);
 
