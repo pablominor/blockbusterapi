@@ -5,7 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace BlockbusterApp.src.Shared.Infraestructure.Bus.Middleware
 {
-    [ExcludeFromCodeCoverage]
+    
     public class ExceptionMiddleware : MiddlewareHandler
     {
         private ExceptionConverter converter;

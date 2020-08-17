@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace BlockbusterApp.src.Shared.Infraestructure.Bus.Event
 {
-    [ExcludeFromCodeCoverage]
+    
     public class EventProvider : IEventProvider
     {
         private List<DomainEvent> events;

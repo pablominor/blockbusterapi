@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace BlockbusterApp.src.Shared.Infraestructure.Bus.Middleware
 {
-    [ExcludeFromCodeCoverage]
+    
     public class TransactionMiddleware : MiddlewareHandler
     {
         private BlockbusterContext blockbusterContext;

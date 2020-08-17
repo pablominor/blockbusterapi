@@ -46,7 +46,7 @@ using Swashbuckle.AspNetCore.Swagger;
 
 namespace BlockbusterApp
 {
-    [ExcludeFromCodeCoverage]
+    
     public class Startup
     {
         public Startup(IConfiguration configuration)

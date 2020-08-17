@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace BlockbusterApp
 {
-    [ExcludeFromCodeCoverage]
+    
     public class Program
     {
         public static void Main(string[] args)

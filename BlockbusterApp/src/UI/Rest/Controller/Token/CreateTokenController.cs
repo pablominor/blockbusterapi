@@ -7,7 +7,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace BlockbusterApp.src.UI.Rest.Controller.Token
 {
-    [ExcludeFromCodeCoverage]
+    
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/token")]
     [ApiController]

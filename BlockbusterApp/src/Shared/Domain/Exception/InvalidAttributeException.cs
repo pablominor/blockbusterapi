@@ -2,7 +2,7 @@
 
 namespace BlockbusterApp.src.Shared.Domain.Exception
 {
-    [ExcludeFromCodeCoverage]
+    
     public class InvalidAttributeException : ValidationException
     {
         public InvalidAttributeException(string message) : base(message) { }

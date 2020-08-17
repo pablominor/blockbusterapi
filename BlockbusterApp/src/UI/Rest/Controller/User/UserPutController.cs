@@ -7,7 +7,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace BlockbusterApp.src.UI.Rest.Controller.User
 {
-    [ExcludeFromCodeCoverage]
+    
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/users")]
     [ApiController]

@@ -6,7 +6,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace BlockbusterApp.src.Shared.Infraestructure.Bus.Middleware
 {
-    [ExcludeFromCodeCoverage]
+    
     public class EventDispatcherSyncMiddleware : MiddlewareHandler
     {
         private IEventProvider eventProvider;

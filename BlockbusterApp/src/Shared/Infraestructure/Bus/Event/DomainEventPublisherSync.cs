@@ -3,7 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace BlockbusterApp.src.Shared.Infraestructure.Bus.Event
 {
-    [ExcludeFromCodeCoverage]
+    
     public class DomainEventPublisherSync : IDomainEventPublisher
     {
         private IEventBus eventBus;

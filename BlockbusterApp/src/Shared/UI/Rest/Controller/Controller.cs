@@ -11,7 +11,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace BlockbusterApp.src.Shared.UI.Rest.Controller
 {
-    [ExcludeFromCodeCoverage]
+    
     public abstract class Controller : ControllerBase
     {
         private IUseCaseBus useCaseBus;

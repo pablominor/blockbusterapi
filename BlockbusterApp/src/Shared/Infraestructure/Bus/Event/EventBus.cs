@@ -5,7 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace BlockbusterApp.src.Shared.Infraestructure.Bus.Event
 {
-    [ExcludeFromCodeCoverage]
+    
     public class EventBus : IEventBus
     {
         private Dictionary<string, Dictionary<string, IEventHandler>> eventHandlers;
