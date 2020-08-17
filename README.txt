@@ -26,3 +26,8 @@ reportgenerator.exe "-reports:TestResults\coverage.cobertura.xml" "-targetdir:Te
 
 Visualizar el reporte:
 .\TestResults\html\index.htm
+
+
+Para excluir namespaces:
+Se utiliza %2c como coma(,) porque sino lo interpreta mal.
+/p:Exclude="[*]BlockbusterApp.src.Infraestructure.*%2c[*]BlockbusterApp.src.Shared.*"

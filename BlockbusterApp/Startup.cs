@@ -5,7 +5,6 @@ using System.Text;
 using BlockbusterApp.src.Application.Event.User;
 using BlockbusterApp.src.Application.UseCase.Country.FindByCode;
 using BlockbusterApp.src.Application.UseCase.Email.SendUserWelcome;
-using BlockbusterApp.src.Application.UseCase.Token;
 using BlockbusterApp.src.Application.UseCase.Token.Create;
 using BlockbusterApp.src.Application.UseCase.Token.Update;
 using BlockbusterApp.src.Application.UseCase.User.FindByEmalAndPassword;
@@ -15,7 +14,6 @@ using BlockbusterApp.src.Application.UseCase.User.SignUP;
 using BlockbusterApp.src.Domain.CountryAggregate;
 using BlockbusterApp.src.Domain.CountryAggregate.Service;
 using BlockbusterApp.src.Domain.TokenAggregate;
-using BlockbusterApp.src.Domain.TokenAggregate.Service;
 using BlockbusterApp.src.Domain.UserAggregate;
 using BlockbusterApp.src.Domain.UserAggregate.Service;
 using BlockbusterApp.src.Infraestructure.Persistance.Repository;
@@ -29,7 +27,6 @@ using BlockbusterApp.src.Shared.Infraestructure.Bus.Event;
 using BlockbusterApp.src.Shared.Infraestructure.Bus.Middleware;
 using BlockbusterApp.src.Shared.Infraestructure.Bus.Middleware.Exception;
 using BlockbusterApp.src.Shared.Infraestructure.Bus.UseCase;
-using BlockbusterApp.src.Shared.Infraestructure.Bus.UseCase.Response;
 using BlockbusterApp.src.Shared.Infraestructure.Bus.UseCase.URL;
 using BlockbusterApp.src.Shared.Infraestructure.Persistance.Context;
 using BlockbusterApp.src.Shared.Infraestructure.Persistance.Repository;
@@ -161,8 +158,7 @@ namespace BlockbusterApp
             {
                 serviceProvider.GetService<TransactionMiddleware>(),
                 serviceProvider.GetService<EventDispatcherSyncMiddleware>(),
-                serviceProvider.GetService<ExceptionMiddleware>(),
-                serviceProvider.GetService<ResponseMiddleware>()
+                serviceProvider.GetService<ExceptionMiddleware>()
             };
 
             useCaseBus.SetMiddlewares(middlewareHandlers);
@@ -212,7 +208,6 @@ namespace BlockbusterApp
             services.AddScoped<SignUpUserValidator>();
             services.AddScoped<UserFinder>();
             services.AddScoped<CountryFinder>();
-            services.AddScoped<TokenUpdaterService>();
 
             services.AddScoped<ITokenFactory, TokenFactory>();
         }
@@ -245,8 +240,6 @@ namespace BlockbusterApp
             services.AddScoped<IUrlProvider, UrlProvider>();
             services.AddHttpContextAccessor();
 
-            services.AddScoped<JSONFormatter>();
-
             LoadInfraRequestsDependencies(services);
             LoadInfraResponsesDependencies(services);
             LoadInfraMiddlewareDependencies(services);
@@ -277,7 +270,6 @@ namespace BlockbusterApp
             services.AddSingleton<TransactionMiddleware>();
             services.AddScoped<EventDispatcherSyncMiddleware>();
             services.AddScoped<ExceptionMiddleware>();
-            services.AddScoped<ResponseMiddleware>();
         }
 
         private void LoadApplicationUseCases(IServiceCollection services)

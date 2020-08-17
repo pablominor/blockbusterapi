@@ -45,5 +45,14 @@ namespace BlockbusterApp.src.Infraestructure.Persistance.Repository
                 return dbContext.Token.FirstOrDefault(c => c.userId.GetValue() == tokenUserId.GetValue());
             }
         }
+
+        public Token FindByUserIdAndHash(TokenUserId tokenUserId,TokenHash tokenHash)
+        {
+            using (var scope = this.scopeFactory.CreateScope())
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<BlockbusterContext>();
+                return dbContext.Token.FirstOrDefault(c => c.userId.GetValue() == tokenUserId.GetValue() && c.hash.GetValue() == tokenHash.GetValue());
+            }
+        }
     }
 }

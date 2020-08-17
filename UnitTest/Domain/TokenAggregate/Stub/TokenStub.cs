@@ -12,7 +12,12 @@ namespace UnitTest.Domain.TokenAggregate.Stub
                 TokenUserIdStub.ByDefault()
             );
         }
-       
+
+        public static Token NullToken()
+        {
+            return null;
+        }
+
 
         private static Token Create(
             TokenHash Hash,

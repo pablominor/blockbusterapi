@@ -40,12 +40,12 @@ namespace BlockbusterApp.src.Application.UseCase.Token.Create
             TokenUserId tokenUserId = new TokenUserId(payload[TokenClaimTypes.USER_ID]);
             var token = this.tokenRepository.FindByUserId(tokenUserId);
             if(token != null)
-            {                
-                return this.useCaseBus.Dispatch(new UpdateTokenRequest(payload,token));
+            {
+                return this.useCaseBus.Dispatch(new UpdateTokenRequest(tokenUserId.GetValue(), token.hash.GetValue()));
             }
-            Domain.TokenAggregate.Token newToken = this.tokenFactory.Create(payload);
-            this.tokenRepository.Add(newToken);
-            return this.tokenConverter.Convert(newToken);
+            token = this.tokenFactory.Create(payload);
+            this.tokenRepository.Add(token);
+            return this.tokenConverter.Convert(token);
         }
     }
 }

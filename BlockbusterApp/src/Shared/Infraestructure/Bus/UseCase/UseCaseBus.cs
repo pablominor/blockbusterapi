@@ -16,7 +16,6 @@ namespace BlockbusterApp.src.Shared.Infraestructure.Bus.UseCase
 
         private const string TRANSACTION_MIDDLEWARE = "TransactionMiddleware";
         private const string EXCEPTION_MIDDLEWARE = "ExceptionMiddleware";
-        private const string RESPONSE_MIDDLEWARE = "ResponseMiddleware";
 
         public UseCaseBus()
         {
@@ -75,8 +74,6 @@ namespace BlockbusterApp.src.Shared.Infraestructure.Bus.UseCase
                 case TRANSACTION_MIDDLEWARE:
                     return true;                  
                 case EXCEPTION_MIDDLEWARE:
-                    return true;
-                case RESPONSE_MIDDLEWARE:
                     return true;
                 default:
                     return false;

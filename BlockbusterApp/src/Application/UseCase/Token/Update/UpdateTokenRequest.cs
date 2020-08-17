@@ -10,13 +10,13 @@ namespace BlockbusterApp.src.Application.UseCase.Token.Update
     public class UpdateTokenRequest : IRequest
     {
 
-        public UpdateTokenRequest(Dictionary<string, string> Payload, Domain.TokenAggregate.Token Token)
+        public UpdateTokenRequest(string tokenUserId, string tokenHash)
         {
-            this.Payload = Payload;
-            this.Token = Token;
+            this.tokenUserId = tokenUserId;
+            this.tokenHash = tokenHash;
         }
 
-        public Dictionary<string, string> Payload { get; set; }
-        public Domain.TokenAggregate.Token Token { get; set; }
+        public string tokenUserId { get; set; }
+        public string tokenHash { get; set; }
     }
 }

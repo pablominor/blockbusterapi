@@ -10,5 +10,6 @@ namespace BlockbusterApp.src.Domain.TokenAggregate
         void Add(Token token);
         void Update(Token token);
         Token FindByUserId(TokenUserId tokenUserId);
+        Token FindByUserIdAndHash(TokenUserId tokenUserId,TokenHash tokenHash);
     }
 }
