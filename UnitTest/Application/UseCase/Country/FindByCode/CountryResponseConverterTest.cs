@@ -1,4 +1,4 @@
-﻿using BlockbusterApp.src.Application.UseCase.Country.FindByCode;
+﻿using BlockbusterApp.src.Application.UseCase.Country.Response;
 using NUnit.Framework;
 using UnitTest.Domain.CountryAggregate.Stub;
 
@@ -18,8 +18,8 @@ namespace UnitTest.Application.UseCase.Country.FindByCode
 
             Assert.IsInstanceOf<CountryResponse>(res);
             CountryResponse response = res as CountryResponse;
-            Assert.AreEqual(response.Country.code.GetValue(), country.code.GetValue());
-            Assert.AreEqual(response.Country.tax.GetValue(), country.tax.GetValue());
+            Assert.AreEqual(response.Code, country.code.GetValue());
+            Assert.AreEqual(response.Tax, country.tax.GetValue());
         }
 
     }

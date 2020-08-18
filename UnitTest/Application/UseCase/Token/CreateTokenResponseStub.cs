@@ -1,7 +1,4 @@
-﻿using BlockbusterApp.src.Application.UseCase.Token.Create;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using BlockbusterApp.src.Application.UseCase.Token.Response;
 using UnitTest.Domain.TokenAggregate.Stub;
 
 namespace UnitTest.Application.UseCase.Token

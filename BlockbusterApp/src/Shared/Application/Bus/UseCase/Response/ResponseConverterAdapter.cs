@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BlockbusterApp.src.Shared.Application.Bus.UseCase.Response
 {
-    public abstract class ResponseConverterAdapter
+    public class ResponseConverterAdapter
     {
         private ResponseConverter converter;
 
@@ -15,7 +15,7 @@ namespace BlockbusterApp.src.Shared.Application.Bus.UseCase.Response
         }
 
 
-        public CollectionResponse<IResponse> Convert(IEnumerable<dynamic> objects)
+        public virtual CollectionResponse<IResponse> Convert(IEnumerable<dynamic> objects)
         {
             CollectionResponse<IResponse> collectionResponse = new CollectionResponse<IResponse>();
 

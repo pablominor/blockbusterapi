@@ -1,13 +1,11 @@
-﻿using BlockbusterApp.src.Application.UseCase.Token.Create;
+﻿using BlockbusterApp.src.Application.UseCase.Token.Response;
 using BlockbusterApp.src.Application.UseCase.Token.Update;
 using BlockbusterApp.src.Domain.TokenAggregate;
 using BlockbusterApp.src.Infraestructure.Service.Token;
 using BlockbusterApp.src.Shared.Infraestructure.Security.Authentication.JWT;
 using Moq;
 using NUnit.Framework;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using UnitTest.Domain.Repository;
 using UnitTest.Domain.TokenAggregate.Stub;
 

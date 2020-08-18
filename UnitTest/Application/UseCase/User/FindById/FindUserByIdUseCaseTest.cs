@@ -1,11 +1,10 @@
 ﻿using BlockbusterApp.src.Application.UseCase.User.FindById;
+using BlockbusterApp.src.Application.UseCase.User.Response;
 using BlockbusterApp.src.Domain.UserAggregate;
 using BlockbusterApp.src.Domain.UserAggregate.Service;
-using BlockbusterApp.src.Shared.Infraestructure.Security.Authentication.JWT;
 using Moq;
 using NUnit.Framework;
 using UnitTest.Domain.UserAggregate.Stub;
-using UnitTest.Shared.Infraestructure.Security.Authentication.JWT;
 
 namespace UnitTest.Application.UseCase.User.FindById
 {

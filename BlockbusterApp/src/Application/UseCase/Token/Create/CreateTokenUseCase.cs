@@ -1,4 +1,5 @@
-﻿using BlockbusterApp.src.Application.UseCase.Token.Update;
+﻿using BlockbusterApp.src.Application.UseCase.Token.Response;
+using BlockbusterApp.src.Application.UseCase.Token.Update;
 using BlockbusterApp.src.Domain.TokenAggregate;
 using BlockbusterApp.src.Infraestructure.Service.Token;
 using BlockbusterApp.src.Shared.Application.Bus.UseCase;

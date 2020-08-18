@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 using BlockbusterApp.src.Domain.UserAggregate.Service;
 using UnitTest.Application.UseCase.User.FindById;
 using BlockbusterApp.src.Shared.Application.Bus.UseCase;
+using BlockbusterApp.src.Application.UseCase.Token.Response;
 
 namespace UnitTest.Application.UseCase.Token.Create
 {

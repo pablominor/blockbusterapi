@@ -1,7 +1,5 @@
-﻿using BlockbusterApp.src.Application.UseCase.User.FindById;
-using BlockbusterApp.src.Shared.Application.Bus.UseCase;
+﻿using BlockbusterApp.src.Application.UseCase.User.Response;
 using BlockbusterApp.src.Shared.Application.Bus.UseCase.Response;
-using System.Collections.Generic;
 
 namespace BlockbusterApp.src.Application.UseCase.User.FindByFilter
 {
@@ -11,8 +9,6 @@ namespace BlockbusterApp.src.Application.UseCase.User.FindByFilter
         public GetUsersConverter():base(new FindUserResponseConverter())
         {
         }
-
-
 
     }
 }

@@ -1,5 +1,6 @@
 ﻿using BlockbusterApp.src.Application.UseCase.User.FindByEmalAndPassword;
 using BlockbusterApp.src.Application.UseCase.User.FindById;
+using BlockbusterApp.src.Application.UseCase.User.Response;
 using BlockbusterApp.src.Domain.TokenAggregate;
 using BlockbusterApp.src.Domain.UserAggregate;
 using BlockbusterApp.src.Domain.UserAggregate.Service;
@@ -24,17 +25,16 @@ namespace BlockbusterApp.src.Infraestructure.Service.Token
             this.userFinder = userFinder;
         }
 
-        public Domain.UserAggregate.User FindUserFromEmailAndPassword(string email,string password)
+        public object FindUserFromEmailAndPassword(string email,string password)
         {
-            IResponse res = this.useCaseBus.Dispatch(new FindUserByEmailAndPasswordRequest(email, password));
-            UserResponse response = res as UserResponse;
-            return response.User;                        
+            IResponse res = this.useCaseBus.Dispatch(new FindUserByEmailAndPasswordRequest(email, password));            
+            return res;
         }
 
-        public Domain.UserAggregate.User FindUserFromId(string id)
+        public object FindUserFromId(string id)
         {
-            UserId userId = new UserId(id);
-            return userFinder.ById(userId);
+            IResponse res = this.useCaseBus.Dispatch(new FindUserByIdRequest(id));
+            return res;
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using BlockbusterApp.src.Application.UseCase.User.FindById;
+﻿using BlockbusterApp.src.Application.UseCase.User.Response;
 using NUnit.Framework;
 using UnitTest.Domain.UserAggregate.Stub;
 
@@ -18,12 +18,12 @@ namespace UnitTest.Application.UseCase.User.FindById
 
             Assert.IsInstanceOf<FindUserResponse>(res);
             FindUserResponse response = res as FindUserResponse;
-            Assert.AreEqual(response.id, user.userId.GetValue());
-            Assert.AreEqual(response.email, user.userEmail.GetValue());
-            Assert.AreEqual(response.firstName, user.userFirstName.GetValue());
-            Assert.AreEqual(response.lastName, user.userLastName.GetValue());
-            Assert.AreEqual(response.role, user.userRole.GetValue());
-            Assert.AreEqual(response.countryCode, user.userCountryCode.GetValue());
+            Assert.AreEqual(response.Id, user.userId.GetValue());
+            Assert.AreEqual(response.Email, user.userEmail.GetValue());
+            Assert.AreEqual(response.FirstName, user.userFirstName.GetValue());
+            Assert.AreEqual(response.LastName, user.userLastName.GetValue());
+            Assert.AreEqual(response.Role, user.userRole.GetValue());
+            Assert.AreEqual(response.CountryCode, user.userCountryCode.GetValue());
 
         }
 

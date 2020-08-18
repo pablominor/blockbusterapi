@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using BlockbusterApp.src.Application.Event.User;
 using BlockbusterApp.src.Application.UseCase.Country.FindByCode;
+using BlockbusterApp.src.Application.UseCase.Country.Response;
 using BlockbusterApp.src.Application.UseCase.Email.SendUserWelcome;
 using BlockbusterApp.src.Application.UseCase.Token.Create;
+using BlockbusterApp.src.Application.UseCase.Token.Response;
 using BlockbusterApp.src.Application.UseCase.Token.Update;
 using BlockbusterApp.src.Application.UseCase.User.FindByEmalAndPassword;
 using BlockbusterApp.src.Application.UseCase.User.FindByFilter;
 using BlockbusterApp.src.Application.UseCase.User.FindById;
+using BlockbusterApp.src.Application.UseCase.User.Response;
 using BlockbusterApp.src.Application.UseCase.User.SignUP;
 using BlockbusterApp.src.Domain.CountryAggregate;
 using BlockbusterApp.src.Domain.CountryAggregate.Service;
@@ -46,7 +48,7 @@ using Swashbuckle.AspNetCore.Swagger;
 
 namespace BlockbusterApp
 {
-    
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -292,7 +294,6 @@ namespace BlockbusterApp
             services.AddScoped<GetUsersConverter>();
             services.AddScoped<FindUserResponseConverter>();
             services.AddScoped<CountryResponseConverter>();
-            services.AddScoped<UserResponseConverter>();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using BlockbusterApp.src.Domain.UserAggregate;
+﻿using BlockbusterApp.src.Application.UseCase.User.Response;
+using BlockbusterApp.src.Domain.UserAggregate;
 using BlockbusterApp.src.Domain.UserAggregate.Service;
 using BlockbusterApp.src.Infraestructure.Service.Hashing;
 using BlockbusterApp.src.Shared.Application.Bus.UseCase;
@@ -9,12 +10,12 @@ namespace BlockbusterApp.src.Application.UseCase.User.FindByEmalAndPassword
     {
         private UserFinder userFinder;
         private IHashing hashing;
-        private UserResponseConverter converter;
+        private FindUserResponseConverter converter;
 
         public FindUserByEmailAndPasswordUseCase(
             UserFinder userFinder, 
-            IHashing hashing, 
-            UserResponseConverter converter)
+            IHashing hashing,
+            FindUserResponseConverter converter)
         {
             this.userFinder = userFinder;
             this.hashing = hashing;

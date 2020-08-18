@@ -1,7 +1,7 @@
 ﻿using BlockbusterApp.src.Shared.Application.Bus.UseCase;
 using BlockbusterApp.src.Shared.Application.Bus.UseCase.Response;
 
-namespace BlockbusterApp.src.Application.UseCase.User.FindById
+namespace BlockbusterApp.src.Application.UseCase.User.Response
 {
     public class FindUserResponseConverter : ResponseConverter
     {
@@ -17,13 +17,15 @@ namespace BlockbusterApp.src.Application.UseCase.User.FindById
             string lastName = user.userLastName.GetValue();
             string role = user.userRole.GetValue();
             string countryCode = user.userCountryCode.GetValue();
-            FindUserResponse response = new FindUserResponse(
-                    id, 
-                    email, 
-                    firstName, 
-                    lastName, 
-                    role, 
-                    countryCode);
+            FindUserResponse response = new FindUserResponse
+            {
+                Id = id,
+                Email = email,
+                FirstName = firstName,
+                LastName = lastName,
+                Role = role,
+                CountryCode = countryCode
+            };
 
             return response;
         }
