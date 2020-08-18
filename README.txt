@@ -30,4 +30,13 @@ Visualizar el reporte:
 
 Para excluir namespaces:
 Se utiliza %2c como coma(,) porque sino lo interpreta mal.
-/p:Exclude="[*]BlockbusterApp.src.Infraestructure.*%2c[*]BlockbusterApp.src.Shared.*"
+/p:Exclude="[*]BlockbusterApp.src.Infraestructure.*%2c[*]BlockbusterApp.src.Shared.*%2c[*]BlockbusterApp.src.UI.*%2c[*]BlockbusterApp.Program%2c[*]BlockbusterApp.Startup"
+
+
+Comando completo para excluir todos los namespaces:
+dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput="./../TestResults/" /p:Exclude="[*]BlockbusterApp.src.Infraestructure.*%2c[*]BlockbusterApp.src.Shared.*%2c[*]BlockbusterApp.src.UI.*%2c[*]BlockbusterApp.Program%2c[*]BlockbusterApp.Startup"
+
+reportgenerator.exe "-reports:TestResults\coverage.cobertura.xml" "-targetdir:TestResults\html" "-reporttypes:HTML;"
+
+.\TestResults\html\index.htm
+

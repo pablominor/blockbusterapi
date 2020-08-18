@@ -3,6 +3,7 @@ using BlockbusterApp.src.Application.UseCase.User.FindById;
 using BlockbusterApp.src.Domain.UserAggregate;
 using BlockbusterApp.src.Shared.Application.Bus.UseCase;
 using BlockbusterApp.src.Shared.Application.Bus.UseCase.Response;
+using Microsoft.AspNetCore.Http;
 using Moq;
 using NUnit.Framework;
 using System.Collections.Generic;
@@ -17,7 +18,8 @@ namespace UnitTest.Application.UseCase.User.FindByFilter
         [Test]
         public void ItShouldCallCollaborators()
         {
-            Mock<GetUsersRequest> request = new Mock<GetUsersRequest>();
+            Mock<IQueryCollection> query = new Mock<IQueryCollection>();
+            Mock<GetUsersRequest> request = new Mock<GetUsersRequest>(query.Object);
             Mock<IUserRepository> userRepository = RepositoryStub.CreateUserRepository();
             userRepository.Setup(o => o.GetUsers(It.IsAny<Dictionary<string,int>>()));
             Mock<GetUsersConverter> converter = new Mock<GetUsersConverter>();
