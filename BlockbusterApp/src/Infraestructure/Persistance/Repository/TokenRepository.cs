@@ -2,10 +2,7 @@
 using BlockbusterApp.src.Shared.Infraestructure.Persistance.Context;
 using BlockbusterApp.src.Shared.Infraestructure.Persistance.Repository;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace BlockbusterApp.src.Infraestructure.Persistance.Repository
 {
@@ -34,6 +31,15 @@ namespace BlockbusterApp.src.Infraestructure.Persistance.Repository
             {
                 var dbContext = scope.ServiceProvider.GetRequiredService<BlockbusterContext>();
                 dbContext.Token.Update(token);
+            }
+        }
+
+        public void Remove(Token token)
+        {
+            using (var scope = this.scopeFactory.CreateScope())
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<BlockbusterContext>();
+                dbContext.Token.Remove(token);
             }
         }
 

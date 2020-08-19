@@ -2,8 +2,6 @@
 using BlockbusterApp.src.Shared.Domain;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BlockbusterApp.src.Domain.UserAggregate
 {
@@ -11,13 +9,13 @@ namespace BlockbusterApp.src.Domain.UserAggregate
     {
         public UserId userId { get; }
         public UserEmail userEmail{ get; }
-        public UserHashedPassword userHashedPassword{ get; }
-        public UserFirstName userFirstName{ get; }
-        public UserLastName userLastName{ get; }
+        public UserHashedPassword userHashedPassword{ get; private set; }
+        public UserFirstName userFirstName{ get; private set;}
+        public UserLastName userLastName{ get; private set; }
         public UserRole userRole{ get; }
         public UserCountryCode userCountryCode { get; }
         public UserCreatedAt userCreatedAt{ get; }
-        public UserUpdatedAt userUpdatedAt{ get; }
+        public UserUpdatedAt userUpdatedAt{ get; private set; }
 
         private User(
             UserId userId,
@@ -68,6 +66,38 @@ namespace BlockbusterApp.src.Domain.UserAggregate
             ));
 
             return user;
+        }
+
+        public void UpdatePassword(UserHashedPassword password)
+        {
+            if (!password.Equals(this.userHashedPassword))
+            {
+                this.userHashedPassword = password;
+                UpdateUserUpdatedAt();
+            }
+        }
+
+        public void UpdateFirstName(UserFirstName firstName)
+        {
+            if (!firstName.Equals(this.userFirstName))
+            {
+                this.userFirstName = firstName;
+                UpdateUserUpdatedAt();
+            }
+        }
+
+        public void UpdateLastName(UserLastName lastName)
+        {
+            if (!lastName.Equals(this.userLastName))
+            {
+                this.userLastName = lastName;
+                UpdateUserUpdatedAt();
+            }
+        }
+
+        private void UpdateUserUpdatedAt()
+        {
+            this.userUpdatedAt = new UserUpdatedAt(DateTime.Now);
         }
     }
 }

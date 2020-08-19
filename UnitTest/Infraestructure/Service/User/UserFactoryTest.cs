@@ -1,15 +1,8 @@
-﻿using BlockbusterApp.src.Domain.CountryAggregate;
-using BlockbusterApp.src.Domain.CountryAggregate.Service;
-using BlockbusterApp.src.Domain.UserAggregate;
-using BlockbusterApp.src.Infraestructure.Service.Hashing;
+﻿using BlockbusterApp.src.Infraestructure.Service.Hashing;
 using BlockbusterApp.src.Infraestructure.Service.User;
-using BlockbusterApp.src.Shared.Application.Bus.UseCase;
 using BlockbusterApp.src.Shared.Infraestructure.Bus.UseCase;
 using Moq;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using UnitTest.Domain.UserAggregate.Stub;
 using UnitTest.Shared.Application.Bus.UseCase;
 
@@ -22,7 +15,7 @@ namespace UnitTest.Infraestructure.Service.User
         [Test]
         public void ItShouldCreateAnUser()
         {
-            Mock<IHashing> hasing = CreateHashingMock();
+            Mock<IHashing> hasing = HashingStub.ByDefault();
             Mock<IUseCaseBus> useCaseBus = UseCaseBusMockGenerator.CreateUseCaseBusThatDispatchAnyRequest();
             UserFactory userFactory = new UserFactory(hasing.Object,useCaseBus.Object);
 
@@ -49,7 +42,7 @@ namespace UnitTest.Infraestructure.Service.User
         [Test]
         public void ItShouldCallCollaborators()
         {
-            Mock<IHashing> hasing = CreateHashingMock();
+            Mock<IHashing> hasing = HashingStub.ByDefault();
             Mock<IUseCaseBus> useCaseBus = UseCaseBusMockGenerator.CreateUseCaseBusThatDispatchAnyRequest();
             UserFactory userFactory = new UserFactory(hasing.Object, useCaseBus.Object);
 
@@ -67,13 +60,5 @@ namespace UnitTest.Infraestructure.Service.User
             hasing.VerifyAll();
             useCaseBus.VerifyAll();
         }
-
-        private Mock<IHashing> CreateHashingMock()
-        {
-            Mock<IHashing> hasing = new Mock<IHashing>();
-            hasing.Setup(o => o.Hash(It.IsAny<string>())).Returns(UserPasswordStub.ByDefault());
-            return hasing;
-        }
-
     }
 }

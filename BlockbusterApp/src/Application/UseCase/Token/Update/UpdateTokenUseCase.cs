@@ -38,7 +38,7 @@ namespace BlockbusterApp.src.Application.UseCase.Token.Update
 
             TokenHash tokenHash = new TokenHash(this.JWTEnconder.Encode(payload));
 
-            token.UpdateHash(tokenHash);
+            token.UpdateHash(tokenHash);            
 
             this.tokenRepository.Update(token);
 

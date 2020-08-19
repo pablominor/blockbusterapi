@@ -1,14 +1,11 @@
 ﻿using BlockbusterApp.src.Domain.UserAggregate;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace  UnitTest.Domain.UserAggregate.Stub
 {
     public class UserPasswordStub
     {
 
-        public static UserHashedPassword Crate(string password)
+        public static UserHashedPassword Create(string password)
         {
             return new UserHashedPassword(password);
         }

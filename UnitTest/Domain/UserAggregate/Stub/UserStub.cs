@@ -1,12 +1,5 @@
 ﻿using BlockbusterApp.src.Application.UseCase.User.SignUP;
 using BlockbusterApp.src.Domain.UserAggregate;
-using Microsoft.AspNetCore.Http;
-using NUnit.Framework.Constraints;
-using System;
-using System.Collections.Generic;
-using System.Net.Cache;
-using System.Runtime.CompilerServices;
-using System.Text;
 
 namespace UnitTest.Domain.UserAggregate.Stub
 {
@@ -18,7 +11,7 @@ namespace UnitTest.Domain.UserAggregate.Stub
             return Create(
                 UserIdStub.Crate(request.Id),
                 UserEmailStub.Crate(request.Email),
-                UserPasswordStub.Crate(request.Password),
+                UserPasswordStub.Create(request.Password),
                 UserFirstNameStub.Crate(request.FirstName),
                 UserLastNameStub.Crate(request.LastName),
                 UserRoleStub.Create(request.Role),

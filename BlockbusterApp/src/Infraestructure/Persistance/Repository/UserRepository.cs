@@ -36,6 +36,15 @@ namespace BlockbusterApp.src.Infraestructure.Persistance.Repository
             }
         }
 
+        public void Update(User user)
+        {
+            using (var scope = this.scopeFactory.CreateScope())
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<BlockbusterContext>();
+                dbContext.User.Update(user);
+            }
+        }
+
         public List<User> GetUsers(Dictionary<string, int> page)
         {
             using(var scope = this.scopeFactory.CreateScope())

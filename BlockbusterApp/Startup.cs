@@ -6,6 +6,7 @@ using BlockbusterApp.src.Application.UseCase.Country.FindByCode;
 using BlockbusterApp.src.Application.UseCase.Country.Response;
 using BlockbusterApp.src.Application.UseCase.Email.SendUserWelcome;
 using BlockbusterApp.src.Application.UseCase.Token.Create;
+using BlockbusterApp.src.Application.UseCase.Token.Delete;
 using BlockbusterApp.src.Application.UseCase.Token.Response;
 using BlockbusterApp.src.Application.UseCase.Token.Update;
 using BlockbusterApp.src.Application.UseCase.User.FindByEmalAndPassword;
@@ -13,6 +14,7 @@ using BlockbusterApp.src.Application.UseCase.User.FindByFilter;
 using BlockbusterApp.src.Application.UseCase.User.FindById;
 using BlockbusterApp.src.Application.UseCase.User.Response;
 using BlockbusterApp.src.Application.UseCase.User.SignUP;
+using BlockbusterApp.src.Application.UseCase.User.Update;
 using BlockbusterApp.src.Domain.CountryAggregate;
 using BlockbusterApp.src.Domain.CountryAggregate.Service;
 using BlockbusterApp.src.Domain.TokenAggregate;
@@ -146,6 +148,8 @@ namespace BlockbusterApp
             FindUserByEmailAndPasswordUseCase findUserByEmailAndPasswordUseCase = serviceProvider.GetService<FindUserByEmailAndPasswordUseCase>();
             FindCountryByCodeUseCase findCountryByCodeUseCase = serviceProvider.GetService<FindCountryByCodeUseCase>();
             UpdateTokenUseCase updateTokenUseCase = serviceProvider.GetService<UpdateTokenUseCase>();
+            UpdateUserUseCase updateUserUseCase = serviceProvider.GetService<UpdateUserUseCase>();
+            DeleteTokenUseCase deleteTokenUseCase = serviceProvider.GetService<DeleteTokenUseCase>();
 
             useCaseBus.Subscribe(signUpUserUseCase);
             useCaseBus.Subscribe(sendUserWelcomeEmailUseCase);
@@ -155,6 +159,8 @@ namespace BlockbusterApp
             useCaseBus.Subscribe(findUserByEmailAndPasswordUseCase);
             useCaseBus.Subscribe(findCountryByCodeUseCase);
             useCaseBus.Subscribe(updateTokenUseCase);
+            useCaseBus.Subscribe(updateUserUseCase);
+            useCaseBus.Subscribe(deleteTokenUseCase);
 
             List<IMiddlewareHandler> middlewareHandlers = new List<IMiddlewareHandler>
             {
@@ -207,6 +213,7 @@ namespace BlockbusterApp
         private void LoadDomainDependencies(IServiceCollection services)
         {
             services.AddScoped<IUserFactory, UserFactory>();
+            services.AddScoped<IUserUpdater, UserUpdater>();
             services.AddScoped<SignUpUserValidator>();
             services.AddScoped<UserFinder>();
             services.AddScoped<CountryFinder>();
@@ -255,6 +262,8 @@ namespace BlockbusterApp
             services.AddScoped<IRequest, FindUserByIdRequest>();
             services.AddScoped<IRequest, FindCountryByCodeRequest>();
             services.AddScoped<IRequest, UpdateTokenRequest>();
+            services.AddScoped<IRequest, UpdateUserRequest>();
+            services.AddScoped<IRequest, DeleteTokenRequest>();
         }
 
         private void LoadInfraResponsesDependencies(IServiceCollection services)
@@ -284,6 +293,8 @@ namespace BlockbusterApp
             services.AddScoped<FindUserByEmailAndPasswordUseCase>();
             services.AddScoped<FindCountryByCodeUseCase>();
             services.AddScoped<UpdateTokenUseCase>();
+            services.AddScoped<UpdateUserUseCase>();
+            services.AddScoped<DeleteTokenUseCase>();            
         }
 
         private void LoadApplicationConverters(IServiceCollection services)

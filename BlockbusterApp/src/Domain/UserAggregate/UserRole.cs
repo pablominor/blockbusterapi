@@ -1,9 +1,5 @@
 ﻿using BlockbusterApp.src.Domain.UserAggregate.Exception;
 using BlockbusterApp.src.Shared.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BlockbusterApp.src.Domain.UserAggregate
 {
@@ -11,6 +7,7 @@ namespace BlockbusterApp.src.Domain.UserAggregate
     {
         public const string ROLE_ADMIN = "Admin";
         public const string ROLE_USER = "User";
+        public const string ROLE_ADMIN_OR_USER = ROLE_ADMIN +","+ ROLE_USER;
 
         public UserRole(string value) : base(value)
         {
