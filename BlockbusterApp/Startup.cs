@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using BlockbusterApp.src.Application.Event.User;
 using BlockbusterApp.src.Application.UseCase.Category.Create;
+using BlockbusterApp.src.Application.UseCase.Category.FindById;
+using BlockbusterApp.src.Application.UseCase.Category.Response;
 using BlockbusterApp.src.Application.UseCase.Country.FindByCode;
 using BlockbusterApp.src.Application.UseCase.Country.Response;
 using BlockbusterApp.src.Application.UseCase.Email.SendUserWelcome;
@@ -160,6 +162,7 @@ namespace BlockbusterApp
             DeleteTokenUseCase deleteTokenUseCase = serviceProvider.GetService<DeleteTokenUseCase>();
             CreateCategoryUseCase createCategoryUseCase = serviceProvider.GetService<CreateCategoryUseCase>();
             CreateFilmUseCase createFilmUseCase = serviceProvider.GetService<CreateFilmUseCase>();
+            FindCategoryByIdUseCase findCategoryByIdUseCase = serviceProvider.GetService<FindCategoryByIdUseCase>();
 
             useCaseBus.Subscribe(signUpUserUseCase);
             useCaseBus.Subscribe(sendUserWelcomeEmailUseCase);
@@ -173,6 +176,7 @@ namespace BlockbusterApp
             useCaseBus.Subscribe(deleteTokenUseCase);
             useCaseBus.Subscribe(createCategoryUseCase);
             useCaseBus.Subscribe(createFilmUseCase);
+            useCaseBus.Subscribe(findCategoryByIdUseCase);
 
             List<IMiddlewareHandler> middlewareHandlers = new List<IMiddlewareHandler>
             {
@@ -229,6 +233,7 @@ namespace BlockbusterApp
             services.AddScoped<SignUpUserValidator>();
             services.AddScoped<UserFinder>();
             services.AddScoped<CountryFinder>();
+            services.AddScoped<CategoryFinder>();
             services.AddScoped<CreateCategoryValidator>();
             services.AddScoped<CreateFilmValidator>();
 
@@ -292,13 +297,12 @@ namespace BlockbusterApp
             services.AddScoped<IRequest, DeleteTokenRequest>();
             services.AddScoped<IRequest, CreateCategoryRequest>();
             services.AddScoped<IRequest, CreateFilmRequest>();
+            services.AddScoped<IRequest, FindCategoryByIdRequest>();
         }
 
         private void LoadInfraResponsesDependencies(IServiceCollection services)
         {
-            //services.AddScoped<IResponse, SignUpUserResponse>();
             services.AddScoped<IResponse, CreateTokenResponse>();
-            //services.AddScoped<IResponse, CollectionResponse>();
             services.AddScoped<IResponse, FindUserResponse>();
             services.AddScoped<IResponse, EmptyResponse>();
         }
@@ -325,6 +329,7 @@ namespace BlockbusterApp
             services.AddScoped<DeleteTokenUseCase>();
             services.AddScoped<CreateCategoryUseCase>();
             services.AddScoped<CreateFilmUseCase>();
+            services.AddScoped<FindCategoryByIdUseCase>();
         }
 
         private void LoadApplicationConverters(IServiceCollection services)
@@ -335,6 +340,7 @@ namespace BlockbusterApp
             services.AddScoped<GetUsersConverter>();
             services.AddScoped<FindUserResponseConverter>();
             services.AddScoped<CountryResponseConverter>();
+            services.AddScoped<CategoryResponseConverter>();
         }
     }
 }
