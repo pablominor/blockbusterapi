@@ -1,5 +1,6 @@
 ﻿using BlockbusterApp.src.Domain.CategoryAggregate;
 using BlockbusterApp.src.Domain.CountryAggregate;
+using BlockbusterApp.src.Domain.FilmAggregate;
 using BlockbusterApp.src.Domain.TokenAggregate;
 using BlockbusterApp.src.Domain.UserAggregate;
 using BlockbusterApp.src.Infraestructure.Persistance.Mapping;
@@ -15,6 +16,7 @@ namespace BlockbusterApp.src.Shared.Infraestructure.Persistance.Context
         public DbSet<Token> Token { get; set; }
         public DbSet<Country> Country { get; set; }
         public DbSet<Category> Category { get; set; }
+        public DbSet<Film> Film { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -22,6 +24,7 @@ namespace BlockbusterApp.src.Shared.Infraestructure.Persistance.Context
             modelBuilder.ApplyConfiguration(new TokenMap());
             modelBuilder.ApplyConfiguration(new CountryMap());
             modelBuilder.ApplyConfiguration(new CategoryMap());
+            modelBuilder.ApplyConfiguration(new FilmMap());
             base.OnModelCreating(modelBuilder);
         }
        

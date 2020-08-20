@@ -38,3 +38,15 @@ create table category (
     updated_at datetime,
     PRIMARY KEY (id)
 );
+
+create table film (
+	id varchar(40) not null,
+    name varchar(30) not null,
+    description varchar(1300) NOT NULL,
+    price decimal(10,2),
+    category_id varchar(40),    
+    created_at datetime,
+    updated_at datetime,
+    PRIMARY KEY (id),
+	foreign key(category_id) references category (id)
+);

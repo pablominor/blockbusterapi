@@ -9,12 +9,12 @@ namespace BlockbusterApp.src.Domain.CategoryAggregate.Exception
 
         public static CategoryFoundException FromId(CategoryId id)
         {
-            return new CategoryFoundException(String.Format("User is already register with the id {0}.", id.GetValue()));
+            return new CategoryFoundException(String.Format("Category is already register with the id {0}.", id.GetValue()));
         }
 
         public static CategoryFoundException FromName(CategoryName name)
         {
-            return new CategoryFoundException(String.Format("User is already register with the name {0}.", name.GetValue()));
+            return new CategoryFoundException(String.Format("Category is already register with the name {0}.", name.GetValue()));
         }
     }
 }
