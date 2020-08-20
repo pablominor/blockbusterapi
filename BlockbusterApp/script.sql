@@ -1,5 +1,5 @@
 CREATE DATABASE `blockbuster` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-go
+
 create table user (
 	id varchar(40) not null,
     email varchar(60) not null,
@@ -13,7 +13,7 @@ create table user (
     PRIMARY KEY (id),
 	UNIQUE(email)
 );
-go
+
 create table token (
 	id int AUTO_INCREMENT not null,
     `hash` TEXT not null,
@@ -23,10 +23,18 @@ create table token (
     PRIMARY KEY (id),
     foreign key(id_user) references user (id)
 );
-go
+
 create table country (
 	id int AUTO_INCREMENT not null,
     `code` varchar(2) not null,
     tax decimal(10,2) NOT NULL,        
     PRIMARY KEY (id)    
+);
+
+create table category (
+	id varchar(40) not null,
+    name varchar(30),
+    created_at datetime,
+    updated_at datetime,
+    PRIMARY KEY (id)
 );

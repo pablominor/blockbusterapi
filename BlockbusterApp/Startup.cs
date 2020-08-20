@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using BlockbusterApp.src.Application.Event.User;
+using BlockbusterApp.src.Application.UseCase.Category.Create;
 using BlockbusterApp.src.Application.UseCase.Country.FindByCode;
 using BlockbusterApp.src.Application.UseCase.Country.Response;
 using BlockbusterApp.src.Application.UseCase.Email.SendUserWelcome;
@@ -15,12 +16,15 @@ using BlockbusterApp.src.Application.UseCase.User.FindById;
 using BlockbusterApp.src.Application.UseCase.User.Response;
 using BlockbusterApp.src.Application.UseCase.User.SignUP;
 using BlockbusterApp.src.Application.UseCase.User.Update;
+using BlockbusterApp.src.Domain.CategoryAggregate;
+using BlockbusterApp.src.Domain.CategoryAggregate.Service;
 using BlockbusterApp.src.Domain.CountryAggregate;
 using BlockbusterApp.src.Domain.CountryAggregate.Service;
 using BlockbusterApp.src.Domain.TokenAggregate;
 using BlockbusterApp.src.Domain.UserAggregate;
 using BlockbusterApp.src.Domain.UserAggregate.Service;
 using BlockbusterApp.src.Infraestructure.Persistance.Repository;
+using BlockbusterApp.src.Infraestructure.Service.Category;
 using BlockbusterApp.src.Infraestructure.Service.Hashing;
 using BlockbusterApp.src.Infraestructure.Service.Mailer;
 using BlockbusterApp.src.Infraestructure.Service.Token;
@@ -150,6 +154,7 @@ namespace BlockbusterApp
             UpdateTokenUseCase updateTokenUseCase = serviceProvider.GetService<UpdateTokenUseCase>();
             UpdateUserUseCase updateUserUseCase = serviceProvider.GetService<UpdateUserUseCase>();
             DeleteTokenUseCase deleteTokenUseCase = serviceProvider.GetService<DeleteTokenUseCase>();
+            CreateCategoryUseCase createCategoryUseCase = serviceProvider.GetService<CreateCategoryUseCase>();
 
             useCaseBus.Subscribe(signUpUserUseCase);
             useCaseBus.Subscribe(sendUserWelcomeEmailUseCase);
@@ -161,6 +166,7 @@ namespace BlockbusterApp
             useCaseBus.Subscribe(updateTokenUseCase);
             useCaseBus.Subscribe(updateUserUseCase);
             useCaseBus.Subscribe(deleteTokenUseCase);
+            useCaseBus.Subscribe(createCategoryUseCase);
 
             List<IMiddlewareHandler> middlewareHandlers = new List<IMiddlewareHandler>
             {
@@ -212,31 +218,26 @@ namespace BlockbusterApp
 
         private void LoadDomainDependencies(IServiceCollection services)
         {
-            services.AddScoped<IUserFactory, UserFactory>();
+            
             services.AddScoped<IUserUpdater, UserUpdater>();
             services.AddScoped<SignUpUserValidator>();
             services.AddScoped<UserFinder>();
             services.AddScoped<CountryFinder>();
+            services.AddScoped<CreateCategoryValidator>();
 
-            services.AddScoped<ITokenFactory, TokenFactory>();
+            LoadDomainRepositoriesDependencies(services);
+            LoadDomainFactoriesDependencies(services);
         }
 
         private void LoadInfraestructureDependencies(IServiceCollection services)
         {
             services.AddScoped<IHashing, DefaultHashing>();
-            services.AddScoped<IUserRepository, UserRepository>();
+            
             services.AddSingleton<BlockbusterContext>();
             services.AddScoped<IEventProvider, EventProvider>();
             services.AddScoped<IDomainEventPublisher, DomainEventPublisherSync>();
             services.AddScoped<IEventBus, EventBus>();
             services.AddScoped<IMailer, SMTPMailer>();
-
-            services.AddScoped<ITokenRepository, TokenRepository>();
-            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-
-            services.AddScoped<ITokenFactory, TokenFactory>();
-
-            services.AddScoped<ICountryRepository, CountryRepository>();
 
             services.AddScoped<IJWTEncoder, JWTEncoder>();
             services.AddScoped<TokenAdapter>();
@@ -254,6 +255,22 @@ namespace BlockbusterApp
             LoadInfraMiddlewareDependencies(services);
         }
 
+        private void LoadDomainRepositoriesDependencies(IServiceCollection services)
+        {
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ITokenRepository, TokenRepository>();
+            services.AddScoped<ICountryRepository, CountryRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+        }
+
+        private void LoadDomainFactoriesDependencies(IServiceCollection services)
+        {
+            services.AddScoped<IUserFactory, UserFactory>();
+            services.AddScoped<ITokenFactory, TokenFactory>();
+            services.AddScoped<ICategoryFactory, CategoryFactory>();
+        }
+
         private void LoadInfraRequestsDependencies(IServiceCollection services)
         {
             services.AddScoped<IRequest, SignUpUserRequest>();
@@ -264,6 +281,7 @@ namespace BlockbusterApp
             services.AddScoped<IRequest, UpdateTokenRequest>();
             services.AddScoped<IRequest, UpdateUserRequest>();
             services.AddScoped<IRequest, DeleteTokenRequest>();
+            services.AddScoped<IRequest, CreateCategoryRequest>();
         }
 
         private void LoadInfraResponsesDependencies(IServiceCollection services)
@@ -294,7 +312,8 @@ namespace BlockbusterApp
             services.AddScoped<FindCountryByCodeUseCase>();
             services.AddScoped<UpdateTokenUseCase>();
             services.AddScoped<UpdateUserUseCase>();
-            services.AddScoped<DeleteTokenUseCase>();            
+            services.AddScoped<DeleteTokenUseCase>();
+            services.AddScoped<CreateCategoryUseCase>();
         }
 
         private void LoadApplicationConverters(IServiceCollection services)

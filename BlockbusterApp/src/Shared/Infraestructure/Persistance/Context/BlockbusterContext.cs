@@ -1,14 +1,9 @@
-﻿using BlockbusterApp.src.Domain.CountryAggregate;
+﻿using BlockbusterApp.src.Domain.CategoryAggregate;
+using BlockbusterApp.src.Domain.CountryAggregate;
 using BlockbusterApp.src.Domain.TokenAggregate;
 using BlockbusterApp.src.Domain.UserAggregate;
 using BlockbusterApp.src.Infraestructure.Persistance.Mapping;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BlockbusterApp.src.Shared.Infraestructure.Persistance.Context
 {
@@ -19,12 +14,14 @@ namespace BlockbusterApp.src.Shared.Infraestructure.Persistance.Context
         public DbSet<User> User { get; set; }
         public DbSet<Token> Token { get; set; }
         public DbSet<Country> Country { get; set; }
+        public DbSet<Category> Category { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new UserMap());
             modelBuilder.ApplyConfiguration(new TokenMap());
             modelBuilder.ApplyConfiguration(new CountryMap());
+            modelBuilder.ApplyConfiguration(new CategoryMap());
             base.OnModelCreating(modelBuilder);
         }
        
