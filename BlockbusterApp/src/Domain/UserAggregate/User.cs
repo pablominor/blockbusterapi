@@ -68,7 +68,16 @@ namespace BlockbusterApp.src.Domain.UserAggregate
             return user;
         }
 
-        public void UpdatePassword(UserHashedPassword password)
+
+        public void Update(UserHashedPassword password, UserFirstName firstName, UserLastName lastName)
+        {
+            UpdatePassword(password);
+            UpdateFirstName(firstName);
+            UpdateLastName(lastName);
+        }
+
+
+        private void UpdatePassword(UserHashedPassword password)
         {
             if (!password.Equals(this.userHashedPassword))
             {
@@ -77,7 +86,7 @@ namespace BlockbusterApp.src.Domain.UserAggregate
             }
         }
 
-        public void UpdateFirstName(UserFirstName firstName)
+        private void UpdateFirstName(UserFirstName firstName)
         {
             if (!firstName.Equals(this.userFirstName))
             {
@@ -86,7 +95,7 @@ namespace BlockbusterApp.src.Domain.UserAggregate
             }
         }
 
-        public void UpdateLastName(UserLastName lastName)
+        private void UpdateLastName(UserLastName lastName)
         {
             if (!lastName.Equals(this.userLastName))
             {

@@ -22,7 +22,7 @@ namespace BlockbusterApp.src.Application.UseCase.User.FindById
 
             UserId userId = new UserId(request.id);            
 
-            var user = userFinder.ById(userId);
+            var user = userFinder.FindOneById(userId);
 
             return this.converter.Convert(user);
         }

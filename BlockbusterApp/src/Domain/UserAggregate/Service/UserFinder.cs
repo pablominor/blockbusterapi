@@ -1,8 +1,4 @@
 ﻿using BlockbusterApp.src.Domain.UserAggregate.Service.Exception;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BlockbusterApp.src.Domain.UserAggregate.Service
 {
@@ -16,7 +12,7 @@ namespace BlockbusterApp.src.Domain.UserAggregate.Service
             this.userRepository = userRepository;
         }
 
-        public virtual User ById(UserId id)
+        public virtual User FindOneById(UserId id)
         {
             var user = this.userRepository.FindUserById(id);
 

@@ -30,7 +30,7 @@ namespace UnitTest.Domain.UserAggregate.Service
             userRepository.Setup(o => o.FindUserById(It.IsAny<UserId>())).Returns(this.userNull);
             UserFinder userFinder = new UserFinder(userRepository.Object);
 
-            var Exception = Assert.Throws<UserNotFoundException>(() => userFinder.ById(UserIdStub.ByDefault()));
+            var Exception = Assert.Throws<UserNotFoundException>(() => userFinder.FindOneById(UserIdStub.ByDefault()));
 
             Assert.Pass(Exception.Message, UserNotFoundException.FromId(UserIdStub.ByDefault()));
             Assert.IsInstanceOf<ValidationException>(Exception);
@@ -57,7 +57,7 @@ namespace UnitTest.Domain.UserAggregate.Service
             userRepository.Setup(o => o.FindUserById(It.IsAny<UserId>())).Returns(user);
             UserFinder userFinder = new UserFinder(userRepository.Object);
 
-            var userFound = userFinder.ById(UserIdStub.ByDefault());
+            var userFound = userFinder.FindOneById(UserIdStub.ByDefault());
 
             Assert.IsNotNull(userFound);
             Assert.IsInstanceOf<BlockbusterApp.src.Domain.UserAggregate.User>(userFound);            

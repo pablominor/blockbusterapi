@@ -227,9 +227,7 @@ namespace BlockbusterApp
         }
 
         private void LoadDomainDependencies(IServiceCollection services)
-        {
-            
-            services.AddScoped<IUserUpdater, UserUpdater>();
+        {            
             services.AddScoped<SignUpUserValidator>();
             services.AddScoped<UserFinder>();
             services.AddScoped<CountryFinder>();
