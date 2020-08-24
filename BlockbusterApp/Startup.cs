@@ -57,6 +57,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Filters;
 using Swashbuckle.AspNetCore.Swagger;
+using BlockbusterApp.src.Application.UseCase.Product.Update;
 
 namespace BlockbusterApp
 {
@@ -163,6 +164,7 @@ namespace BlockbusterApp
             CreateCategoryUseCase createCategoryUseCase = serviceProvider.GetService<CreateCategoryUseCase>();
             CreateProductUseCase createProductUseCase = serviceProvider.GetService<CreateProductUseCase>();
             FindCategoryByIdUseCase findCategoryByIdUseCase = serviceProvider.GetService<FindCategoryByIdUseCase>();
+            UpdateProductUseCase updateProductUseCase = serviceProvider.GetService<UpdateProductUseCase>();
 
             useCaseBus.Subscribe(signUpUserUseCase);
             useCaseBus.Subscribe(sendUserWelcomeEmailUseCase);
@@ -177,6 +179,7 @@ namespace BlockbusterApp
             useCaseBus.Subscribe(createCategoryUseCase);
             useCaseBus.Subscribe(createProductUseCase);
             useCaseBus.Subscribe(findCategoryByIdUseCase);
+            useCaseBus.Subscribe(updateProductUseCase);
 
             List<IMiddlewareHandler> middlewareHandlers = new List<IMiddlewareHandler>
             {
@@ -232,6 +235,7 @@ namespace BlockbusterApp
             services.AddScoped<UserFinder>();
             services.AddScoped<CountryFinder>();
             services.AddScoped<CategoryFinder>();
+            services.AddScoped<ProductFinder>();
             services.AddScoped<CreateCategoryValidator>();
             services.AddScoped<CreateProductValidator>();
 
@@ -296,6 +300,7 @@ namespace BlockbusterApp
             services.AddScoped<IRequest, CreateCategoryRequest>();
             services.AddScoped<IRequest, CreateProductRequest>();
             services.AddScoped<IRequest, FindCategoryByIdRequest>();
+            services.AddScoped<IRequest, UpdateProductRequest>();
         }
 
         private void LoadInfraResponsesDependencies(IServiceCollection services)
@@ -328,6 +333,7 @@ namespace BlockbusterApp
             services.AddScoped<CreateCategoryUseCase>();
             services.AddScoped<CreateProductUseCase>();
             services.AddScoped<FindCategoryByIdUseCase>();
+            services.AddScoped<UpdateProductUseCase>();
         }
 
         private void LoadApplicationConverters(IServiceCollection services)

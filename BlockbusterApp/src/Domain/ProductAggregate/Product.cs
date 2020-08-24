@@ -9,12 +9,12 @@ namespace BlockbusterApp.src.Domain.ProductAggregate
     {
 
         public ProductId id { get; }
-        public ProductName name { get; }
-        public ProductDescription description { get; }
-        public ProductPrice price { get; }
-        public ProductCategoryId categoryId { get; }
+        public ProductName name { get; protected set;}
+        public ProductDescription description { get; protected set; }
+        public ProductPrice price { get; protected set; }
+        public ProductCategoryId categoryId { get; protected set; }
         public ProductCreatedAt createdAt { get; }
-        public ProductUpdatedAt updatedAt { get; }
+        public ProductUpdatedAt updatedAt { get; protected set; }
 
         private Product(
             ProductId id, 
@@ -62,6 +62,55 @@ namespace BlockbusterApp.src.Domain.ProductAggregate
 
             return product;
 
+        }
+
+        public void Update(ProductName name, ProductDescription description, ProductPrice price,ProductCategoryId categoryId)
+        {
+            UpdateProductName(name);
+            UpdateProductDescription(description);
+            UpdateProductPrice(price);
+            UpdateProductCategoryId(categoryId);
+        }
+
+        private void UpdateProductName(ProductName name)
+        {
+            if (!name.Equals(this.name))
+            {
+                this.name = name;
+                UpdateProductUpdatedAt();
+            }
+        }
+
+        private void UpdateProductDescription(ProductDescription description)
+        {
+            if (!description.Equals(this.description))
+            {
+                this.description = description;
+                UpdateProductUpdatedAt();
+            }
+        }
+
+        private void UpdateProductPrice(ProductPrice price)
+        {
+            if (!price.Equals(this.price))
+            {
+                this.price = price;
+                UpdateProductUpdatedAt();
+            }
+        }
+
+        private void UpdateProductCategoryId(ProductCategoryId categoryId)
+        {
+            if (!categoryId.Equals(this.categoryId))
+            {
+                this.categoryId = categoryId;
+                UpdateProductUpdatedAt();
+            }
+        }
+
+        private void UpdateProductUpdatedAt()
+        {
+            this.updatedAt = new ProductUpdatedAt(DateTime.Now);
         }
     }
 }

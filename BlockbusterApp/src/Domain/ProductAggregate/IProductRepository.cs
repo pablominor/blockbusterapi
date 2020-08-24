@@ -5,5 +5,6 @@
         void Add(Product product);
         Product FindById(ProductId id);
         Product FindByIdOrName(ProductId id,ProductName name);
+        void Update(Product product);
     }
 }

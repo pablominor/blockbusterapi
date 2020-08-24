@@ -43,5 +43,14 @@ namespace BlockbusterApp.src.Infraestructure.Persistance.Repository
                 return dbContext.Product.FirstOrDefault(c => c.id.GetValue() == id.GetValue() || c.name.GetValue() == name.GetValue());
             }
         }
+
+        public void Update(Product product)
+        {
+            using (var scope = this.scopeFactory.CreateScope())
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<BlockbusterContext>();
+                dbContext.Product.Update(product);
+            }
+        }
     }
 }

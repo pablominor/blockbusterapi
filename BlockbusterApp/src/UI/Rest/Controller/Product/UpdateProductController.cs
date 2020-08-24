@@ -1,4 +1,4 @@
-﻿using BlockbusterApp.src.Application.UseCase.Product.Create;
+﻿using BlockbusterApp.src.Application.UseCase.Product.Update;
 using BlockbusterApp.src.Domain.UserAggregate;
 using BlockbusterApp.src.Shared.Infraestructure.Bus.UseCase;
 using BlockbusterApp.src.Shared.Infraestructure.Security.Authentication.JWT;
@@ -8,12 +8,12 @@ using Microsoft.AspNetCore.Mvc;
 namespace BlockbusterApp.src.UI.Rest.Controller.Product
 {
     [ApiVersion("1.0")]
-    [Route("api/v{version:apiVersion}/products")]
+    [Route("api/v{version:apiVersion}/product")]
     [ApiController]
-    public class CreateProductController : Shared.UI.Rest.Controller.Controller
+    public class UpdateProductController : Shared.UI.Rest.Controller.Controller
     {
 
-        public CreateProductController(
+        public UpdateProductController(
             IUseCaseBus useCaseBus,
             IUserProvider userProvider)
             : base(useCaseBus, userProvider)
@@ -22,8 +22,8 @@ namespace BlockbusterApp.src.UI.Rest.Controller.Product
         }
 
         [Authorize(Roles = UserRole.ROLE_ADMIN)]
-        [HttpPut(Name = nameof(CreateProduct))]
-        public IActionResult CreateProduct(CreateProductRequest request)
+        [HttpPut(Name = nameof(UpdateProduct))]
+        public IActionResult UpdateProduct(UpdateProductRequest request)
         {
             return Dispatch(request);
         }
