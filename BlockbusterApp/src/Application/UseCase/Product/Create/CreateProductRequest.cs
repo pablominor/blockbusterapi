@@ -1,10 +1,10 @@
 ﻿using BlockbusterApp.src.Shared.Application.Bus.UseCase;
 
-namespace BlockbusterApp.src.Application.UseCase.Film.Create
+namespace BlockbusterApp.src.Application.UseCase.Product.Create
 {
-    public class CreateFilmRequest : IRequest
+    public class CreateProductRequest : IRequest
     {
-        public CreateFilmRequest(string Id, string Name, string Description, decimal Price, string CategoryId)
+        public CreateProductRequest(string Id, string Name, string Description, decimal Price, string CategoryId)
         {
             this.Id = Id;
             this.Name = Name;

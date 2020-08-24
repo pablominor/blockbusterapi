@@ -18,7 +18,7 @@ namespace BlockbusterApp.src.Domain.CategoryAggregate.Service
 
         private void ItShouldNotExistsCategoryWithIdOrName(CategoryId id, CategoryName name)
         {
-            var category = this.categoryRepository.FindByIdOrName(id,name);
+            Domain.CategoryAggregate.Category category = this.categoryRepository.FindByIdOrName(id,name);
             if (category != null && category.id.Equals(id))
             {
                 throw CategoryFoundException.FromId(id);

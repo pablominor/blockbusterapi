@@ -8,7 +8,7 @@ using BlockbusterApp.src.Application.UseCase.Category.Response;
 using BlockbusterApp.src.Application.UseCase.Country.FindByCode;
 using BlockbusterApp.src.Application.UseCase.Country.Response;
 using BlockbusterApp.src.Application.UseCase.Email.SendUserWelcome;
-using BlockbusterApp.src.Application.UseCase.Film.Create;
+using BlockbusterApp.src.Application.UseCase.Product.Create;
 using BlockbusterApp.src.Application.UseCase.Token.Create;
 using BlockbusterApp.src.Application.UseCase.Token.Delete;
 using BlockbusterApp.src.Application.UseCase.Token.Response;
@@ -23,14 +23,14 @@ using BlockbusterApp.src.Domain.CategoryAggregate;
 using BlockbusterApp.src.Domain.CategoryAggregate.Service;
 using BlockbusterApp.src.Domain.CountryAggregate;
 using BlockbusterApp.src.Domain.CountryAggregate.Service;
-using BlockbusterApp.src.Domain.FilmAggregate;
-using BlockbusterApp.src.Domain.FilmAggregate.Service;
+using BlockbusterApp.src.Domain.ProductAggregate;
+using BlockbusterApp.src.Domain.ProductAggregate.Service;
 using BlockbusterApp.src.Domain.TokenAggregate;
 using BlockbusterApp.src.Domain.UserAggregate;
 using BlockbusterApp.src.Domain.UserAggregate.Service;
 using BlockbusterApp.src.Infraestructure.Persistance.Repository;
 using BlockbusterApp.src.Infraestructure.Service.Category;
-using BlockbusterApp.src.Infraestructure.Service.Film;
+using BlockbusterApp.src.Infraestructure.Service.Product;
 using BlockbusterApp.src.Infraestructure.Service.Hashing;
 using BlockbusterApp.src.Infraestructure.Service.Mailer;
 using BlockbusterApp.src.Infraestructure.Service.Token;
@@ -161,7 +161,7 @@ namespace BlockbusterApp
             UpdateUserUseCase updateUserUseCase = serviceProvider.GetService<UpdateUserUseCase>();
             DeleteTokenUseCase deleteTokenUseCase = serviceProvider.GetService<DeleteTokenUseCase>();
             CreateCategoryUseCase createCategoryUseCase = serviceProvider.GetService<CreateCategoryUseCase>();
-            CreateFilmUseCase createFilmUseCase = serviceProvider.GetService<CreateFilmUseCase>();
+            CreateProductUseCase createProductUseCase = serviceProvider.GetService<CreateProductUseCase>();
             FindCategoryByIdUseCase findCategoryByIdUseCase = serviceProvider.GetService<FindCategoryByIdUseCase>();
 
             useCaseBus.Subscribe(signUpUserUseCase);
@@ -175,7 +175,7 @@ namespace BlockbusterApp
             useCaseBus.Subscribe(updateUserUseCase);
             useCaseBus.Subscribe(deleteTokenUseCase);
             useCaseBus.Subscribe(createCategoryUseCase);
-            useCaseBus.Subscribe(createFilmUseCase);
+            useCaseBus.Subscribe(createProductUseCase);
             useCaseBus.Subscribe(findCategoryByIdUseCase);
 
             List<IMiddlewareHandler> middlewareHandlers = new List<IMiddlewareHandler>
@@ -233,7 +233,7 @@ namespace BlockbusterApp
             services.AddScoped<CountryFinder>();
             services.AddScoped<CategoryFinder>();
             services.AddScoped<CreateCategoryValidator>();
-            services.AddScoped<CreateFilmValidator>();
+            services.AddScoped<CreateProductValidator>();
 
             LoadDomainRepositoriesDependencies(services);
             LoadDomainFactoriesDependencies(services);
@@ -272,7 +272,7 @@ namespace BlockbusterApp
             services.AddScoped<ITokenRepository, TokenRepository>();
             services.AddScoped<ICountryRepository, CountryRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
-            services.AddScoped<IFilmRepository, FilmRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
         }
 
         private void LoadDomainFactoriesDependencies(IServiceCollection services)
@@ -280,7 +280,7 @@ namespace BlockbusterApp
             services.AddScoped<IUserFactory, UserFactory>();
             services.AddScoped<ITokenFactory, TokenFactory>();
             services.AddScoped<ICategoryFactory, CategoryFactory>();
-            services.AddScoped<IFilmFactory, FilmFactory>();
+            services.AddScoped<IProductFactory, ProductFactory>();
         }
 
         private void LoadInfraRequestsDependencies(IServiceCollection services)
@@ -294,7 +294,7 @@ namespace BlockbusterApp
             services.AddScoped<IRequest, UpdateUserRequest>();
             services.AddScoped<IRequest, DeleteTokenRequest>();
             services.AddScoped<IRequest, CreateCategoryRequest>();
-            services.AddScoped<IRequest, CreateFilmRequest>();
+            services.AddScoped<IRequest, CreateProductRequest>();
             services.AddScoped<IRequest, FindCategoryByIdRequest>();
         }
 
@@ -326,7 +326,7 @@ namespace BlockbusterApp
             services.AddScoped<UpdateUserUseCase>();
             services.AddScoped<DeleteTokenUseCase>();
             services.AddScoped<CreateCategoryUseCase>();
-            services.AddScoped<CreateFilmUseCase>();
+            services.AddScoped<CreateProductUseCase>();
             services.AddScoped<FindCategoryByIdUseCase>();
         }
 

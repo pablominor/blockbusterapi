@@ -1,4 +1,4 @@
-﻿using BlockbusterApp.src.Domain.FilmAggregate;
+﻿using BlockbusterApp.src.Domain.ProductAggregate;
 using BlockbusterApp.src.Shared.Infraestructure.Persistance.Context;
 using BlockbusterApp.src.Shared.Infraestructure.Persistance.Repository;
 using Microsoft.Extensions.DependencyInjection;
@@ -6,41 +6,41 @@ using System.Linq;
 
 namespace BlockbusterApp.src.Infraestructure.Persistance.Repository
 {
-    public class FilmRepository : Repository<Film>, IFilmRepository
+    public class ProductRepository : Repository<Product>, IProductRepository
     {
 
         private readonly IServiceScopeFactory scopeFactory;
 
-        public FilmRepository(BlockbusterContext context, IServiceScopeFactory scopeFactory) : base(context)
+        public ProductRepository(BlockbusterContext context, IServiceScopeFactory scopeFactory) : base(context)
         {
             this.scopeFactory = scopeFactory;
         }
 
 
-        public void Add(Film film)
+        public void Add(Product product)
         {
             using (var scope = this.scopeFactory.CreateScope())
             {
                 var dbContext = scope.ServiceProvider.GetRequiredService<BlockbusterContext>();
-                dbContext.Film.Add(film);
+                dbContext.Product.Add(product);
             }
         }
 
-        public Film FindById(FilmId id)
+        public Product FindById(ProductId id)
         {
             using (var scope = this.scopeFactory.CreateScope())
             {
                 var dbContext = scope.ServiceProvider.GetRequiredService<BlockbusterContext>();
-                return dbContext.Film.FirstOrDefault(c => c.id.GetValue() == id.GetValue());
+                return dbContext.Product.FirstOrDefault(c => c.id.GetValue() == id.GetValue());
             }
         }
 
-        public Film FindByName(FilmName name)
+        public Product FindByIdOrName(ProductId id,ProductName name)
         {
             using (var scope = this.scopeFactory.CreateScope())
             {
                 var dbContext = scope.ServiceProvider.GetRequiredService<BlockbusterContext>();
-                return dbContext.Film.FirstOrDefault(c => c.name.GetValue() == name.GetValue());
+                return dbContext.Product.FirstOrDefault(c => c.id.GetValue() == id.GetValue() || c.name.GetValue() == name.GetValue());
             }
         }
     }

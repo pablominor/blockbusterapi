@@ -39,7 +39,7 @@ create table category (
     PRIMARY KEY (id)
 );
 
-create table film (
+create table product (
 	id varchar(40) not null,
     name varchar(30) not null,
     description varchar(1300) NOT NULL,

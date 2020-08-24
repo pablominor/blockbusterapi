@@ -1,18 +1,18 @@
 ﻿using BlockbusterApp.src.Shared.Domain.Event;
 using System.Collections.Generic;
 
-namespace BlockbusterApp.src.Domain.FilmAggregate.Event
+namespace BlockbusterApp.src.Domain.ProductAggregate.Event
 {
-    public class FilmCreatedEvent : DomainEvent
+    public class ProductCreatedEvent : DomainEvent
     {
-        public FilmCreatedEvent(string aggegateId, Dictionary<string, string> body) : base(aggegateId, body)
+        public ProductCreatedEvent(string aggegateId, Dictionary<string, string> body) : base(aggegateId, body)
         {
 
         }
 
         public override string Name()
         {
-            return "film_created";
+            return "product_created";
         }
 
         protected override Dictionary<string, string> Rules()

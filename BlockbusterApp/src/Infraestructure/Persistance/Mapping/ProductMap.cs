@@ -1,13 +1,13 @@
-﻿using BlockbusterApp.src.Domain.FilmAggregate;
+﻿using BlockbusterApp.src.Domain.ProductAggregate;
 using BlockbusterApp.src.Domain.UserAggregate;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BlockbusterApp.src.Infraestructure.Persistance.Mapping
 {
-    public class FilmMap : IEntityTypeConfiguration<Film>
+    public class ProductMap : IEntityTypeConfiguration<Product>
     {
-        public void Configure(EntityTypeBuilder<Film> builder)
+        public void Configure(EntityTypeBuilder<Product> builder)
         {
             builder
                 .Property(c => c.id)
@@ -15,7 +15,7 @@ namespace BlockbusterApp.src.Infraestructure.Persistance.Mapping
                 .HasColumnType("nvarchar(40)")
                 .HasConversion(
                     v => v.GetValue(),
-                    v => new FilmId(v)
+                    v => new ProductId(v)
                 )
                 .IsRequired();
             builder
@@ -24,7 +24,7 @@ namespace BlockbusterApp.src.Infraestructure.Persistance.Mapping
                 .HasColumnType("nvarchar(30)")
                 .HasConversion(
                     v => v.GetValue(),
-                    v => new FilmName(v)
+                    v => new ProductName(v)
                 )
                 .IsRequired();
             builder
@@ -33,7 +33,7 @@ namespace BlockbusterApp.src.Infraestructure.Persistance.Mapping
                 .HasColumnType("nvarchar(1300)")
                 .HasConversion(
                     v => v.GetValue(),
-                    v => new FilmDescription(v)
+                    v => new ProductDescription(v)
                 )
                 .IsRequired();
             builder
@@ -42,7 +42,7 @@ namespace BlockbusterApp.src.Infraestructure.Persistance.Mapping
                 .HasColumnType("decimal(10,2)")
                 .HasConversion(
                     v => v.GetValue(),
-                    v => new FilmPrice(v)
+                    v => new ProductPrice(v)
                 )
                 .IsRequired();
             builder
@@ -51,7 +51,7 @@ namespace BlockbusterApp.src.Infraestructure.Persistance.Mapping
                 .HasColumnType("nvarchar(40)")
                 .HasConversion(
                     v => v.GetValue(),
-                    v => new FilmCategoryId(v)
+                    v => new ProductCategoryId(v)
                 )
                 .IsRequired();
             builder
@@ -60,7 +60,7 @@ namespace BlockbusterApp.src.Infraestructure.Persistance.Mapping
                 .HasColumnType("datetime2")
                 .HasConversion(
                     v => v.GetValue(),
-                    v => new FilmCreatedAt(v)
+                    v => new ProductCreatedAt(v)
                 )
                 .IsRequired();
             builder
@@ -69,7 +69,7 @@ namespace BlockbusterApp.src.Infraestructure.Persistance.Mapping
                 .HasColumnType("datetime2")
                 .HasConversion(
                     v => v.GetValue(),
-                    v => new FilmUpdatedAt(v)
+                    v => new ProductUpdatedAt(v)
                 )
                 .IsRequired();
         }
