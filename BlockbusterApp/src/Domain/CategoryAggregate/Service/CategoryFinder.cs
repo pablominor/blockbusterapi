@@ -11,7 +11,7 @@ namespace BlockbusterApp.src.Domain.CategoryAggregate.Service
             this.categoryRepository = categoryRepository;
         }
 
-        public virtual Category ById(CategoryId categoryId)
+        public virtual Category FindOneById(CategoryId categoryId)
         {
             var category = this.categoryRepository.FindById(categoryId);
             if (category == null)

@@ -22,7 +22,7 @@ namespace BlockbusterApp.src.Application.UseCase.Category.FindById
 
             CategoryId categoryId = new CategoryId(request.Id);
 
-            var category = categoryFinder.ById(categoryId);
+            Domain.CategoryAggregate.Category category = categoryFinder.FindOneById(categoryId);
 
             return this.converter.Convert(category);
         }
