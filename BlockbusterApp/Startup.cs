@@ -58,6 +58,8 @@ using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Filters;
 using Swashbuckle.AspNetCore.Swagger;
 using BlockbusterApp.src.Application.UseCase.Product.Update;
+using BlockbusterApp.src.Application.UseCase.Product.FindByFilter;
+using BlockbusterApp.src.Application.UseCase.Product.Response;
 
 namespace BlockbusterApp
 {
@@ -165,6 +167,7 @@ namespace BlockbusterApp
             CreateProductUseCase createProductUseCase = serviceProvider.GetService<CreateProductUseCase>();
             FindCategoryByIdUseCase findCategoryByIdUseCase = serviceProvider.GetService<FindCategoryByIdUseCase>();
             UpdateProductUseCase updateProductUseCase = serviceProvider.GetService<UpdateProductUseCase>();
+            FindProductsByFilterUseCase findProductsByFilterUseCase = serviceProvider.GetService<FindProductsByFilterUseCase>();
 
             useCaseBus.Subscribe(signUpUserUseCase);
             useCaseBus.Subscribe(sendUserWelcomeEmailUseCase);
@@ -180,6 +183,7 @@ namespace BlockbusterApp
             useCaseBus.Subscribe(createProductUseCase);
             useCaseBus.Subscribe(findCategoryByIdUseCase);
             useCaseBus.Subscribe(updateProductUseCase);
+            useCaseBus.Subscribe(findProductsByFilterUseCase);
 
             List<IMiddlewareHandler> middlewareHandlers = new List<IMiddlewareHandler>
             {
@@ -226,7 +230,7 @@ namespace BlockbusterApp
             LoadApplicationUseCases(services);
             LoadApplicationConverters(services);          
             services.AddScoped<SendWelcomeEmailWhenUserSignedUpEventHandler>();
-            services.AddScoped<WelcomeEmailModelFactory>();            
+            services.AddScoped<WelcomeEmailModelFactory>();
         }
 
         private void LoadDomainDependencies(IServiceCollection services)
@@ -301,6 +305,7 @@ namespace BlockbusterApp
             services.AddScoped<IRequest, CreateProductRequest>();
             services.AddScoped<IRequest, FindCategoryByIdRequest>();
             services.AddScoped<IRequest, UpdateProductRequest>();
+            services.AddScoped<IRequest, FindProductsByFilterRequest>();
         }
 
         private void LoadInfraResponsesDependencies(IServiceCollection services)
@@ -334,6 +339,7 @@ namespace BlockbusterApp
             services.AddScoped<CreateProductUseCase>();
             services.AddScoped<FindCategoryByIdUseCase>();
             services.AddScoped<UpdateProductUseCase>();
+            services.AddScoped<FindProductsByFilterUseCase>();
         }
 
         private void LoadApplicationConverters(IServiceCollection services)
@@ -345,6 +351,8 @@ namespace BlockbusterApp
             services.AddScoped<FindUserResponseConverter>();
             services.AddScoped<CountryResponseConverter>();
             services.AddScoped<CategoryResponseConverter>();
+            services.AddScoped<FindProductResponseConverter>();
+            services.AddScoped<FindProductsByFilterConverter>();
         }
     }
 }

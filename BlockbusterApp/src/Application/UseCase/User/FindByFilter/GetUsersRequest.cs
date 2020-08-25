@@ -1,4 +1,4 @@
-﻿using BlockbusterApp.src.Shared.Application.Bus.UseCase;
+﻿using BlockbusterApp.src.Shared.Application.Bus.UseCase.Request;
 using Microsoft.AspNetCore.Http;
 
 namespace BlockbusterApp.src.Application.UseCase.User.FindByFilter

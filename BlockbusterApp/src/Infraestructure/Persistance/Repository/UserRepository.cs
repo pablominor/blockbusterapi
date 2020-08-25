@@ -1,4 +1,5 @@
 ﻿using BlockbusterApp.src.Domain.UserAggregate;
+using BlockbusterApp.src.Shared.Application.Bus.UseCase.Request;
 using BlockbusterApp.src.Shared.Infraestructure.Persistance.Context;
 using BlockbusterApp.src.Shared.Infraestructure.Persistance.Repository;
 using Microsoft.Extensions.DependencyInjection;
@@ -50,7 +51,8 @@ namespace BlockbusterApp.src.Infraestructure.Persistance.Repository
             using(var scope = this.scopeFactory.CreateScope())
             {
                 var dbContext = scope.ServiceProvider.GetRequiredService<BlockbusterContext>();
-                return dbContext.User.Skip((page["number"] - 1) * page["size"]).Take(page["size"]).ToList();
+                var skip = (page[PaginationQueryParameters.PAGE_NUMBER] - 1) * page[PaginationQueryParameters.PAGE_SIZE];
+                return dbContext.User.Skip(skip).Take(page[PaginationQueryParameters.PAGE_SIZE]).ToList();
             }
         }
 

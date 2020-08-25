@@ -1,4 +1,6 @@
-﻿namespace BlockbusterApp.src.Domain.ProductAggregate
+﻿using System.Collections.Generic;
+
+namespace BlockbusterApp.src.Domain.ProductAggregate
 {
     public interface IProductRepository
     {
@@ -6,5 +8,6 @@
         Product FindById(ProductId id);
         Product FindByIdOrName(ProductId id,ProductName name);
         void Update(Product product);
+        List<Product> FindByFilter(Dictionary<string, int> page, Dictionary<string, string> filter);
     }
 }
