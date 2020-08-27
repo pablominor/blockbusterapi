@@ -36,14 +36,8 @@ namespace BlockbusterApp.src.Shared.Application.Bus.UseCase.Request
         private void SetFilter(IQueryCollection query)
         {
             this.filter = new Dictionary<string, string>();
-            foreach (var key in query.Keys)
-            {
-                string[] keySplited = key.Split(new Char[] { '[',']'});
-                if (keySplited[0].Equals("filter"))
-                {
-                    this.filter.Add(keySplited[1], query[key]);
-                }
-            }
+            if (query.Keys == null) return;
+            this.filter = AddFilters(this.filter, query);            
         }
 
         private Dictionary<string, int> AddPageNumber(Dictionary<string, int> page, StringValues pageNumber)
@@ -60,6 +54,19 @@ namespace BlockbusterApp.src.Shared.Application.Bus.UseCase.Request
                 PaginationQueryParameters.PAGE_SIZE,
                 pageSize.Count > 0 ? System.Int16.Parse(pageSize.ToString()) : PaginationQueryParameters.DEFAULT_SIZE);
             return page;
+        }
+
+        private Dictionary<string,string> AddFilters(Dictionary<string, string> filter, IQueryCollection query)
+        {
+            foreach (var key in query.Keys)
+            {
+                string[] keySplited = key.Split(new Char[] { '[', ']' });
+                if (keySplited[0].Equals("filter"))
+                {
+                    filter.Add(keySplited[1], query[key]);
+                }
+            }
+            return filter;
         }
     }
 }

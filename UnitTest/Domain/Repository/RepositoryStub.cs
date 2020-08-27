@@ -1,4 +1,6 @@
-﻿using BlockbusterApp.src.Domain.CountryAggregate;
+﻿using BlockbusterApp.src.Domain.CategoryAggregate;
+using BlockbusterApp.src.Domain.CountryAggregate;
+using BlockbusterApp.src.Domain.ProductAggregate;
 using BlockbusterApp.src.Domain.TokenAggregate;
 using BlockbusterApp.src.Domain.UserAggregate;
 using Moq;
@@ -25,5 +27,14 @@ namespace UnitTest.Domain.Repository
             return new Mock<ICountryRepository>();
         }
 
+        public static Mock<ICategoryRepository> CreateCategoryRepository()
+        {
+            return new Mock<ICategoryRepository>();
+        }
+
+        public static Mock<IProductRepository> CreateProductRepository()
+        {
+            return new Mock<IProductRepository>();
+        }
     }
 }
