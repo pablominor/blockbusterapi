@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using BlockbusterApp.src.Shared.Application.Bus.UseCase.Request;
+using System.Collections.Generic;
 
 namespace BlockbusterApp.src.Domain.ProductAggregate
 {
@@ -8,6 +9,6 @@ namespace BlockbusterApp.src.Domain.ProductAggregate
         Product FindById(ProductId id);
         Product FindByIdOrName(ProductId id,ProductName name);
         void Update(Product product);
-        List<Product> FindByFilter(Dictionary<string, int> page, Dictionary<string, string> filter);
+        List<Product> FindByFilter(Dictionary<string, int> page, List<Filter> filters);
     }
 }

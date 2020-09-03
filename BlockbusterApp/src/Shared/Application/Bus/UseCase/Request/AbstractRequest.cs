@@ -8,12 +8,12 @@ namespace BlockbusterApp.src.Shared.Application.Bus.UseCase.Request
     public abstract class AbstractRequest : IRequest
     {
         private Dictionary<string, int> page;
-        protected Dictionary<string, string> filter;
+        protected List<Filter> filters;
 
         public AbstractRequest(IQueryCollection query)
         {            
             this.SetPage(query["page[" + PaginationQueryParameters.PAGE_NUMBER + "]"], query["page[" + PaginationQueryParameters.PAGE_SIZE + "]"]);
-            this.SetFilter(query);
+            this.SetFilters(query);
         }
 
         public Dictionary<string, int> Page()
@@ -21,9 +21,9 @@ namespace BlockbusterApp.src.Shared.Application.Bus.UseCase.Request
             return this.page;
         }
 
-        public Dictionary<string, string> Filter()
+        public List<Filter> Filter()
         {
-            return this.filter;
+            return this.filters;
         }
 
         private void SetPage(StringValues pageNumber, StringValues pageSize)
@@ -33,11 +33,11 @@ namespace BlockbusterApp.src.Shared.Application.Bus.UseCase.Request
             this.page = AddPageSize(this.page, pageSize);                     
         }
 
-        private void SetFilter(IQueryCollection query)
+        private void SetFilters(IQueryCollection query)
         {
-            this.filter = new Dictionary<string, string>();
+            this.filters = new List<Filter>();
             if (query.Keys == null) return;
-            this.filter = AddFilters(this.filter, query);            
+            this.filters = AddFilters(this.filters, query);            
         }
 
         private Dictionary<string, int> AddPageNumber(Dictionary<string, int> page, StringValues pageNumber)
@@ -56,17 +56,19 @@ namespace BlockbusterApp.src.Shared.Application.Bus.UseCase.Request
             return page;
         }
 
-        private Dictionary<string,string> AddFilters(Dictionary<string, string> filter, IQueryCollection query)
+        private List<Filter> AddFilters(List<Filter> filters, IQueryCollection query)
         {
             foreach (var key in query.Keys)
             {
-                string[] keySplited = key.Split(new Char[] { '[', ']' });
-                if (keySplited[0].Equals("filter"))
+                if (key.Contains("filter"))
                 {
-                    filter.Add(keySplited[1], query[key]);
+                    string values = key.Replace("filter[", string.Empty);
+                    values = values.Replace("]", string.Empty);
+                    string[] filterValues = values.Split('.');
+                    filters.Add(new Filter(filterValues[0], query[key].ToString().Split(',')));
                 }
             }
-            return filter;
+            return filters;
         }
     }
 }
