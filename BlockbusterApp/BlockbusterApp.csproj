@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="src\Application\UseCase\Film\FindByFilter\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 

@@ -11,5 +11,10 @@ namespace BlockbusterApp.src.Domain.CategoryAggregate.Exception
         {
             return new CategoryNotFoundException(String.Format("Category with id {0} doesn't exists.", categoryId.GetValue()));
         }
+
+        public static CategoryNotFoundException FromName(CategoryName categoryName)
+        {
+            return new CategoryNotFoundException(String.Format("Category with name {0} doesn't exists.", categoryName.GetValue()));
+        }
     }
 }

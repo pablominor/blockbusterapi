@@ -20,5 +20,15 @@ namespace BlockbusterApp.src.Domain.CategoryAggregate.Service
             }
             return category;
         }
+
+        public virtual Category FindOneByName(CategoryName categoryName)
+        {
+            var category = this.categoryRepository.FindByName(categoryName);
+            if (category == null)
+            {
+                throw CategoryNotFoundException.FromName(categoryName);
+            }
+            return category;
+        }
     }
 }

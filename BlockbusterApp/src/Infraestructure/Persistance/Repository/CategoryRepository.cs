@@ -36,6 +36,15 @@ namespace BlockbusterApp.src.Infraestructure.Persistance.Repository
             }
         }
 
+        public Category FindByName(CategoryName name)
+        {
+            using (var scope = this.scopeFactory.CreateScope())
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<BlockbusterContext>();
+                return dbContext.Category.FirstOrDefault(c => c.name.GetValue() == name.GetValue());
+            }
+        }
+
         public Category FindByIdOrName(CategoryId id,CategoryName name)
         {
             using (var scope = this.scopeFactory.CreateScope())

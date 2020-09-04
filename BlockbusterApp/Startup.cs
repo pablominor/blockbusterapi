@@ -60,6 +60,10 @@ using Swashbuckle.AspNetCore.Swagger;
 using BlockbusterApp.src.Application.UseCase.Product.Update;
 using BlockbusterApp.src.Application.UseCase.Product.FindByFilter;
 using BlockbusterApp.src.Application.UseCase.Product.Response;
+using BlockbusterApp.src.Application.UseCase.Category.FindByName;
+using BlockbusterApp.src.Application.UseCase.Film.FindByFilter;
+using BlockbusterApp.src.Infraestructure.Service.Film;
+using BlockbusterApp.src.Infraestructure.Service.Film.CraftCodeAPI;
 
 namespace BlockbusterApp
 {
@@ -168,6 +172,8 @@ namespace BlockbusterApp
             FindCategoryByIdUseCase findCategoryByIdUseCase = serviceProvider.GetService<FindCategoryByIdUseCase>();
             UpdateProductUseCase updateProductUseCase = serviceProvider.GetService<UpdateProductUseCase>();
             FindProductsByFilterUseCase findProductsByFilterUseCase = serviceProvider.GetService<FindProductsByFilterUseCase>();
+            FindCategoryByNameUseCase findCategoryByNameUseCase = serviceProvider.GetService<FindCategoryByNameUseCase>();
+            FindFilmsByFilterUseCase findFilmsByFilterUseCase = serviceProvider.GetService<FindFilmsByFilterUseCase>();
 
             useCaseBus.Subscribe(signUpUserUseCase);
             useCaseBus.Subscribe(sendUserWelcomeEmailUseCase);
@@ -184,6 +190,8 @@ namespace BlockbusterApp
             useCaseBus.Subscribe(findCategoryByIdUseCase);
             useCaseBus.Subscribe(updateProductUseCase);
             useCaseBus.Subscribe(findProductsByFilterUseCase);
+            useCaseBus.Subscribe(findCategoryByNameUseCase);
+            useCaseBus.Subscribe(findFilmsByFilterUseCase);
 
             List<IMiddlewareHandler> middlewareHandlers = new List<IMiddlewareHandler>
             {
@@ -262,6 +270,13 @@ namespace BlockbusterApp
             services.AddScoped<TokenFacade>();
             services.AddScoped<TokenTranslator>();
 
+            services.AddScoped<FilmAdapter>();
+            services.AddScoped<IFilmFacade, CraftCodeAPIFilmFacade>();
+            services.AddScoped<IFilmTranslator, CraftCodeAPIFilmTranslator>();
+            services.AddScoped<CraftCodeAPIFilmCaller>();
+            services.AddScoped<CraftCodeAPIFilmDeserializer>();
+            services.AddScoped<FilmsToBeSearchedAdapter>();
+
             services.AddSingleton<IUseCaseBus, UseCaseBus>();
 
             services.AddScoped<IUserProvider, UserProvider>();
@@ -306,6 +321,8 @@ namespace BlockbusterApp
             services.AddScoped<IRequest, FindCategoryByIdRequest>();
             services.AddScoped<IRequest, UpdateProductRequest>();
             services.AddScoped<IRequest, FindProductsByFilterRequest>();
+            services.AddScoped<IRequest, FindCategoryByNameRequest>();
+            services.AddScoped<IRequest, FindFilmsByFilterRequest>();
         }
 
         private void LoadInfraResponsesDependencies(IServiceCollection services)
@@ -340,6 +357,8 @@ namespace BlockbusterApp
             services.AddScoped<FindCategoryByIdUseCase>();
             services.AddScoped<UpdateProductUseCase>();
             services.AddScoped<FindProductsByFilterUseCase>();
+            services.AddScoped<FindCategoryByNameUseCase>();
+            services.AddScoped<FindFilmsByFilterUseCase>();
         }
 
         private void LoadApplicationConverters(IServiceCollection services)
@@ -353,6 +372,7 @@ namespace BlockbusterApp
             services.AddScoped<CategoryResponseConverter>();
             services.AddScoped<FindProductResponseConverter>();
             services.AddScoped<FindProductsByFilterConverter>();
+            services.AddScoped<FindFilmsByFilterConverter>();
         }
     }
 }
