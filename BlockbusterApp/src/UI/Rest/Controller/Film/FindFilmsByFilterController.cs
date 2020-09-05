@@ -25,7 +25,7 @@ namespace BlockbusterApp.src.UI.Rest.Controller.Film
 
         }
 
-        [Authorize(Roles = UserRole.ROLE_USER)]
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult GetFilms()
         {
