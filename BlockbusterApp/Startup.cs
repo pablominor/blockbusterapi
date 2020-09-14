@@ -275,7 +275,6 @@ namespace BlockbusterApp
             services.AddScoped<IFilmTranslator, CraftCodeAPIFilmTranslator>();
             services.AddScoped<CraftCodeAPIFilmCaller>();
             services.AddScoped<CraftCodeAPIFilmDeserializer>();
-            services.AddScoped<FilmsToBeSearchedAdapter>();
 
             services.AddSingleton<IUseCaseBus, UseCaseBus>();
 

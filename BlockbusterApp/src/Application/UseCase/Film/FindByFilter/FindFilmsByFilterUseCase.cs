@@ -9,50 +9,24 @@ namespace BlockbusterApp.src.Application.UseCase.Film.FindByFilter
 {
     public class FindFilmsByFilterUseCase : IUseCase
     {
-        private IProductRepository filmRepository;
+        private IProductRepository productRepository;
         private FindFilmsByFilterConverter converter;
-        private FilmAdapter filmAdapter;
-        private IUseCaseBus useCaseBus;
-        private FilmsToBeSearchedAdapter filmsToBeSearchedAdapter;
 
         public FindFilmsByFilterUseCase(
             IProductRepository filmRepository, 
-            FindFilmsByFilterConverter converter, 
-            FilmAdapter filmAdapter,
-            IUseCaseBus useCaseBus,
-            FilmsToBeSearchedAdapter filmsToBeSearchedAdapter)
+            FindFilmsByFilterConverter converter)
         {
-            this.filmRepository = filmRepository;
+            this.productRepository = filmRepository;
             this.converter = converter;
-            this.filmAdapter = filmAdapter;
-            this.useCaseBus = useCaseBus;
-            this.filmsToBeSearchedAdapter = filmsToBeSearchedAdapter;
         }
 
         public IResponse Execute(IRequest req)
         {
             FindFilmsByFilterRequest request = req as FindFilmsByFilterRequest;
 
-            List<Domain.ProductAggregate.Product> films = this.filmRepository.FindByFilter(request.Page(), request.Filter());
-
-            List<string> namesFromFilmsThatShouldBeSearched = filmsToBeSearchedAdapter.GetNamesFromFilmsThatShouldBeSearched(request.Names(), films);
-
-            foreach (string filmName in namesFromFilmsThatShouldBeSearched)
-            {
-                Domain.ProductAggregate.Product film = this.filmAdapter.FindFilmFromName(filmName);
-                if (film == null) continue;
-                films.Add(film);
-                this.useCaseBus.Dispatch(new CreateProductRequest(
-                    film.id.GetValue(), 
-                    film.name.GetValue(), 
-                    film.description.GetValue(), 
-                    film.price.GetValue(), 
-                    film.categoryId.GetValue()));
-            }
+            List<Domain.ProductAggregate.Product> films = this.productRepository.FindByFilter(request.Page(), request.Filter());
 
             return this.converter.Convert(films);
         }
-
-
     }
 }
